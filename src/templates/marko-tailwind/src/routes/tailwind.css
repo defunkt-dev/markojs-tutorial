@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+/* The classes this lesson teaches, pre-generated so the exercise works
+   even in environments where Tailwind's rescan-on-edit is unreliable
+   (e.g. in-browser containers). Remove if you extend this template. */
+@source inline("p-8 font-sans text-3xl font-bold text-teal-700 mt-4 rounded bg-teal-600 bg-rose-600 px-4 py-2 text-white");

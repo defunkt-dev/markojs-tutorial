@@ -1,5 +1,5 @@
 {
-  "name": "marko-run-template",
+  "name": "marko-tailwind-template",
   "private": true,
   "type": "module",
   "scripts": {
@@ -9,11 +9,11 @@
   },
   "dependencies": {
     "@marko/run": "^0.11.5",
-    "immer": "^10.1.3",
     "marko": "^6.3.14"
   },
   "devDependencies": {
-    "less": "^4.6.7",
+    "@tailwindcss/vite": "^4.3.3",
+    "tailwindcss": "^4.3.3",
     "vite": "^8.1.5"
   }
 }

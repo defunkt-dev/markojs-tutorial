@@ -1,0 +1,28 @@
+<style>
+  .pricing {
+    border: 2px solid #0f766e;
+    border-radius: 8px;
+    padding: 16px;
+    max-width: 220px;
+  }
+  .pricing .price {
+    color: #0f766e;
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  .pricing .footer {
+    background: #0f766e;
+    color: white;
+    padding: 4px 8px;
+  }
+  .pricing:hover {
+    box-shadow: 0 2px 8px #0f766e;
+  }
+</style>
+
+<div class="pricing">
+  <h3>${input.plan}</h3>
+  <p class="price">$${input.price}</p>
+  <p>per month</p>
+  <div class="footer">Cancel anytime</div>
+</div>

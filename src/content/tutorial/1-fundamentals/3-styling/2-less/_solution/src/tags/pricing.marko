@@ -1,0 +1,33 @@
+<style.less>
+  @brand: #0f766e;
+
+  .pricing {
+    border: 2px solid @brand;
+    border-radius: 8px;
+    padding: 16px;
+    max-width: 220px;
+
+    .price {
+      color: @brand;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    .footer {
+      background: darken(@brand, 10%);
+      color: white;
+      padding: 4px 8px;
+    }
+
+    &:hover {
+      box-shadow: 0 2px 8px @brand;
+    }
+  }
+</style>
+
+<div class="pricing">
+  <h3>${input.plan}</h3>
+  <p class="price">$${input.price}</p>
+  <p>per month</p>
+  <div class="footer">Cancel anytime</div>
+</div>
