@@ -1,0 +1,44 @@
+diff --git a/node_modules/@tutorialkit/react/dist/Panels/EditorPanel.js b/node_modules/@tutorialkit/react/dist/Panels/EditorPanel.js
+index 109e4eb..8d9c067 100644
+--- a/node_modules/@tutorialkit/react/dist/Panels/EditorPanel.js
++++ b/node_modules/@tutorialkit/react/dist/Panels/EditorPanel.js
+@@ -61,6 +61,9 @@ function getFileIcon(fileName) {
+         case 'json': {
+             return 'i-languages-json?mask';
+         }
++        case 'marko': {
++            return 'i-languages-marko?mask';
++        }
+         case 'gif':
+         case 'jpg':
+         case 'jpeg':
+diff --git a/node_modules/@tutorialkit/react/dist/core/CodeMirrorEditor/languages.js b/node_modules/@tutorialkit/react/dist/core/CodeMirrorEditor/languages.js
+index ed5edcb..69bdc7a 100644
+--- a/node_modules/@tutorialkit/react/dist/core/CodeMirrorEditor/languages.js
++++ b/node_modules/@tutorialkit/react/dist/core/CodeMirrorEditor/languages.js
+@@ -91,6 +91,13 @@ export const supportedLanguages = [
+             return import('@replit/codemirror-lang-svelte').then((module) => module.svelte());
+         },
+     }),
++    LanguageDescription.of({
++        name: 'Marko',
++        extensions: ['marko'],
++        async load() {
++            return import('codemirror-lang-marko').then((module) => module.marko());
++        },
++    }),
+ ];
+ export async function getLanguage(fileName) {
+     const languageDescription = LanguageDescription.matchFilename(supportedLanguages, fileName);
+diff --git a/node_modules/@tutorialkit/react/dist/core/FileTree.js b/node_modules/@tutorialkit/react/dist/core/FileTree.js
+index 900cbd7..8873c8d 100644
+--- a/node_modules/@tutorialkit/react/dist/core/FileTree.js
++++ b/node_modules/@tutorialkit/react/dist/core/FileTree.js
+@@ -183,6 +183,7 @@ const extensionsToIcons = new Map([
+     ['css', 'i-ph-file-css-duotone'],
+     ['md', 'i-ph-file-md-duotone'],
+     ['vue', 'i-ph-file-vue-duotone'],
++    ['marko', 'i-languages-marko'],
+     ['gif', 'i-ph-file-image-duotone'],
+     ['jpg', 'i-ph-file-image-duotone'],
+     ['jpeg', 'i-ph-file-image-duotone'],
