@@ -1,149 +1,143 @@
-# TutorialKit Starter
+# Learn Marko — Interactive Tutorial for Marko v6
 
-👋 Welcome to TutorialKit!
+An interactive, learn.svelte.dev-style tutorial for [Marko 6](https://markojs.com),
+built with [StackBlitz TutorialKit](https://tutorialkit.dev). Lesson prose on the
+left; a live code editor, terminal, and preview on the right. The learner edits
+real `.marko` files in a real `@marko/run` app booted inside an in-browser
+[WebContainer](https://webcontainers.io) — edits hot-reload instantly, and a
+Solve button reveals each lesson's finished state.
 
-This README includes everything you need to start writing your tutorial content quickly.
+## Quick Start
 
-## Project Structure
+```bash
+npm install   # also applies the local patch (see below) via postinstall
+npm run dev   # http://localhost:4321
+```
+
+Requires Node 20.19+ or 22.12+. The site itself installs with plain npm; the
+in-browser lesson app installs its own dependencies with pnpm automatically.
+
+## What's In This Repo
 
 ```bash
 .
-├── astro.config.mjs    # TutorialKit uses Astro 🚀 (https://astro.build)
-├── src
-│   ├── ...
-│   ├── content
-│   │   └── tutorial    # Your tutorial content lives here
-│   └── templates       # Your templates (see below for more information)
-├── public
-│   ├── favicon.svg
-│   └── logo.svg        # Default logo used in top left for your tutorial
-├── ...
-├── theme.ts            # Customize the theme of the tutorial
-└── uno.config.ts       # UnoCSS config (https://unocss.dev/)
+├── astro.config.ts           # TutorialKit is an Astro integration
+├── codemirror-lang-marko/    # Marko syntax highlighting for the editor (see below)
+├── patches/                  # patch-package diff applied to @tutorialkit/react
+├── icons/languages/marko.svg # file icon for .marko (tab + file tree)
+├── public/
+│   ├── logo.svg              # top-bar logo (light mode)
+│   └── logo-dark.svg         # top-bar logo (dark mode)
+├── src/
+│   ├── content/tutorial/     # lessons: parts / chapters / lessons
+│   └── templates/marko-run/  # the app that boots in the browser for lessons
+├── tsconfig.json             # note: excludes src/templates (they are standalone apps)
+└── uno.config.ts
 ```
 
-## Getting Started
+### codemirror-lang-marko
 
-Make sure you have all dependencies installed and started the dev server:
+Marko language support for CodeMirror 6, powering syntax highlighting in the
+lesson editor. It runs the **real Marko TextMate grammar** (the one behind the
+VS Code extension) through shiki's Oniguruma WASM engine — the same bridge that
+powers the editor on markojs.com, extracted into a standalone package. Coloring
+is VS Code-identical, including concise mode. Installed into the site via a
+local `file:` dependency; intended for standalone npm publication later.
+
+Test it headlessly (tokenizes the real template `.marko` files in Node, no
+browser needed):
 
 ```bash
-npm install
-npm run dev
+cd codemirror-lang-marko && npm test
 ```
 
-## UI Structure
+See `codemirror-lang-marko/README.md` for details.
 
-```markdown
-┌─────────────────────────────────────────────────────┐
-│ ● ● ●                                               │
-├───────────────────────────┬─────────────────────────┤
-│                           │                         │
-│                           │                         │
-│                           │                         │
-│                           │                         │
-│                           │       Code Editor       │
-│                           │                         │
-│                           │                         │
-│                           │                         │
-│                           │                         │
-│          Content          ├─────────────────────────┤
-│                           │                         │
-│                           │                         │
-│                           │  Preview & Boot Screen  │
-│                           │                         │
-│                           │                         │
-│                           ├─────────────────────────┤
-│                           │                         │
-│                           │        Terminal         │
-│                           │                         │
-└───────────────────────────┴─────────────────────────┘
-```
+### The patch (patches/)
 
-## Authoring Content
+TutorialKit's editor has a hardcoded language list and icon mappings inside
+`@tutorialkit/react`. Three small additions (the Marko language entry, the
+editor-tab icon, the file-tree icon) are carried as a
+[patch-package](https://github.com/ds300/patch-package) diff that re-applies
+automatically on every `npm install`. It will be deleted once the equivalent
+change is upstreamed to TutorialKit. Until then, `@tutorialkit/react` stays
+pinned to an exact version.
 
-A tutorial consists of parts, chapters, and lessons. For example:
+### The template (src/templates/marko-run)
 
-- Part 1: Basics of Vite
-  - Chapter 1: Introduction
-    - Lesson 1: Welcome!
-    - Lesson 2: Why Vite?
-    - …
-  - Chapter 2: Your first Vite project
-- Part 2: CLI
-  - …
+A minimal `@marko/run` app (a counter page) that TutorialKit packs at build
+time and mounts into the WebContainer when a lesson boots. Notes:
 
-Your content is organized into lessons, with chapters and parts providing a structure and defining common metadata for these lessons.
+- Both `pnpm-lock.yaml` and `package-lock.json` are committed **on purpose**:
+  the in-browser install uses pnpm (fast in WebContainers) and the lockfile
+  skips dependency resolution; the npm lockfile covers local tinkering. If you
+  change the template's `package.json`, regenerate **both**.
+- `vite.config.ts` sets `server.allowedHosts: true`. Required: without it,
+  Vite rejects the WebContainer proxy hostname and hot-reload dies. Do not
+  remove.
+- Never commit `node_modules`, `dist`, or `.marko-run` inside the template —
+  TutorialKit packs the folder verbatim.
 
-Here’s an example of how it would look like in `src/content/tutorial`:
+Current pins: `marko ^6.3.14`, `@marko/run ^0.11.5`, `vite ^8.1.5`
+(the current published set; lessons are authored against these).
+
+## Authoring Lessons
+
+Content lives in `src/content/tutorial` as parts → chapters → lessons:
 
 ```bash
 tutorial
-├── 1-basics-of-vite
+├── 1-basics
 │   ├── 1-introduction
 │   │   ├── 1-welcome
-│   │   │   ├── content.md    # The content of your lesson
-│   │   │   ├── _files        # Initial set of files
-│   │   │   │   └── ...
-│   │   │   └── _solution     # Solution of the lesson
-│   │   │       └── ...
-│   │   ├── 2-why-vite
-│   │   │   ├── content.md
-│   │   │   └── _files
-│   │   │       └── ...
-│   │   └── meta.md           # Metadata for the chapter
-│   └── meta.md               # Metadata for the part
-├── 2-advanced
-│   ├── ...
-│   └── meta.md
-└── meta.md                   # Metadata for the tutorial
+│   │   │   ├── content.md   # lesson text (Front Matter + markdown)
+│   │   │   ├── _files/      # files overlaid on the template (start state)
+│   │   │   └── _solution/   # finished state — enables the Solve button
+│   │   └── meta.md          # chapter metadata
+│   └── meta.md              # part metadata
+└── meta.md
 ```
 
-### Supported Content Formats
-
-Content can be either written as Markdown (`.md`) files or using [MDX](https://mdxjs.com/) (`.mdx`). Files have a Front Matter at the top that contains the metadata and everything that comes after is the content of your lesson.
-
-**Example**
+Key Front Matter properties (mostly inherited part → chapter → lesson):
+`type` (part|chapter|lesson), `title`, `template` (which folder in
+src/templates to boot), `focus` (file opened in the editor),
+`previews` (ports), `prepareCommands` / `mainCommand` (what runs in the
+container), `terminal`. Example lesson header:
 
 ```markdown
 ---
 type: lesson
-title: Welcome!
+title: Welcome to Marko
+template: marko-run
+focus: /src/routes/+page.marko
+previews: [3000]
+prepareCommands:
+  - ['pnpm install', 'Installing dependencies']
+mainCommand: ['pnpm run dev', 'Starting dev server']
 ---
-
-# Welcome to TutorialKit!
-
-In this tutorial we'll walk you through how to setup your environment to
-write your first tutorial 🤩
 ```
 
-The metadata file (`meta.md`) of parts, chapters, and lessons do not contain any content. It only contains the Front Matter for configuration.
+Marko code fences in lesson prose (```` ```marko ````) are highlighted at
+build time by Shiki — no extra setup.
 
-### Metadata
+Full authoring reference: [tutorialkit.dev/guides/creating-content](https://tutorialkit.dev/guides/creating-content/)
 
-Here is an overview of the properties that can be used as part of the Front Matter:
+## Verifying Changes
 
-| Property        | Required | Type                        | Inherited | Description                                                                                                                                           |
-| --------------- | -------- | --------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| type            | ✅       | `part \| chapter \| lesson` | ❌        | The type of the metadata.                                                                                                                             |
-| title           | ✅       | `string`                    | ❌        | The title of the part, chapter, or lesson.                                                                                                            |
-| slug            |          | `string`                    | ❌        | Let’s you customize the URL pathname which is `/:partSlug/:chapterSlug/:lessonSlug`.                                                                  |
-| previews        |          | `Preview[]`                 | ✅        | Configure which ports should be used for the previews. If not specified, the lowest port will be used.                                                |
-| autoReload      |          | `boolean`                   | ✅        | Navigating to a lesson that specifies `autoReload` will always reload the preview. This is typically only needed if your server does not support HMR. |
-| prepareCommands |          | `Command[]`                 | ✅        | List of commands to execute sequentially. They are typically used to install dependencies or to run scripts.                                          |
-| mainCommand     |          | `Command`                   | ✅        | The main command to be executed. This command will run after the `prepareCommands`.                                                                   |
-
-A `Command` has the following shape:
-
-```ts
-string | [command: string, title: string] | { command: string, title: string }
+```bash
+npm run build                            # astro check + full site build
+cd codemirror-lang-marko && npm test     # headless tokenization test
 ```
 
-The `title` is used as part of the boot screen (see [UI Structure](#ui-structure)).
+`astro check` deliberately skips `src/templates` — templates are standalone
+apps with their own dependency trees, packed as JSON and never compiled by the
+site.
 
-A `Preview` has the following shape:
+## Status & Roadmap
 
-```ts
-string | [port: number, title: string] | { port: number, title: string }
-```
-
-In most cases, metadata is inherited. For example, if you specify a `mainCommand` on a chapter without specifying it on any of its lessons, each lesson will use the `mainCommand` from its respective chapter. This extends to chapter and parts as well.
+Working today: WebContainer boot, SSR + hydration, hot reload, Shiki-highlighted
+lesson prose, full Marko highlighting in the editor (both themes), Marko file
+icons, Marko branding. In progress: the lesson curriculum (part 1 first).
+Planned upstream contributions: the TutorialKit language/icon patch as a PR,
+and an `@marko/run` fix for HMR behind proxied hosts (WebContainers, Codespaces,
+Gitpod) so the `allowedHosts` workaround becomes unnecessary.
