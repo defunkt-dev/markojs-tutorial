@@ -1,0 +1,33 @@
+{
+  "name": "codemirror-lang-marko",
+  "version": "0.0.1",
+  "description": "Marko language support for CodeMirror 6 via the real Marko TextMate grammar (shiki/Oniguruma bridge, from markojs.com)",
+  "type": "module",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "lib"
+  ],
+  "scripts": {
+    "test": "node test/tokenize.mjs"
+  },
+  "dependencies": {
+    "@shikijs/langs": "^4.3.1",
+    "shiki": "^4.3.1"
+  },
+  "peerDependencies": {
+    "@codemirror/language": "^6.0.0",
+    "@codemirror/state": "^6.0.0",
+    "@codemirror/view": "^6.0.0"
+  },
+  "license": "MIT"
+}
