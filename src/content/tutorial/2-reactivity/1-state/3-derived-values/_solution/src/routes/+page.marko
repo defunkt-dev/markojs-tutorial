@@ -1,0 +1,17 @@
+static const PRICE = 12;
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Tickets</title>
+  </head>
+  <body>
+    <let/tickets=2>
+    <const/total=tickets * PRICE>
+    <h1>Movie Night</h1>
+    <button onClick() { tickets++ }>Add ticket</button>
+    <p>${tickets} tickets — total $${total}</p>
+    <p>Checkout: pay $${total}</p>
+  </body>
+</html>

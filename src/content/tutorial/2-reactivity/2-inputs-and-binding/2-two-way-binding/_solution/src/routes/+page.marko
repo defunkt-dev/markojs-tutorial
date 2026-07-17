@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Two-Way</title>
+  </head>
+  <body>
+    <let/message="hello">
+    <let/bio="I build things.">
+    <h1>Profile</h1>
+    <input value:=message>
+    <p>Status: ${message}</p>
+    <button onClick() { message = "hello" }>Reset status</button>
+    <textarea value:=bio/>
+    <p>Bio: ${bio}</p>
+    <button onClick() { bio = "I build things." }>Reset bio</button>
+  </body>
+</html>

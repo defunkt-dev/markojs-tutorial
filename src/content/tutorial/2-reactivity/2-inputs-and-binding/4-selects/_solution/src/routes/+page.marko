@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Shipping</title>
+  </head>
+  <body>
+    <let/country="en">
+    <let/interests=["news"]>
+    <h1>Shipping Preferences</h1>
+    <select value:=country>
+      <option value="en">England</option>
+      <option value="pt-br">Brazil</option>
+      <option value="it">Italy</option>
+    </select>
+    <select multiple value:=interests>
+      <option value="news">News</option>
+      <option value="deals">Deals</option>
+      <option value="updates">Updates</option>
+    </select>
+    <p>Shipping to ${country}; interests: ${interests.join(", ") || "none"}</p>
+    <button onClick() { country = "it" }>Ship to Italy</button>
+  </body>
+</html>

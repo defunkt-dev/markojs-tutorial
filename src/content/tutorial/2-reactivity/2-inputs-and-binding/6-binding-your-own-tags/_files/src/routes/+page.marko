@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Steppers</title>
+  </head>
+  <body>
+    <let/players=2>
+    <h1>Game Setup</h1>
+    <p>Practice counter (its own state):</p>
+    <stepper count=1/>
+    <p>Players (shared with the page):</p>
+    <stepper count=players/>
+    <p>Setting up for ${players} players.</p>
+    <button onClick() { players = 2 }>Reset players</button>
+  </body>
+</html>

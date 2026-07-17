@@ -1,0 +1,18 @@
+static const clamp = (v) => Math.min(100, Math.max(0, Number(v)));
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Order Form</title>
+  </head>
+  <body>
+    <let/quantity=1>
+    <let/discount=0>
+    <const/total=quantity * 15 * (1 - discount / 100)>
+    <h1>Order Form</h1>
+    <label>Quantity <input type="number" value:Number:=quantity></label>
+    <label>% off <input type="number" value:clamp:=discount></label>
+    <p>Total: $${total}</p>
+  </body>
+</html>

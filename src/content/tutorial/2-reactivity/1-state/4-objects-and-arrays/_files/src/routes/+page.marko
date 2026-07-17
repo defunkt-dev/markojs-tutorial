@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Reading Log</title>
+  </head>
+  <body>
+    <let/book={ title: "Don Quixote", pagesRead: 10, tags: ["novel"] }>
+    <h1>${book.title}</h1>
+    <p>Pages read: ${book.pagesRead}</p>
+    <p>Tags: ${book.tags.join(", ")}</p>
+    <button onClick() { book.pagesRead++ }>Log a page</button>
+    <button onClick() { book.tags.push("classic") }>Add genre</button>
+  </body>
+</html>

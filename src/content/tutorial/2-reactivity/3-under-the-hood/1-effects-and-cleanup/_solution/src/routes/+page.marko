@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Stopwatch</title>
+  </head>
+  <body>
+    <let/elapsed=0>
+    <h1>Stopwatch</h1>
+    <p>${elapsed}s</p>
+    <button onClick() { elapsed = 0 }>Reset</button>
+    <script>
+      const id = setInterval(() => { elapsed++ }, 1000);
+      $signal.onabort = () => clearInterval(id);
+    </script>
+  </body>
+</html>

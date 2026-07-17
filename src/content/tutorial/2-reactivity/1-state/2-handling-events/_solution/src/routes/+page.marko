@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Color Mixer</title>
+  </head>
+  <body onKeydown(e) { if (e.key === "r") red = 0 }>
+    <let/red=100>
+    <let/green=100>
+    <let/blue=100>
+    <h1>Color Mixer</h1>
+    <div style=`width:120px;height:120px;background:rgb(${red},${green},${blue})`></div>
+    <button onClick() { red += 20 }>More red</button>
+    <button onClick() { green += 20 }>More green</button>
+    <button onClick() { blue += 20 }>More blue</button>
+    <p>rgb(${red}, ${green}, ${blue}) — press "r" to zero out red</p>
+  </body>
+</html>

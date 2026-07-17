@@ -1,0 +1,21 @@
+import { produce } from "immer"
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Reactivity</title>
+  </head>
+  <body>
+    <let/employee={ name: "Sam", role: { title: "Dev", level: 1 }, badges: [] }>
+    <log=`employee is now ${JSON.stringify(employee)}`>
+    <h1>${employee.name} — ${employee.role.title} L${employee.role.level}</h1>
+    <p>Badges: ${employee.badges.join(", ") || "none"}</p>
+    <button onClick() {
+      employee = produce(employee, (draft) => {
+        draft.role.level++;
+        draft.badges.push("promoted");
+      });
+    }>Promote</button>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Pizza Order</title>
+  </head>
+  <body>
+    <let/giftWrap=false>
+    <let/size="medium">
+    <let/toppings=["cheese"]>
+    <h1>Pizza Order</h1>
+    <label>
+      <input type="checkbox" checked:=giftWrap>
+      Gift wrap
+    </label>
+    <fieldset>
+      <legend>Size</legend>
+      <label><input type="radio" value="small" checkedValue:=size> Small</label>
+      <label><input type="radio" value="medium" checkedValue:=size> Medium</label>
+      <label><input type="radio" value="large" checkedValue:=size> Large</label>
+    </fieldset>
+    <fieldset>
+      <legend>Toppings</legend>
+      <label><input type="checkbox" value="cheese" checkedValue:=toppings> Cheese</label>
+      <label><input type="checkbox" value="olives" checkedValue:=toppings> Olives</label>
+    </fieldset>
+    <p>Order: ${size} pizza, toppings: ${toppings.join(", ") || "none"}${giftWrap ? ", gift wrapped" : ""}</p>
+  </body>
+</html>

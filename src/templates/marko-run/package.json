@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@marko/run": "^0.11.5",
+    "immer": "^10.1.3",
     "marko": "^6.3.14"
   },
   "devDependencies": {
