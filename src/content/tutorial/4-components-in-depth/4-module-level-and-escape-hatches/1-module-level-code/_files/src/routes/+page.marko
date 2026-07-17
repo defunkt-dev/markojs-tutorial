@@ -1,0 +1,22 @@
+static function money(n) {
+  return `$${n.toFixed(2)}`;
+}
+
+server console.log("receipt rendered on the server");
+client console.log("receipt hydrated in the browser");
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Receipt</title>
+  </head>
+  <body>
+    <h1>Receipt</h1>
+    <ul>
+      <price-line label="Mug" amount=14.5/>
+      <price-line label="Stickers" amount=3.25/>
+    </ul>
+    <p>Grand total: ${money(17.75)}</p>
+  </body>
+</html>

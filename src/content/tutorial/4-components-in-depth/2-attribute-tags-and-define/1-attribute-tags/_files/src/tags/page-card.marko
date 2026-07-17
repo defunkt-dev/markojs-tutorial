@@ -1,0 +1,20 @@
+<div class="card">
+  <if=input.header>
+    <header>
+      <p>TODO: render the header slot</p>
+    </header>
+  </if>
+  <${input.content}/>
+  <if=input.footer>
+    <footer>
+      <p>TODO: render the footer slot</p>
+    </footer>
+  </if>
+</div>
+
+<style>
+  .card { border: 1px solid #ccc; border-radius: 8px; max-width: 360px; }
+  .card header { background: #0f766e; color: white; padding: 8px 12px; }
+  .card footer { border-top: 1px solid #eee; padding: 8px 12px; font-size: 0.85rem; }
+  .card > :not(header):not(footer) { padding: 0 12px; }
+</style>

@@ -1,0 +1,19 @@
+static const fruits = [
+  { name: "Mango", price: 2 },
+  { name: "Lychee", price: 4 },
+  { name: "Papaya", price: 3 },
+];
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Market</title>
+  </head>
+  <body>
+    <h1>Fruit Market</h1>
+    <data-list|fruit, i| items=fruits>
+      <strong>${i + 1}.</strong> ${fruit.name} — $${fruit.price}
+    </data-list>
+  </body>
+</html>

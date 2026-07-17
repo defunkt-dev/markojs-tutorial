@@ -1,0 +1,14 @@
+<if=input.items.length>
+  <ul class="zebra">
+    <for|item, i| of=input.items>
+      <li>row placeholder</li>
+    </for>
+  </ul>
+</if>
+<else>
+  <p>Nothing here yet.</p>
+</else>
+
+<style>
+  .zebra li:nth-of-type(even) { background: #f1f5f9; }
+</style>

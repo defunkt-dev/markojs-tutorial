@@ -1,0 +1,11 @@
+<let/active=0>
+
+<nav>
+  <button class={ active: active === 0 } onClick() { active = 0 }>First</button>
+  <button class={ active: active === 1 } onClick() { active = 1 }>Second</button>
+</nav>
+<p>Selected tab #${active + 1}</p>
+
+<style>
+  nav button.active { background: #0f766e; color: white; }
+</style>

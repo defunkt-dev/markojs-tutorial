@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Tabs</title>
+  </head>
+  <body>
+    <let/isAdmin=false>
+    <h1>Dashboard</h1>
+    <label>
+      <input type="checkbox" checked:=isAdmin> I'm an admin
+    </label>
+    <tab-bar>
+      <@tab label="Home"/>
+      <@tab label="Billing"/>
+      <@tab label="Settings"/>
+      <if=isAdmin>
+        <@tab label="Admin"/>
+      </if>
+    </tab-bar>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+static function createClock(el, use24h) {
+  let format = use24h;
+  const render = () => {
+    const d = new Date();
+    el.textContent = format
+      ? d.toLocaleTimeString("en-GB")
+      : d.toLocaleTimeString("en-US");
+  };
+  const id = setInterval(render, 1000);
+  render();
+  return {
+    setFormat(v) { format = v; render(); },
+    destroy() { clearInterval(id); el.textContent = ""; },
+  };
+}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Clock</title>
+  </head>
+  <body>
+    <let/showClock=true>
+    <let/use24h=false>
+    <h1>Wall Clock</h1>
+    <label><input type="checkbox" checked:=showClock> show clock</label>
+    <label><input type="checkbox" checked:=use24h> 24-hour</label>
+    <if=showClock>
+      <p/clockBox style="font-size: 2rem; font-family: monospace;"></p>
+      <lifecycle
+        onMount() {
+          this.clock = createClock(clockBox(), use24h);
+        }
+        onUpdate() {
+          this.clock.setFormat(use24h);
+        }
+        onDestroy() {
+          this.clock.destroy();
+        }
+      />
+    </if>
+  </body>
+</html>

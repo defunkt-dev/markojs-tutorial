@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Feedback</title>
+  </head>
+  <body>
+    <let/lastRating=0>
+    <h1>Rate your stay</h1>
+    <rating-widget onRate(stars) { lastRating = stars }/>
+    <p>Last rating: ${lastRating || "none yet"}</p>
+  </body>
+</html>

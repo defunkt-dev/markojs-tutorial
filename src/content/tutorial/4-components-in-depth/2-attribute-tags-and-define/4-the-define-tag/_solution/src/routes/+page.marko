@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Pricing</title>
+  </head>
+  <body>
+    <h1>Pricing</h1>
+    <define/PlanCard|input|>
+      <div class="plan">
+        <h3>${input.name}</h3>
+        <p class="price">$${input.price}/mo</p>
+        <p>${input.blurb}</p>
+      </div>
+    </define>
+    <PlanCard name="Hobby" price=9 blurb="For side projects."/>
+    <PlanCard name="Pro" price=29 blurb="For serious builders."/>
+    <PlanCard name="Team" price=99 blurb="For whole companies."/>
+    <style>
+      .plan { border: 1px solid #ccc; border-radius: 8px; padding: 12px; max-width: 220px; margin-bottom: 8px; }
+      .price { font-weight: bold; color: #0f766e; }
+    </style>
+  </body>
+</html>

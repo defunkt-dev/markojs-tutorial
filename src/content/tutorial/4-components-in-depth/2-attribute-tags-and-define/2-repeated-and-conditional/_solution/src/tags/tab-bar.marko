@@ -1,0 +1,14 @@
+<let/active=0>
+
+<nav>
+  <for|tab, i| of=input.tab>
+    <button class={ active: active === i } onClick() { active = i }>
+      ${tab.label}
+    </button>
+  </for>
+</nav>
+<p>Selected tab #${active + 1}</p>
+
+<style>
+  nav button.active { background: #0f766e; color: white; }
+</style>

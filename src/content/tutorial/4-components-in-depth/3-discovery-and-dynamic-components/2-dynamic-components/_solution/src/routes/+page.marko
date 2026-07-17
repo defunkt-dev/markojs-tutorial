@@ -1,0 +1,24 @@
+import InfoAlert from "../tags/info-alert.marko"
+import WarningAlert from "../tags/warning-alert.marko"
+import ErrorAlert from "../tags/error-alert.marko"
+
+static const messages = [
+  { kind: "info", text: "Backup completed." },
+  { kind: "warning", text: "Disk almost full." },
+  { kind: "error", text: "Payment failed." },
+];
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Notifications</title>
+  </head>
+  <body>
+    <h1>Notification Center</h1>
+    <const/alertKinds={ info: InfoAlert, warning: WarningAlert, error: ErrorAlert }>
+    <for|msg| of=messages>
+      <${alertKinds[msg.kind]} message=msg.text/>
+    </for>
+  </body>
+</html>
