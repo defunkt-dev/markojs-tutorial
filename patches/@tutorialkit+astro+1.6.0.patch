@@ -1,0 +1,18 @@
+diff --git a/node_modules/@tutorialkit/astro/dist/default/components/TutorialContent.astro b/node_modules/@tutorialkit/astro/dist/default/components/TutorialContent.astro
+index 8c77b9f..79fcadd 100644
+--- a/node_modules/@tutorialkit/astro/dist/default/components/TutorialContent.astro
++++ b/node_modules/@tutorialkit/astro/dist/default/components/TutorialContent.astro
+@@ -45,4 +45,13 @@ const { Markdown, editPageLink, prev, next } = lesson;
+   >
+     {lesson.data.i18n!.webcontainerLinkText}
+   </a>
++  <a
++    class="inline-block font-size-3.5 underline text-tk-elements-link-secondaryColor hover:text-tk-elements-link-secondaryColorHover"
++    href="https://tutorialkit.dev/"
++  >
++    Built with TutorialKit
++  </a>
++  <span class="inline-block font-size-3.5 text-tk-elements-link-secondaryColor">
++    Built with ❤️ by defunkt-dev
++  </span>
+ </div>

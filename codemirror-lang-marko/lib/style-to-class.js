@@ -6,6 +6,18 @@
 //     injection is attempted.
 //   - injectCss(): lets the package add static rules (the light/dark
 //     token color switch) through the same <style> element.
+//   - Router-proofing, two layers. Client-side routers that swap the
+//     document head (astro view transitions between TutorialKit lessons)
+//     silently remove injected style elements while this module's
+//     in-memory state survives. Layer 1: the element is marked with
+//     data-astro-transition-persist — the same mechanism TutorialKit
+//     itself uses to protect CodeMirror's own style tag — so astro's
+//     router preserves it across navigations. Layer 2: ensureStyles()
+//     re-creates the element whenever it is missing or detached; the
+//     shiki plugin calls it on every editor construction.
+
+const PERSIST_ATTR = "data-astro-transition-persist";
+const PERSIST_NAME = "codemirror-lang-marko";
 
 const classNames = new Map();
 const injectedChunks = new Set();
@@ -36,6 +48,20 @@ export function injectCss(css) {
   }
 }
 
+export function ensureStyles() {
+  if (typeof document === "undefined") return;
+  if (!styleEl || !styleEl.isConnected) {
+    createStyleEl();
+  }
+  styleEl.textContent = styleText;
+}
+
+function createStyleEl() {
+  styleEl = document.createElement("style");
+  styleEl.setAttribute(PERSIST_ATTR, PERSIST_NAME);
+  document.head.appendChild(styleEl);
+}
+
 function scheduleApply() {
   if (typeof document === "undefined") return;
   if (!applying) {
@@ -50,13 +76,7 @@ function scheduleApply() {
 
 function applyStyles() {
   applying = false;
-  if (styleEl) {
-    styleEl.textContent = styleText;
-  } else {
-    styleEl = document.createElement("style");
-    styleEl.textContent = styleText;
-    document.head.appendChild(styleEl);
-  }
+  ensureStyles();
 }
 
 function normalizeStyle(value) {

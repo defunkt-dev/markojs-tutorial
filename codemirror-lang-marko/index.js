@@ -29,7 +29,11 @@ import {
 import { ViewPlugin, Decoration } from "@codemirror/view";
 import { RangeSetBuilder } from "@codemirror/state";
 import { getHighlighter } from "./lib/highlighter.js";
-import { styleToClass, injectCss } from "./lib/style-to-class.js";
+import {
+  styleToClass,
+  injectCss,
+  ensureStyles,
+} from "./lib/style-to-class.js";
 
 const TOKEN_CLASS = "cmlm-tok";
 
@@ -64,6 +68,9 @@ function shikiDecorations(highlighter, lang) {
   return ViewPlugin.fromClass(
     class {
       constructor(view) {
+        // Client-side navigation can swap the document head and drop the
+        // injected style element; every new editor re-checks it.
+        ensureStyles();
         this.decorations = this.buildDecorations(view);
       }
 
@@ -148,6 +155,7 @@ function getIndentation(line) {
 export async function marko() {
   const highlighter = await getHighlighter();
   injectCss(TOKEN_CSS);
+  ensureStyles();
   return new LanguageSupport(markoLanguage, [
     shikiDecorations(highlighter, "marko"),
     foldOnIndent(),

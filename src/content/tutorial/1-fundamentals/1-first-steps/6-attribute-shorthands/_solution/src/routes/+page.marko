@@ -1,0 +1,19 @@
+static const isOnline = true;
+static const imgAttrs = { src: "https://markojs.com/favicon.png", width: 48, height: 48 };
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Shorthands</title>
+  </head>
+  <body>
+    <div#banner.panel.wide>
+      <h1>Status Page</h1>
+    </div>
+    <p class={ status: true, ok: isOnline }>
+      ${isOnline ? "All systems go" : "Something is down"}
+    </p>
+    <img ...imgAttrs alt="Marko logo">
+  </body>
+</html>

@@ -1,6 +1,9 @@
 ---
 type: tutorial
-mainCommand: ['npm run dev', 'Starting http server']
+mainCommand: ['pnpm run dev', 'Starting dev server']
 prepareCommands:
-  - ['npm install', 'Installing dependencies']
+  - ['pnpm install', 'Installing dependencies']
+template: marko-run
+previews: [3000]
+downloadAsZip: true
 ---

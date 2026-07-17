@@ -1,0 +1,16 @@
+static const product = { id: 42, name: "Marko Mug", price: 19, inStock: true };
+static const quantity = 3;
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Attributes are JavaScript</title>
+  </head>
+  <body>
+    <h1>${product.name}</h1>
+    <a href=`/products/${product.id}`>Permalink</a>
+    <p>Total for ${quantity}: $${product.price * quantity}</p>
+    <button disabled=!product.inStock>Buy now</button>
+  </body>
+</html>
