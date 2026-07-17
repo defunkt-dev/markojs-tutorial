@@ -10,10 +10,17 @@ editor:
 
 # Where to Go Next
 
-Fifty-eight lessons ago this was a counter button. Now you can build
+Seventy-two lessons ago this was a counter button. Now you can build
 a streaming, server-rendered, form-handling, API-serving Marko app
 from an empty folder. What this tutorial deliberately left for your
 next session:
+
+**Your own project.** `npm init marko` scaffolds one. `--dir` picks
+where it lands, `--template` pulls a starter from
+[marko-js/examples](https://github.com/marko-js/examples), and
+`--installer` overrides the package manager it reaches for. You never
+had to type it here — the project on the left was already running when
+you arrived.
 
 **Deployment.** `marko-run build` produces a Node server by default;
 **adapters** retarget the same app at other platforms — static

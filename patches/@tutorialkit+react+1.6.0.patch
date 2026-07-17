@@ -1,7 +1,16 @@
 diff --git a/node_modules/@tutorialkit/react/dist/Panels/EditorPanel.js b/node_modules/@tutorialkit/react/dist/Panels/EditorPanel.js
-index 109e4eb..a58c726 100644
+index 109e4eb..c2b0ebe 100644
 --- a/node_modules/@tutorialkit/react/dist/Panels/EditorPanel.js
 +++ b/node_modules/@tutorialkit/react/dist/Panels/EditorPanel.js
+@@ -28,7 +28,7 @@ function FileTab({ i18n, editorDocument, helpAction, onHelpClick }) {
+     const filePath = editorDocument?.filePath;
+     const fileName = filePath?.split('/').at(-1) ?? '';
+     const icon = fileName ? getFileIcon(fileName) : '';
+-    return (_jsxs("div", { className: "panel-header border-b border-tk-elements-app-borderColor flex justify-between", children: [_jsxs("div", { className: "panel-title", children: [_jsx("div", { className: `panel-icon scale-125 ${icon}` }), _jsx("span", { className: "text-sm", children: fileName })] }), !!helpAction && (_jsxs("button", { onClick: onHelpClick, disabled: !onHelpClick, className: "panel-button px-2 py-0.5 -mr-1 -my-1", children: [helpAction === 'solve' && _jsx("div", { className: "i-ph-lightbulb-duotone text-lg" }), helpAction === 'solve' && i18n.solveButtonText, helpAction === 'reset' && _jsx("div", { className: "i-ph-clock-counter-clockwise-duotone" }), helpAction === 'reset' && i18n.resetButtonText] }))] }));
++    return (_jsxs("div", { className: "panel-header border-b border-tk-elements-app-borderColor flex justify-between", children: [_jsxs("div", { className: "panel-title", children: [_jsx("div", { className: `panel-icon scale-125 ${icon}` }), _jsx("span", { className: "text-sm", children: fileName })] }), !!helpAction && (_jsxs("button", { onClick: onHelpClick, disabled: !onHelpClick, className: "panel-button px-2 py-0.5 -mr-1 -my-1", children: [helpAction === 'solve' && _jsx("div", { className: "i-ph-rocket-launch-duotone text-lg" }), helpAction === 'solve' && i18n.solveButtonText, helpAction === 'reset' && _jsx("div", { className: "i-ph-clock-counter-clockwise-duotone" }), helpAction === 'reset' && i18n.resetButtonText] }))] }));
+ }
+ function getFileIcon(fileName) {
+     const extension = fileName.split('.').at(-1);
 @@ -61,6 +61,9 @@ function getFileIcon(fileName) {
          case 'json': {
              return 'i-languages-json?mask';
