@@ -1,0 +1,30 @@
+static const topics = [
+  { name: "marko", weight: 6, hue: 170 },
+  { name: "vite", weight: 4, hue: 260 },
+  { name: "streaming", weight: 5, hue: 20 },
+  { name: "tags", weight: 3, hue: 330 },
+  { name: "ssr", weight: 4, hue: 210 },
+  { name: "signals", weight: 2, hue: 100 },
+];
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Topics</title>
+  </head>
+  <body>
+    <h1>Trending Topics</h1>
+    <p>
+      <for|topic| of=topics>
+        <style>
+          .topic {
+            font-size: calc(${topic.weight} * 0.5rem);
+            color: hsl(${topic.hue}, 70%, 40%);
+          }
+        </style>
+        <span class="topic">${topic.name} </span>
+      </for>
+    </p>
+  </body>
+</html>

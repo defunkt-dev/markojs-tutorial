@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Filters</title>
+  </head>
+  <body>
+    <let/open=false>
+    <h1>Product Search</h1>
+    <button onClick() { open = !open }>
+      ${open ? "Hide" : "Show"} filters
+    </button>
+    <show=open>
+      <fieldset>
+        <legend>Filters</legend>
+        <input type="search" placeholder="Brand">
+        <select>
+          <option>New</option>
+          <option>Used</option>
+        </select>
+      </fieldset>
+    </show>
+  </body>
+</html>

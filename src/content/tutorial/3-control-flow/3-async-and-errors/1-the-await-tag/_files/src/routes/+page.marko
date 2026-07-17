@@ -1,0 +1,21 @@
+static function loadReport() {
+  return new Promise((resolve) =>
+    setTimeout(() => resolve({ visitors: 1284, signups: 87 }), 1500)
+  );
+}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <h1>Monday Report</h1>
+    <p>This heading arrives instantly.</p>
+    <section>
+      <h2>Traffic</h2>
+      <p>${report.visitors} visitors, ${report.signups} signups</p>
+    </section>
+  </body>
+</html>

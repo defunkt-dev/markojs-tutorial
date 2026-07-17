@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>FAQ</title>
+  </head>
+  <body>
+    <let/q1=true>
+    <let/q2=false>
+    <let/q3=false>
+    <const/openCount=[q1, q2, q3].filter(Boolean).length>
+    <h1>FAQ</h1>
+    <p>${openCount} open</p>
+    <details open:=q1>
+      <summary>Is Marko fast?</summary>
+      <p>Streaming SSR and a compiler that ships minimal JS. Yes.</p>
+    </details>
+    <details open:=q2>
+      <summary>Do I need to import components?</summary>
+      <p>Not if they live in a tags/ directory.</p>
+    </details>
+    <details open:=q3>
+      <summary>Is HTML valid Marko?</summary>
+      <p>Nearly all of it, yes.</p>
+    </details>
+    <button onClick() { q1 = q2 = q3 = false }>Collapse all</button>
+  </body>
+</html>

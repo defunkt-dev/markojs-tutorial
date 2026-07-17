@@ -1,0 +1,22 @@
+static const scores = { Ada: 12, Grace: 17, Alan: 9, Edsger: 14 };
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Dice Night</title>
+  </head>
+  <body>
+    <h1>Dice Night</h1>
+    <table>
+      <for|player, score| in=scores>
+        <tr><td>${player}</td><td>${score}</td></tr>
+      </for>
+    </table>
+    <p>
+      <for|n| from=1 to=6>
+        <span>[${n}]</span>
+      </for>
+    </p>
+  </body>
+</html>

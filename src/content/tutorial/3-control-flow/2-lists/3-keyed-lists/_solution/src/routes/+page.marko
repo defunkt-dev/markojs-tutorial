@@ -1,0 +1,34 @@
+static const initialCrew = [
+  { id: "c1", name: "Grace" },
+  { id: "c2", name: "Ada" },
+  { id: "c3", name: "Alan" },
+];
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Crew</title>
+  </head>
+  <body>
+    <let/crew=initialCrew>
+    <h1>Crew Manifest</h1>
+    <button onClick() { crew = crew.toSorted((a, b) => a.name.localeCompare(b.name)) }>
+      Sort by name
+    </button>
+    <button onClick() { crew = [...crew.slice(1), crew[0]] }>
+      Rotate
+    </button>
+    <ul>
+      <for|member| of=crew by="id">
+        <li>
+          <let/aboard=false>
+          <label>
+            <input type="checkbox" checked:=aboard>
+            ${member.name} ${aboard ? "✔ aboard" : ""}
+          </label>
+        </li>
+      </for>
+    </ul>
+  </body>
+</html>

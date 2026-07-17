@@ -1,0 +1,33 @@
+import { produce } from "immer"
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>To-Do</title>
+  </head>
+  <body>
+    <let/todos=[
+      { id: 0, text: "Learn Marko", done: false },
+      { id: 1, text: "Make a website", done: false },
+      { id: 2, text: "Ship it", done: false },
+    ]>
+    <const/remaining=todos.filter((t) => !t.done).length>
+    <h1>To-Do</h1>
+    <p>${remaining} remaining</p>
+    <ul>
+      <for|todo, i| of=todos by="id">
+        <li>
+          <let/done=false>
+          <label>
+            <input type="checkbox" checked:=done>
+            ${todo.text}
+          </label>
+          <button disabled=!done onClick() { todos = todos.toSpliced(i, 1) }>
+            ×
+          </button>
+        </li>
+      </for>
+    </ul>
+  </body>
+</html>

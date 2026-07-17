@@ -1,0 +1,39 @@
+static function loadTraffic() {
+  return new Promise((resolve) =>
+    setTimeout(() => resolve({ visitors: 1284 }), 3000)
+  );
+}
+static function loadSignups() {
+  return new Promise((resolve) =>
+    setTimeout(() => resolve({ count: 87 }), 1000)
+  );
+}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <h1>Monday Report</h1>
+    <section>
+      <h2>Traffic (slow)</h2>
+      <try>
+        <await|traffic|=loadTraffic()>
+          <p>${traffic.visitors} visitors</p>
+        </await>
+
+        <@placeholder>
+          <p>Crunching traffic numbers…</p>
+        </@placeholder>
+      </try>
+    </section>
+    <section>
+      <h2>Signups (fast)</h2>
+      <await|signups|=loadSignups()>
+        <p>${signups.count} new signups</p>
+      </await>
+    </section>
+  </body>
+</html>

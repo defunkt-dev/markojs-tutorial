@@ -1,0 +1,29 @@
+static function loadQuote() {
+  return new Promise((resolve) =>
+    setTimeout(() => resolve("Ship early, stream often."), 2000)
+  );
+}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Quote of the Day</title>
+  </head>
+  <body>
+    <h1>Quote of the Day</h1>
+    <try>
+      <await|quote|=loadQuote()>
+        <blockquote>${quote}</blockquote>
+      </await>
+
+      <@placeholder>
+        <p>Warming up…</p>
+      </@placeholder>
+
+      <@catch|err|>
+        <p>No quote today: ${err.message}</p>
+      </@catch>
+    </try>
+  </body>
+</html>
