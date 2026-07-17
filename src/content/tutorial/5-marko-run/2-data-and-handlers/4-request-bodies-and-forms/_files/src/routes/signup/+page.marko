@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Sign up</title>
+  </head>
+  <body>
+    <h1>Anvil of the Month</h1>
+    <if=$global.data.error>
+      <p style="color: crimson">${$global.data.error}</p>
+    </if>
+    <if=$global.data.welcomed>
+      <p>Welcome aboard, ${$global.data.welcomed}!</p>
+    </if>
+    <form method="post">
+      <label>Name <input name="name"></label>
+      <button>Join</button>
+    </form>
+    <p>${($global.data.count ?? 0)} members and counting</p>
+  </body>
+</html>

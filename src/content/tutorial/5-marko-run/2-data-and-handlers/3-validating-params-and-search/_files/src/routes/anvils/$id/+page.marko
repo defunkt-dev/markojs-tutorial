@@ -1,0 +1,15 @@
+<const/id=$global.params.id>
+<const/page=$global.search.page>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Archive</title>
+  </head>
+  <body>
+    <h1>Anvil #${id}</h1>
+    <p>Showing page ${page + 1} of the archive (raw page value: ${JSON.stringify(page)})</p>
+    <a href=`/anvils/${id}?page=${page + 1}`>Next page</a>
+  </body>
+</html>

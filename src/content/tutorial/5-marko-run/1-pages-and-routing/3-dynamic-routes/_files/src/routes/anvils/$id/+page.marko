@@ -1,0 +1,16 @@
+static const catalog = {
+  "classic-9": { weight: "9kg", note: "The original." },
+  "featherweight-2": { weight: "2kg", note: "Travel-sized." },
+  "colossus-88": { weight: "88kg", note: "Bring friends." },
+};
+
+<const/anvil=catalog["classic-9"]>
+
+<if=anvil>
+  <h1>Anvil: classic-9</h1>
+  <p>Weight: ${anvil.weight} — ${anvil.note}</p>
+</if>
+<else>
+  <h1>No such anvil</h1>
+</else>
+<a href="/">Back to catalog</a>

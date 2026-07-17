@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Bestsellers</title>
+  </head>
+  <body>
+    <h1>Bestselling Anvils</h1>
+    <ul>
+      <for|a| of=$global.data.anvils>
+        <li>${a.id} — ${a.sold} sold</li>
+      </for>
+    </ul>
+  </body>
+</html>

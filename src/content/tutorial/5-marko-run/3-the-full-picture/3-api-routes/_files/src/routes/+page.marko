@@ -1,0 +1,31 @@
+<let/quotes=[]>
+<let/draft="">
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Quote Board</title>
+  </head>
+  <body>
+    <h1>Quote Board</h1>
+    <script>
+      fetch("/api/quotes").then((r) => r.json()).then((q) => { quotes = q });
+    </script>
+    <ul>
+      <for|q, i| of=quotes by=(q, i) => i>
+        <li>${q.text}</li>
+      </for>
+    </ul>
+    <input value:=draft placeholder="Wise words">
+    <button onClick() {
+      fetch("/api/quotes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: draft }),
+      })
+        .then((r) => r.json())
+        .then((q) => { quotes = [...quotes, q]; draft = ""; });
+    }>Add</button>
+  </body>
+</html>
