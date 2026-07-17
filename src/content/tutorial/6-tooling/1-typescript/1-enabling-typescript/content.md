@@ -42,6 +42,11 @@ upward looking for it, so folders can opt in incrementally. More on
 that in the publishing chapter.
 :::
 
+One more on-ramp worth knowing: existing JavaScript projects can
+adopt checking *incrementally* with JSDoc — a `// @ts-check` comment
+at the top of a `.marko` file plus a `@typedef {...} Input` block
+gives you real checking with zero TypeScript syntax.
+
 You should now see Coffee priced at 4.95 in the preview, and
 `pnpm check` exiting silently. One catch: with `strict` checking on,
 *untyped* tags become errors too. Next lesson shows why — and how to

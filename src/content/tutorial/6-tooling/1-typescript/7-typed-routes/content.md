@@ -38,11 +38,21 @@ from the generated route types.
 App-wide context (a database handle, a session helper) can be typed
 once via interface merging:
 `declare module "@marko/run" { interface Context { db: Db } }` —
-then every route's `context.db` is typed. Route-*specific* data
+then every route's `context.db` is typed. The adapter-provided
+`Platform` interface extends the same way. Route-*specific* data
 should keep flowing through `next(data)` instead, which types itself
 per route.
 :::
 
+Curious what's inside `.marko-run/routes.d.ts`? Open it. Two layers,
+deliberately: a `declare module "@marko/run"` block registers your
+app's *whole route table* with the framework's types (that's what
+powers `Run.href`), and then one `declare module` per routable file
+grants that file its ambient `Run` namespace, narrowed to *its*
+routes — which is why `context.params` differs per handler. You'll
+also spot a `MarkoRun` namespace marked deprecated: that's the same
+thing under its older name, kept so existing code keeps checking.
+
 You should see the product pages serving with their ids, and a quiet
-check. That's the TypeScript chapter — next chapter puts more tools
-on your belt: formatting, testing, and a component workshop.
+check. One lesson left in this chapter: the corners of the `Marko`
+namespace you haven't met yet.

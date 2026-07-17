@@ -1,8 +1,23 @@
 diff --git a/node_modules/@tutorialkit/runtime/dist/store/terminal.js b/node_modules/@tutorialkit/runtime/dist/store/terminal.js
-index 31edbb5..1d42e84 100644
+index 31edbb5..1537d26 100644
 --- a/node_modules/@tutorialkit/runtime/dist/store/terminal.js
 +++ b/node_modules/@tutorialkit/runtime/dist/store/terminal.js
-@@ -30,12 +30,19 @@ export class TerminalStore {
+@@ -11,6 +11,7 @@ export class TerminalStore {
+     terminalConfig = atom(new TerminalConfig());
+     _output = undefined;
+     _webcontainerLoaded = false;
++    _pendingSpawn = new Set();
+     constructor(_webcontainer, _useAuth) {
+         this._webcontainer = _webcontainer;
+         this._useAuth = _useAuth;
+@@ -27,32 +28,44 @@ export class TerminalStore {
+     setTerminalConfiguration(config) {
+         const oldTerminalConfig = this.terminalConfig.get();
+         const newTerminalConfig = new TerminalConfig(config);
++        console.log('%c[tk-diag]', 'color:#0891b2', 'setTerminalConfiguration', {
++            old: oldTerminalConfig.panels.map((p) => p.id),
++            new: newTerminalConfig.panels.map((p) => p.id),
++        });
          // iterate over the old terminal config and make a list of all terminal panels
          const panelMap = new Map(oldTerminalConfig.panels.map((panel) => [panel.id, panel]));
          // iterate over the new terminal panels and try to re-use the old terminal with the new panel
@@ -16,6 +31,7 @@ index 31edbb5..1d42e84 100644
 -                // if we found a previous panel with the same id, attach that terminal to the new panel
 -                panel.attachTerminal(oldPanel.terminal);
 +            if (oldPanel) {
++                console.log('%c[tk-diag]', 'color:#0891b2', 'panel CARRIED', panel.id, { hasProcess: !!oldPanel.process, hasTerminal: !!oldPanel.terminal });
 +                // if we found a previous panel with the same id, carry the OLD panel object into the
 +                // new config. The old panel is what the JSH process pipes its output to and what holds
 +                // the stored input handler, so keeping the object (instead of copying its terminal
@@ -26,11 +42,114 @@ index 31edbb5..1d42e84 100644
              }
              if (panel.type === 'output') {
                  this._output = panel;
+             }
+             if (panel.type === 'terminal' && !oldPanel) {
+-                // if the panel is a terminal panel, and this panel didn't exist before, spawn a new JSH process
+-                this._bootWebContainer(panel)
+-                    .then(async (webcontainerInstance) => {
+-                    panel.attachProcess(await newJSHProcess(webcontainerInstance, panel, panel.processOptions));
+-                })
+-                    .catch(() => {
+-                    // do nothing
+-                });
++                // Defer the spawn until the terminal has been laid out and measured.
++                // Spawning now would size the shell's PTY from an unmeasured xterm
++                // (80x24 default), and the first real fit would then resize the PTY
++                // under a shell that has already drawn its prompt at the wrong width.
++                console.log('%c[tk-diag]', 'color:#0891b2', 'panel spawn DEFERRED (awaiting measurement)', panel.id);
++                this._pendingSpawn.add(panel);
++                this._maybeSpawn(panel);
+             }
+         }
+         // kill all old processes which we couldn't re-use
+         for (const panel of panelMap.values()) {
++            console.log('%c[tk-diag]', 'color:#0891b2', 'panel ORPHAN KILLED', panel.id);
+             panel.process?.kill();
+         }
+         this.terminalConfig.set(newTerminalConfig);
+@@ -69,12 +82,51 @@ export class TerminalStore {
+             // if we don't have a panel with the provided id, just exit
+             return;
+         }
++        console.log('%c[tk-diag]', 'color:#0891b2', 'attachTerminal', id, `${terminal.cols}x${terminal.rows}`, { hadTerminal: !!panel.terminal, hasProcess: !!panel.process });
+         panel.attachTerminal(terminal);
+     }
+-    onTerminalResize(cols, rows) {
+-        // iterate over all terminal panels and resize all processes
+-        for (const panel of this.terminalConfig.get().panels) {
++    _maybeSpawn(panel) {
++        if (!this._pendingSpawn.has(panel)) {
++            return;
++        }
++        const terminal = panel.terminal;
++        if (!terminal || !panel.measured) {
++            return;
++        }
++        this._pendingSpawn.delete(panel);
++        console.log('%c[tk-diag]', 'color:#0891b2', 'panel SPAWNING jsh', panel.id, `${terminal.cols}x${terminal.rows}`);
++        this._bootWebContainer(panel)
++            .then(async (webcontainerInstance) => {
++            panel.attachProcess(await newJSHProcess(webcontainerInstance, panel, panel.processOptions));
++        })
++            .catch(() => {
++            // do nothing
++        });
++    }
++    onTerminalResize(cols, rows, id) {
++        // iterate over all terminal panels and resize each process to ITS OWN terminal's
++        // geometry. Broadcasting the reporting terminal's dimensions to every process
++        // means one panel (e.g. a hidden tab) can resize another panel's live shell.
++        if (id !== undefined) {
++            // Only the panel that reported gets resized: a resize is news about ONE
++            // terminal, never about the others.
++            const panel = this.terminalConfig.get().panels.find((panel) => panel.id === id);
++            if (!panel) {
++                return;
++            }
++            panel.measured = true;
++            console.log('%c[tk-diag]', 'color:#0891b2', 'PTY resize', panel.id, `-> ${cols}x${rows}`, { hasProcess: !!panel.process });
+             panel.process?.resize({ cols, rows });
++            this._maybeSpawn(panel);
++            return;
++        }
++        for (const panel of this.terminalConfig.get().panels) {
++            const panelCols = panel.terminal?.cols ?? cols;
++            const panelRows = panel.terminal?.rows ?? rows;
++            if (!panelCols || !panelRows) {
++                continue;
++            }
++            panel.process?.resize({ cols: panelCols, rows: panelRows });
+         }
+     }
+     async _bootWebContainer(terminal) {
 diff --git a/node_modules/@tutorialkit/runtime/dist/webcontainer/terminal-config.js b/node_modules/@tutorialkit/runtime/dist/webcontainer/terminal-config.js
-index 6a20f65..f4481b3 100644
+index 6a20f65..fe29491 100644
 --- a/node_modules/@tutorialkit/runtime/dist/webcontainer/terminal-config.js
 +++ b/node_modules/@tutorialkit/runtime/dist/webcontainer/terminal-config.js
-@@ -111,12 +111,12 @@ export class TerminalPanel {
+@@ -42,6 +42,7 @@ export class TerminalPanel {
+     _process;
+     _data = [];
+     _onData;
++    measured = false;
+     constructor(type, _options) {
+         this.type = type;
+         this._options = _options;
+@@ -93,9 +94,14 @@ export class TerminalPanel {
+     /** @internal*/
+     write(data) {
+         if (this._terminal) {
++            const el = this._terminal.element;
++            if (el && !el.isConnected) {
++                console.log('%c[tk-diag]', 'color:#dc2626', 'WRITE TO DEAD XTERM', this.id, JSON.stringify(data.slice(0, 40)));
++            }
+             this._terminal.write(data);
+         }
+         else {
++            console.log('%c[tk-diag]', 'color:#dc2626', 'WRITE BUFFERED (no terminal)', this.id, JSON.stringify(data.slice(0, 40)));
+             this._data.push({ data, type: 'echo' });
+         }
+     }
+@@ -111,12 +117,12 @@ export class TerminalPanel {
          }
      }
      onData(callback) {

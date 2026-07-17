@@ -1,0 +1,8 @@
+import StatBadge from "<stat-badge>";
+
+<stat-badge/summary label="Anvils" value=7/>
+
+<badge-row chrome="Today" stats=[{ label: "Sold", value: 12 }, { label: "Open", value: 3 }]/>
+
+<p>Summary returned: ${summary satisfies Marko.Return<typeof StatBadge>["value"]}</p>
+<p>Global build: ${$global.buildLabel ?? "dev"}</p>

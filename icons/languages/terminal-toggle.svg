@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1.41em" height="1em" viewBox="0 0 960 682" role="img">
+  <title>Right-trimmed colored prompt graphic with transparent background</title>
+  <defs>
+    <linearGradient id="cyanTop" x1="-70" y1="80" x2="320" y2="440" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#15c8ee"/>
+      <stop offset="0.55" stop-color="#20d5f6"/>
+      <stop offset="1" stop-color="#54d7f2"/>
+    </linearGradient>
+    <linearGradient id="blueBottom" x1="-45" y1="600" x2="315" y2="280" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#39d8ff"/>
+      <stop offset="0.5" stop-color="#00a6eb"/>
+      <stop offset="1" stop-color="#0f95d4"/>
+    </linearGradient>
+    <linearGradient id="yellowTop" x1="190" y1="95" x2="510" y2="445" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff200"/>
+      <stop offset="0.7" stop-color="#ffe600"/>
+      <stop offset="1" stop-color="#ffd500"/>
+    </linearGradient>
+    <linearGradient id="orangeBottom" x1="190" y1="625" x2="505" y2="280" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff8c00"/>
+      <stop offset="0.65" stop-color="#ffa000"/>
+      <stop offset="1" stop-color="#ffb000"/>
+    </linearGradient>
+    <linearGradient id="pinkTop" x1="374" y1="94" x2="682" y2="440" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff3951"/>
+      <stop offset="0.55" stop-color="#f0006c"/>
+      <stop offset="1" stop-color="#cf0066"/>
+    </linearGradient>
+    <linearGradient id="pinkBottom" x1="374" y1="626" x2="684" y2="280" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#e60070"/>
+      <stop offset="0.55" stop-color="#d00066"/>
+      <stop offset="1" stop-color="#b0005e"/>
+    </linearGradient>
+    <linearGradient id="greenBar" x1="687" y1="449" x2="955" y2="537" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#9df000"/>
+      <stop offset="0.6" stop-color="#86d80c"/>
+      <stop offset="1" stop-color="#73b80d"/>
+    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="5" result="blur"/>
+      <feOffset in="blur" dx="0" dy="0" result="offsetBlur"/>
+      <feFlood flood-color="#000000" flood-opacity="0.45" result="shadowColor"/>
+      <feComposite in="shadowColor" in2="offsetBlur" operator="in" result="shadow"/>
+      <feMerge>
+        <feMergeNode in="shadow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <linearGradient id="magentaOverlap" x1="520" y1="335" x2="680" y2="440" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2a0030" stop-opacity="0"/>
+      <stop offset="1" stop-color="#200020" stop-opacity="0.35"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Transparent background: no background rectangle. -->
+
+  <g filter="url(#softShadow)">
+    <polygon points="-78,47 306,278 306,440 -78,209" fill="url(#cyanTop)"/>
+    <polygon points="-78,510 306,291 306,440 -78,674" fill="url(#blueBottom)"/>
+
+    <polygon points="193,94 499,278 499,440 193,258" fill="url(#yellowTop)"/>
+    <polygon points="193,464 499,278 499,440 193,626" fill="url(#orangeBottom)"/>
+
+    <polygon points="374,94 679,278 679,440 374,254" fill="url(#pinkTop)"/>
+    <polygon points="374,449 679,278 679,440 374,626" fill="url(#pinkBottom)"/>
+    <polygon points="512,335 679,278 679,440 548,359" fill="url(#magentaOverlap)"/>
+
+    <rect x="687" y="449" width="267" height="88" fill="url(#greenBar)"/>
+  </g>
+</svg>

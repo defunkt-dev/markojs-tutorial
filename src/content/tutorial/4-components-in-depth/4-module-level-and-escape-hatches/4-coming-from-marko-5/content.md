@@ -31,6 +31,17 @@ start of a top-level line, wrap text in an element).
 Template inclusion generally → custom tags, or a dynamic tag with an
 imported reference.
 
+**`marko-tag.json` attribute definitions** (`"attributes": { "label":
+"string", ... }` with required/type validation) → a TypeScript `Input`
+interface, checked by `mtc`. Marko 6 builds ignore the old validation
+config entirely — the type *is* the attribute contract now (the
+tooling part covers this).
+
+**Class API TypeScript types** (`Marko.Component`, `Marko.Out`,
+`Marko.Emitter`) → removed from Marko 6's types; they remain
+available only through the `marko@5` package when running both
+versions side by side.
+
 **Lifecycle methods** (`onCreate`, `onMount`, …) → mostly unnecessary;
 `<script>` + `$signal` for effects, `<lifecycle>` for imperative
 objects.

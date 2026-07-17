@@ -1,0 +1,13 @@
+import StatBadge from "<stat-badge>";
+
+export interface Input {
+  stats: Marko.Input<typeof StatBadge>[];
+  chrome: Marko.Renderable;
+}
+
+<div class="row">
+  <strong><${input.chrome}/></strong>
+  <for|s| of=input.stats>
+    <stat-badge ...s/>
+  </for>
+</div>

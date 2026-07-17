@@ -1,0 +1,12 @@
+export interface Input {
+  // Duplicating stat-badge's contract by hand... and it drifted.
+  stats: { label: string; value: string }[];
+  chrome: Marko.Renderable;
+}
+
+<div class="row">
+  <strong><${input.chrome}/></strong>
+  <for|s| of=input.stats>
+    <stat-badge ...s/>
+  </for>
+</div>
