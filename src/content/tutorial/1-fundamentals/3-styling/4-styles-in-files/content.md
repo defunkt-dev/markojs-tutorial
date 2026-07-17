@@ -43,6 +43,11 @@ import * as styles from "./card.module.css";
 <div class=styles.card/>
 ```
 
+:::tip
+The file tree is unlocked in this lesson — right-click a folder to
+create files.
+:::
+
 Your turn. The hero tag on the right has an inline style block that's
 crowding the file:
 

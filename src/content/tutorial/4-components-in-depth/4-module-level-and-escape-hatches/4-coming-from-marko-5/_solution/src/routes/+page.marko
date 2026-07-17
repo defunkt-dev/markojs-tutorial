@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Author</title>
+  </head>
+  <body>
+    <let/lastSaved="">
+    <h1>Author Profile</h1>
+    <author-card
+      bioHtml="<em>Writes about streams.</em> Loves <strong>fast pages</strong>."
+      onSave(title) { lastSaved = title }
+    />
+    <p>Last saved: ${lastSaved || "never"}</p>
+  </body>
+</html>

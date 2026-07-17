@@ -1,0 +1,14 @@
+<let/title="Untitled draft">
+
+<div class="card">
+  <input value:=title>
+
+  <button onClick() { input.onSave(title) }>Save</button>
+
+  <h4>Bio</h4>
+  <p>$!{input.bioHtml}</p>
+</div>
+
+<style>
+  .card { border: 1px solid #ccc; border-radius: 8px; padding: 12px; max-width: 320px; }
+</style>

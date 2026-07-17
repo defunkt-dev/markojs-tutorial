@@ -1,0 +1,15 @@
+<div class="plans">
+  <for|plan| of=input.plan>
+    <section class="plan">
+      <h3>${plan.name} — $${plan.price}/mo</h3>
+      <ul>
+        <li>TODO: render this plan's features</li>
+      </ul>
+    </section>
+  </for>
+</div>
+
+<style>
+  .plans { display: flex; gap: 12px; }
+  .plan { border: 1px solid #ccc; border-radius: 8px; padding: 12px; }
+</style>

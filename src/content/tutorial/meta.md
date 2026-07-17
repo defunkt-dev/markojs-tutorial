@@ -6,4 +6,6 @@ prepareCommands:
 template: marko-run
 previews: [3000]
 downloadAsZip: true
+terminal:
+  panels: ['output', 'terminal']
 ---

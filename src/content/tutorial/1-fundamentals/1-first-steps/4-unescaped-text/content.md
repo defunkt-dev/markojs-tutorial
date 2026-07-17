@@ -24,12 +24,11 @@ blog post. For that, Marko has the unescaped interpolation: add a `!`.
 Change `${snippet}` to `$!{snippet}` in the page. The `<em>` now renders
 as actual emphasis.
 
-## A warning you should take seriously
-
+:::danger
 Unescaped values are written into the document exactly as-is. If the
 string came from a user — a comment, a username, a URL parameter — you
 have just handed them the ability to inject scripts into your page
 ([XSS](https://developer.mozilla.org/en-US/docs/Web/Security/Attacks/XSS)).
-
 The rule: `$!{...}` is only for markup **you** produced or sanitized.
 When in doubt, use `${...}` — the default is the safe one.
+:::

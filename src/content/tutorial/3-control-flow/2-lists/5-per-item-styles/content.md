@@ -27,11 +27,13 @@ static stylesheet.
 One stylesheet, one `.brand` rule, three colors — the interpolation
 resolves per item.
 
-A caveat straight from the docs, worth committing to memory: each
-iteration renders a real `<style>` element *among* the items, so
-positional selectors like `:nth-child` count those style elements and
-miss their targets. Use `:nth-of-type`, which counts only same-tag
-elements and skips the interlopers.
+:::warning
+A caveat straight from the docs: each iteration renders a real
+`<style>` element *among* the items, so positional selectors like
+`:nth-child` count those style elements and miss their targets. Use
+`:nth-of-type`, which counts only same-tag elements and skips the
+interlopers.
+:::
 
 The tag cloud on the right renders every topic the same size and
 color, ignoring the `weight` and `hue` in the data:

@@ -16,6 +16,11 @@ where the file lives. From any template, it looks in the nearest `tags/`
 folder (searching upward through parent directories) and matches the
 file name to the tag name.
 
+:::tip
+The file tree is unlocked in this lesson — right-click inside `src`
+to create files and folders. Most lessons keep the tree read-only.
+:::
+
 Time to make one, from scratch:
 
 1. In the file tree, create a folder `tags` inside `src`, and inside it
