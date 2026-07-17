@@ -41,7 +41,8 @@ properly) · *Optimizing Performance*.
 Discord, and the GitHub org, where the people who built all this
 answer questions with alarming speed.
 
-No exercise this time. The page on the right is a plain marko-run app
-— the same one every lesson secretly was. It's yours; the tree is
-unlocked; break something on purpose and fix it. That's the whole
-skill.
+No exercise this time — just confetti. The page on the right is your
+graduation: read its source and you'll find nothing you don't know.
+A `<for>` over pieces, dynamic style attributes, a CSS animation
+restarted by flipping its name, a `<let>` counting your encores. The tree is unlocked; it's your app
+now. Break something on purpose and fix it — that's the whole skill.

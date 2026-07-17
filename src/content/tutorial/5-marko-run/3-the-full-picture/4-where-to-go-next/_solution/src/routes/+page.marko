@@ -1,15 +1,53 @@
+static const COLORS = ["#0f766e", "#fbbf24", "#dc2626", "#7c3aed", "#0284c7", "#16a34a"];
+static const PIECES = 80;
+
 <let/count=0>
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8"/>
-    <title>Yours now</title>
+    <title>Congratulations!</title>
   </head>
   <body>
-    <h1>Hello, Marko developer</h1>
+    <style>
+      body { font-family: system-ui, sans-serif; text-align: center; padding-top: 10vh; overflow: hidden; }
+      h1 { font-size: 2.4rem; }
+      .confetti {
+        position: fixed;
+        top: -14px;
+        width: 10px;
+        height: 14px;
+        pointer-events: none;
+      }
+      /* Two identical animations: switching an element's animation-name
+         restarts its animation — that's how the encore button replays
+         the shower without any DOM tricks. */
+      @keyframes fall0 {
+        to { transform: translateY(105vh) rotate(720deg); opacity: 0.4; }
+      }
+      @keyframes fall1 {
+        to { transform: translateY(105vh) rotate(720deg); opacity: 0.4; }
+      }
+      button { font-size: 1rem; padding: 8px 18px; margin-top: 12px; }
+    </style>
+
+    <h1>🎉 Congratulations!</h1>
+    <p>72 lessons. Five parts. One framework, fully in your hands.</p>
+    <p>You've built streaming pages, reactive components, bound forms,
+       routed apps, and APIs — and you can read every line of the
+       confetti falling right now, because it's just Marko: a
+       <code>&lt;for&gt;</code>, dynamic style attributes, and a
+       <code>&lt;let&gt;</code> counting encores.</p>
     <button onClick() { count++ }>
-      You've clicked ${count} times, and you know exactly why that works.
+      More confetti! (${count} encores)
     </button>
+
+    <for|n| of=Array.from({ length: PIECES }, (_, i) => i)>
+      <div
+        class="confetti"
+        style=`left:${(n * 37) % 100}vw;background:${COLORS[n % COLORS.length]};animation:fall${count % 2} ${2.5 + ((n * 13) % 20) / 10}s linear ${((n * 7) % 25) / 10}s forwards`
+      ></div>
+    </for>
   </body>
 </html>
