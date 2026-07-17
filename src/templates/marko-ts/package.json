@@ -1,0 +1,28 @@
+{
+  "name": "marko-ts-template",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "marko-run dev --port 3000",
+    "build": "marko-run build",
+    "preview": "marko-run preview",
+    "check": "mtc",
+    "format": "prettier --write \"src/**/*.marko\""
+  },
+  "dependencies": {
+    "@marko/run": "^0.11.5",
+    "marko": "^6.3.14"
+  },
+  "devDependencies": {
+    "@marko/language-tools": "^2.6.4",
+    "@marko/type-check": "3.1.2",
+    "prettier": "^3.9.5",
+    "prettier-plugin-marko": "^4.0.10",
+    "vite": "^8.1.5"
+  },
+  "prettier": {
+    "plugins": [
+      "prettier-plugin-marko"
+    ]
+  }
+}

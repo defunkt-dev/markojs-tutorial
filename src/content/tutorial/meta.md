@@ -7,5 +7,9 @@ template: marko-run
 previews: [3000]
 downloadAsZip: true
 terminal:
-  panels: ['output', 'terminal']
+  panels:
+    - output
+    - type: terminal
+      id: cli
+      title: Terminal
 ---

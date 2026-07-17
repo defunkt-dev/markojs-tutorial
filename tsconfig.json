@@ -12,6 +12,7 @@
   },
   "exclude": [
     "dist",
-    "src/templates"
+    "src/templates",
+    "src/content/tutorial"
   ]
 }

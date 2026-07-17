@@ -1,0 +1,12 @@
+export interface Input<T> {
+  options: T[];
+  onSelect: (newVal: T) => unknown;
+}
+
+<select onInput(evt) {
+  input.onSelect(input.options[(evt.target as HTMLSelectElement).selectedIndex])
+}>
+  <for|value, i| of=input.options>
+    <option value=i>${value}</option>
+  </for>
+</select>

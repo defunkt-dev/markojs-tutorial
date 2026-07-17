@@ -1,0 +1,8 @@
+export interface Input {
+  to: number;
+  content: Marko.Body<[number]>;
+}
+
+<for|i| from=1 to=input.to>
+  <${input.content}(i)/>
+</for>

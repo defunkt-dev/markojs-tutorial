@@ -1,0 +1,9 @@
+export interface Input extends Marko.HTML.Button {
+  color: string;
+}
+
+<const/{ color, ...attrs }=input>
+
+<button style=`color: ${color}` ...attrs>
+  Order now
+</button>

@@ -1,0 +1,48 @@
+diff --git a/node_modules/@tutorialkit/runtime/dist/store/terminal.js b/node_modules/@tutorialkit/runtime/dist/store/terminal.js
+index 31edbb5..1d42e84 100644
+--- a/node_modules/@tutorialkit/runtime/dist/store/terminal.js
++++ b/node_modules/@tutorialkit/runtime/dist/store/terminal.js
+@@ -30,12 +30,19 @@ export class TerminalStore {
+         // iterate over the old terminal config and make a list of all terminal panels
+         const panelMap = new Map(oldTerminalConfig.panels.map((panel) => [panel.id, panel]));
+         // iterate over the new terminal panels and try to re-use the old terminal with the new panel
+-        for (const panel of newTerminalConfig.panels) {
++        const newPanels = newTerminalConfig.panels;
++        for (let i = 0; i < newPanels.length; i++) {
++            let panel = newPanels[i];
+             const oldPanel = panelMap.get(panel.id);
+             panelMap.delete(panel.id);
+-            if (oldPanel?.terminal) {
+-                // if we found a previous panel with the same id, attach that terminal to the new panel
+-                panel.attachTerminal(oldPanel.terminal);
++            if (oldPanel) {
++                // if we found a previous panel with the same id, carry the OLD panel object into the
++                // new config. The old panel is what the JSH process pipes its output to and what holds
++                // the stored input handler, so keeping the object (instead of copying its terminal
++                // onto a fresh panel) keeps both directions wired across lesson navigations AND
++                // across xterm remounts (attachTerminal re-registers the stored onData handler).
++                newPanels[i] = oldPanel;
++                panel = oldPanel;
+             }
+             if (panel.type === 'output') {
+                 this._output = panel;
+diff --git a/node_modules/@tutorialkit/runtime/dist/webcontainer/terminal-config.js b/node_modules/@tutorialkit/runtime/dist/webcontainer/terminal-config.js
+index 6a20f65..f4481b3 100644
+--- a/node_modules/@tutorialkit/runtime/dist/webcontainer/terminal-config.js
++++ b/node_modules/@tutorialkit/runtime/dist/webcontainer/terminal-config.js
+@@ -111,12 +111,12 @@ export class TerminalPanel {
+         }
+     }
+     onData(callback) {
++        // always remember the handler so a re-attached terminal (e.g. after the React island
++        // remounts on navigation) can be re-wired to the same process input
++        this._onData = callback;
+         if (this._terminal) {
+             this._terminal.onData(callback);
+         }
+-        else {
+-            this._onData = callback;
+-        }
+     }
+     // #endregion
+     /**

@@ -1,0 +1,11 @@
+export interface Input {
+  item: Marko.AttrTag<{ label: string; done?: boolean }>;
+}
+
+<ul class="features">
+  <for|item| of=input.item>
+    <li class={ done: item.done }>
+      ${item.done ? "✓" : "•"} ${item.label}
+    </li>
+  </for>
+</ul>

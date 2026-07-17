@@ -1,0 +1,8 @@
+<let/status="pick something">
+
+<h1>Generic Selects</h1>
+
+<my-select options=[1, 2, 3] onSelect(v) { status = `double: ${v * 2}` }/>
+<my-select options=["M", "K", "O"] onSelect(v) { status = v.toUpperCase() }/>
+
+<p>Status: ${status}</p>

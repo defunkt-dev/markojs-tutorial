@@ -1,0 +1,8 @@
+export interface Input {
+  label: string;
+  amount: number;
+}
+
+<const/withTax=input.amount * 1.1>
+
+<p class="price">${input.label}: ${withTax.toFixed(2)}</p>
