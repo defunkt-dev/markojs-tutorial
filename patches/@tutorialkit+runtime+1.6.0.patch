@@ -1,5 +1,38 @@
+diff --git a/node_modules/@tutorialkit/runtime/dist/store/index.js b/node_modules/@tutorialkit/runtime/dist/store/index.js
+index a0d73ec..21a9a77 100644
+--- a/node_modules/@tutorialkit/runtime/dist/store/index.js
++++ b/node_modules/@tutorialkit/runtime/dist/store/index.js
+@@ -293,10 +293,25 @@ export class TutorialStore {
+         this._terminalStore.attachTerminal(id, terminal);
+     }
+     /** Callback that should be called when terminal resizes */
+-    onTerminalResize(cols, rows) {
++    onTerminalResize(cols, rows, id) {
+         if (cols && rows) {
+-            this._terminalStore.onTerminalResize(cols, rows);
+-            this._runner.onTerminalResize(cols, rows);
++            // `id` names the panel that reported the resize and MUST be forwarded: the
++            // terminal store uses it to resize that panel's process only, and to mark the
++            // panel as measured -- and the measurement is what releases the panel's
++            // deferred JSH spawn. This method's signature took only (cols, rows), so the id
++            // the caller passed was silently dropped here, no panel was ever marked
++            // measured, and the interactive terminal sat there with a live xterm and no
++            // shell behind it: a blinking cursor that swallowed every keystroke.
++            this._terminalStore.onTerminalResize(cols, rows, id);
++            // The runner's current command process is piped into the OUTPUT panel, so only
++            // the output panel's geometry may resize it. Otherwise the interactive
++            // terminal's dimensions get pushed onto the dev server's PTY behind its back.
++            const reporter = id === undefined
++                ? undefined
++                : this._terminalStore.terminalConfig.get().panels.find((panel) => panel.id === id);
++            if (!reporter || reporter.type === 'output') {
++                this._runner.onTerminalResize(cols, rows);
++            }
+         }
+     }
+     /** Listen for file changes made in the editor */
 diff --git a/node_modules/@tutorialkit/runtime/dist/store/terminal.js b/node_modules/@tutorialkit/runtime/dist/store/terminal.js
-index 31edbb5..1537d26 100644
+index 31edbb5..c8045df 100644
 --- a/node_modules/@tutorialkit/runtime/dist/store/terminal.js
 +++ b/node_modules/@tutorialkit/runtime/dist/store/terminal.js
 @@ -11,6 +11,7 @@ export class TerminalStore {
@@ -67,12 +100,16 @@ index 31edbb5..1537d26 100644
              panel.process?.kill();
          }
          this.terminalConfig.set(newTerminalConfig);
-@@ -69,12 +82,51 @@ export class TerminalStore {
+@@ -69,12 +82,55 @@ export class TerminalStore {
              // if we don't have a panel with the provided id, just exit
              return;
          }
 +        console.log('%c[tk-diag]', 'color:#0891b2', 'attachTerminal', id, `${terminal.cols}x${terminal.rows}`, { hadTerminal: !!panel.terminal, hasProcess: !!panel.process });
          panel.attachTerminal(terminal);
++        // A deferred spawn needs both a terminal and a measurement; either can arrive last.
++        // The resize path calls this too -- whichever completes the pair wins, and the
++        // pending set makes the loser a no-op.
++        this._maybeSpawn(panel);
      }
 -    onTerminalResize(cols, rows) {
 -        // iterate over all terminal panels and resize all processes
