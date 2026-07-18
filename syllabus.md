@@ -7,7 +7,7 @@ under `src/content/tutorial/`.
 Legend: **[✓]** shipped · **[P5]** planned for part 5 · **[v2]** second
 edition shelf · **[—]** deliberately excluded (with reason).
 
-## Lesson Tree (96 lessons)
+## Lesson Tree (99 lessons)
 
 ### Part 1 — Fundamentals (16)
 - 1-first-steps: 1-welcome · 2-templates-are-html · 3-dynamic-text ·
@@ -64,11 +64,11 @@ edition shelf · **[—]** deliberately excluded (with reason).
 - 3-publishing (4): 1-the-shape-of-a-tag-library · 2-building-with-mtc ·
   3-consuming-your-package · 4-shipping-it-for-real
 
-### Part 7 — Putting It Together (3, IN PROGRESS)
+### Part 7 — Putting It Together (6, IN PROGRESS)
 - 1-colour-picker: 1-the-shape · 2-making-it-live · 3-polish **[✓]**
-- _planned:_ 2-tic-tac-toe (3 stages), 3-todomvc (3 stages) — each
-  skeleton → state → polish, on the marko-run template, assembling
-  already-shipped patterns (no new concepts).
+- 2-tic-tac-toe: 1-the-grid · 2-taking-turns · 3-winning **[✓]**
+- _planned:_ 3-todomvc (3 stages) — skeleton → state → polish, on the
+  marko-run template, assembling already-shipped patterns (no new concepts).
 
 ## Topic Index
 

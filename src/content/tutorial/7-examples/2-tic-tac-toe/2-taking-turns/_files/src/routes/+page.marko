@@ -1,0 +1,19 @@
+static const board = ["", "", "", "", "", "", "", "", ""];
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Tic-Tac-Toe</title>
+  </head>
+  <body>
+    <h1>Tic-Tac-Toe</h1>
+    <div style="display:grid;grid-template-columns:repeat(3, 64px);gap:4px">
+      <for|cell| of=board>
+        <button style="width:64px;height:64px;font-size:24px">${cell}</button>
+      </for>
+    </div>
+    <p>X's turn</p>
+    <button>Reset</button>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+static const LINES = [
+  [0, 1, 2], [3, 4, 5], [6, 7, 8],
+  [0, 3, 6], [1, 4, 7], [2, 5, 8],
+  [0, 4, 8], [2, 4, 6],
+];
+
+static const winningLine = (b) => {
+  for (const line of LINES) {
+    const [x, y, z] = line;
+    if (b[x] && b[x] === b[y] && b[x] === b[z]) return line;
+  }
+  return null;
+};
+
+static const nextPlayer = (b) => (b.filter((c) => c).length % 2 === 0 ? "X" : "O");
+static const isOver = (b) => winningLine(b) != null || b.every((c) => c);
+static const cellColor = (mark) => (mark === "X" ? "#cc0067" : "#2563eb");
+
+static const statusOf = (b) => {
+  const line = winningLine(b);
+  if (line) return b[line[0]] + " wins!";
+  if (b.every((c) => c)) return "It's a draw";
+  return nextPlayer(b) + "'s turn";
+};
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Tic-Tac-Toe</title>
+  </head>
+  <body>
+    <let/board=["", "", "", "", "", "", "", "", ""]>
+    <const/line=winningLine(board)>
+    <const/player=nextPlayer(board)>
+    <const/over=isOver(board)>
+    <h1>Tic-Tac-Toe</h1>
+    <div style="display:grid;grid-template-columns:repeat(3, 64px);gap:4px">
+      <for|cell, i| of=board>
+        <button
+          style=`width:64px;height:64px;font-size:28px;font-weight:700;color:${cellColor(cell)};background:${line?.includes(i) ? "#bbf7d0" : "white"};border:1px solid #cbd5e1;border-radius:8px;cursor:${cell || over ? "default" : "pointer"}`
+          onClick() { if (!cell && !over) board = board.map((c, idx) => (idx === i ? player : c)) }
+        >
+          ${cell}
+        </button>
+      </for>
+    </div>
+    <p style="font-size:18px;font-weight:600">${statusOf(board)}</p>
+    <button onClick() { board = ["", "", "", "", "", "", "", "", ""] }>Reset</button>
+  </body>
+</html>
