@@ -1,0 +1,77 @@
+---
+/**
+ * Custom top bar.
+ *
+ * Reproduces TutorialKit's default `TopBar` (the nav + its five named slots,
+ * kept byte-identical so desktop is unchanged) and adds a mobile-only notice
+ * above it. Wired in via the `components.TopBar` override in `astro.config.ts`.
+ *
+ * The notice is `display: none` by default and only appears under the mobile
+ * breakpoint, so desktop rendering is completely unaffected. Its styles are
+ * self-contained plain CSS (no dependency on the utility/theme pipeline), and
+ * it sits as the first flex child of the `flex flex-col` main container, so it
+ * simply adds height at the very top on small screens.
+ */
+---
+
+<div class="tk-mobile-notice" role="note">
+  <strong>Best viewed on desktop</strong>
+  <span>Mobile Friendly tutorial coming soon!</span>
+</div>
+
+<nav
+  class="bg-tk-elements-topBar-backgroundColor transition-theme border-b border-tk-elements-app-borderColor flex max-w-full items-center p-3 px-4 min-h-[56px]"
+>
+  <div class="flex flex-1">
+    <slot name="logo" />
+  </div>
+
+  <div class="mr-2">
+    <slot name="download-button" />
+  </div>
+  <div class="mr-2">
+    <slot name="open-in-stackblitz-link" />
+  </div>
+  <div>
+    <slot name="theme-switch" />
+  </div>
+  <div>
+    <slot name="login-button" />
+  </div>
+</nav>
+
+<style>
+  /* Hidden on desktop; the tutorial UI is unchanged there. */
+  .tk-mobile-notice {
+    display: none;
+  }
+
+  /* Shown only on small screens (phones / small tablets). Tune the breakpoint
+     here if you want it to appear on larger widths too. */
+  @media (max-width: 768px) {
+    .tk-mobile-notice {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      padding: 8px 14px;
+      text-align: center;
+      line-height: 1.3;
+      color: #FFF;
+      background-image: linear-gradient(to bottom, #cc0067, #ff5467);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    .tk-mobile-notice strong {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .tk-mobile-notice span {
+      font-size: 12px;
+      font-weight: 500;
+      opacity: 0.9;
+    }
+  }
+</style>

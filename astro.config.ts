@@ -5,7 +5,16 @@ export default defineConfig({
   devToolbar: {
     enabled: false,
   },
-  integrations: [tutorialkit()],
+  integrations: [
+    tutorialkit({
+      components: {
+        // Override the default top bar to add a mobile-only "best viewed on
+        // desktop" notice. The custom component reproduces the default top bar
+        // exactly (via the named slots), so desktop is unchanged.
+        TopBar: './src/components/CustomTopBar.astro',
+      },
+    }),
+  ],
   vite: {
     optimizeDeps: {
       // codemirror-lang-marko is a local file: package under active
