@@ -7,15 +7,15 @@ under `src/content/tutorial/`.
 Legend: **[✓]** shipped · **[P5]** planned for part 5 · **[v2]** second
 edition shelf · **[—]** deliberately excluded (with reason).
 
-## Lesson Tree (102 lessons)
+## Lesson Tree (103 lessons)
 
-### Part 1 — Fundamentals (16)
+### Part 1 — Fundamentals (17)
 - 1-first-steps: 1-welcome · 2-templates-are-html · 3-dynamic-text ·
   4-unescaped-text · 5-attributes-are-javascript · 6-attribute-shorthands
 - 2-your-first-tags: 1-your-first-custom-tag · 2-passing-data ·
   3-tag-content · 4-dynamic-tags
 - 3-styling: 1-style-blocks · 2-less · 3-css-modules · 4-styles-in-files ·
-  5-dynamic-styles · 6-tailwind
+  5-dynamic-styles · 6-tailwind · 7-scss
 
 ### Part 2 — Reactivity (15)
 - 1-state: 1-the-let-tag · 2-handling-events · 3-derived-values ·
