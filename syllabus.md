@@ -7,7 +7,7 @@ under `src/content/tutorial/`.
 Legend: **[✓]** shipped · **[P5]** planned for part 5 · **[v2]** second
 edition shelf · **[—]** deliberately excluded (with reason).
 
-## Lesson Tree (84 lessons)
+## Lesson Tree (88 lessons)
 
 ### Part 1 — Fundamentals (16)
 - 1-first-steps: 1-welcome · 2-templates-are-html · 3-dynamic-text ·
@@ -52,14 +52,14 @@ edition shelf · **[—]** deliberately excluded (with reason).
   2-errors-and-special-pages · 3-api-routes ·
   4-plugin-options-and-cdn-assets · 5-where-to-go-next
 
-### Part 6 — Tooling: TypeScript, Testing & Publishing (11 of 19) **[v2 batch]**
+### Part 6 — Tooling: TypeScript, Testing & Publishing (15 of 19) **[v2 batch]**
 - 1-typescript (8): 1-enabling-typescript · 2-typing-input ·
   3-typing-content · 4-typing-attribute-tags · 5-extending-native-tags ·
   6-generics · 7-typed-routes · 8-augmenting-and-extracting
-- 2-tooling (3 of 7): 1-formatting-with-prettier ·
+- 2-tooling (7): 1-formatting-with-prettier ·
   2-your-first-component-test · 3-testing-interactions ·
-  *(not built: storybook · stories-as-fixtures · e2e-with-playwright ·
-  editors-and-linting)*
+  4-storybook-for-marko · 5-stories-as-fixtures ·
+  6-end-to-end-tests-with-playwright · 7-editors-linting-and-the-toolbelt
 - 3-publishing (0 of 4) — not built
 
 ## Topic Index
@@ -171,7 +171,12 @@ edition shelf · **[—]** deliberately excluded (with reason).
   env/dotenv, connect-style apps **[v2]** (advanced marko-run)
 - Prettier + `prettier-plugin-marko`; `--marko-syntax` conversion **[✓]**
   6/2/1 · Component testing: `@marko/testing-library`, vitest, jsdom,
-  `render`/`screen`/`fireEvent` **[✓]** 6/2/2, 6/2/3
+  `render`/`screen`/`fireEvent` **[✓]** 6/2/2, 6/2/3 · Storybook + CSF,
+  args, `composeStories` **[✓]** 6/2/4, 6/2/5 · Playwright e2e:
+  `webServer`, SSR vs hydrated assertions, console-error gate **[✓]**
+  6/2/6 (runs on download — WebContainers cannot launch browsers) ·
+  ESLint flat config + `flat/marko` preset; language server; repo roster
+  **[✓]** 6/2/7
 - API routes **[✓]** 5/3/3 · Adapters, embedding (`Run.fetch`/`match`/
   `invoke`), typed URLs **[✓-pointer]** 5/3/5 (depth **[v2]**)
 

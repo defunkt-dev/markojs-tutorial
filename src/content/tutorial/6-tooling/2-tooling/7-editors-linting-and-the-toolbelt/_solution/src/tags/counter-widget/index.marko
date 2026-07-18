@@ -1,0 +1,11 @@
+export interface Input {
+  start?: number;
+  label?: string;
+}
+
+<let/count=input.start ?? 0>
+<button onClick() {
+  count++;
+}>
+  ${input.label ?? "Count"} is ${count}
+</button>
