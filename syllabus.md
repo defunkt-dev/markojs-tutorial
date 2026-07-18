@@ -7,7 +7,7 @@ under `src/content/tutorial/`.
 Legend: **[✓]** shipped · **[P5]** planned for part 5 · **[v2]** second
 edition shelf · **[—]** deliberately excluded (with reason).
 
-## Lesson Tree (92 lessons)
+## Lesson Tree (93 lessons)
 
 ### Part 1 — Fundamentals (16)
 - 1-first-steps: 1-welcome · 2-templates-are-html · 3-dynamic-text ·
@@ -17,13 +17,14 @@ edition shelf · **[—]** deliberately excluded (with reason).
 - 3-styling: 1-style-blocks · 2-less · 3-css-modules · 4-styles-in-files ·
   5-dynamic-styles · 6-tailwind
 
-### Part 2 — Reactivity (14)
+### Part 2 — Reactivity (15)
 - 1-state: 1-the-let-tag · 2-handling-events · 3-derived-values ·
   4-objects-and-arrays · 5-inspecting-state
 - 2-inputs-and-binding: 1-reading-inputs · 2-two-way-binding ·
   3-checkboxes-and-radios · 4-selects · 5-transforming-bound-values ·
   6-binding-your-own-tags · 7-details-and-dialogs
-- 3-under-the-hood: 1-effects-and-cleanup · 2-how-reactivity-works
+- 3-under-the-hood: 1-effects-and-cleanup · 2-how-reactivity-works ·
+  3-two-programs-from-one-template
 
 ### Part 3 — Control Flow, Lists & Async (11)
 - 1-conditionals: 1-if-and-else · 2-show
@@ -191,10 +192,12 @@ edition shelf · **[—]** deliberately excluded (with reason).
 
 ### Explanations (docs/explanation)
 - immutable-state **[✓]** distributed: 2/1/4, 2/3/2, 3/2/4
-- targeted-compilation **[✓-half]** 2/3/2 (graph); platform-output half →
-  reading list 5/3/5
-- fine-grained-bundling, separation-of-concerns, streaming,
-  why-is-marko-fast, optimizing-performance **[✓-pointer]** 5/3/5 reading
+- targeted-compilation **[✓]** 2/3/2 (the compile-time graph) + 2/3/3
+  (the platform outputs: `compileFile` html vs dom, `$template` + `$walks`)
+- fine-grained-bundling **[✓-half]** 2/3/3 (why a static tag ships no
+  walk and no runtime); depth → 5/3/5 reading list
+- separation-of-concerns, streaming, why-is-marko-fast,
+  optimizing-performance **[✓-pointer]** 5/3/5 reading
   list · controllable-components **[✓]** part 2 ch2 ·
   nested-reactivity **[✓]** 3/2/4 · serializable-state **[✓]** 5/3/1 ·
   class-vs-tags-api **[✓]** 4/4/4 · let-vs-const **[✓]** 2/1/3

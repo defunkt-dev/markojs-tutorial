@@ -1,0 +1,9 @@
+<let/count=0>
+<button onClick() {
+  count++;
+}>
+  ${input.label} — ${count} in cart
+  <if=count > 2>
+    <strong>Bulk discount!</strong>
+  </if>
+</button>
