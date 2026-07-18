@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "tsBuildInfoFile": "./tsconfig.tags.tsbuildinfo"
+  },
+  "include": ["src/tags/**/*.marko", "src/tags/**/*.ts"]
+}

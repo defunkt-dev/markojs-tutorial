@@ -1,0 +1,13 @@
+import { labelFor } from "./options";
+
+export interface Input {
+  kind: Kind;
+  content?: Marko.Body;
+}
+
+import type { Kind } from "./options";
+
+<span class=`badge badge--${input.kind}`>
+  ${labelFor(input.kind)}
+  <if=input.content><${input.content}/></if>
+</span>

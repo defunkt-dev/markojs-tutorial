@@ -1,0 +1,9 @@
+export interface Input {
+  kind: "new" | "sale";
+  content?: Marko.Body;
+}
+
+<span class=`badge badge--${input.kind}`>
+  ${input.kind === "new" ? "NEW" : "SALE"}
+  <if=input.content><${input.content}/></if>
+</span>

@@ -7,7 +7,7 @@ under `src/content/tutorial/`.
 Legend: **[✓]** shipped · **[P5]** planned for part 5 · **[v2]** second
 edition shelf · **[—]** deliberately excluded (with reason).
 
-## Lesson Tree (88 lessons)
+## Lesson Tree (92 lessons)
 
 ### Part 1 — Fundamentals (16)
 - 1-first-steps: 1-welcome · 2-templates-are-html · 3-dynamic-text ·
@@ -52,7 +52,7 @@ edition shelf · **[—]** deliberately excluded (with reason).
   2-errors-and-special-pages · 3-api-routes ·
   4-plugin-options-and-cdn-assets · 5-where-to-go-next
 
-### Part 6 — Tooling: TypeScript, Testing & Publishing (15 of 19) **[v2 batch]**
+### Part 6 — Tooling: TypeScript, Testing & Publishing (19) **[v2 batch]**
 - 1-typescript (8): 1-enabling-typescript · 2-typing-input ·
   3-typing-content · 4-typing-attribute-tags · 5-extending-native-tags ·
   6-generics · 7-typed-routes · 8-augmenting-and-extracting
@@ -60,7 +60,8 @@ edition shelf · **[—]** deliberately excluded (with reason).
   2-your-first-component-test · 3-testing-interactions ·
   4-storybook-for-marko · 5-stories-as-fixtures ·
   6-end-to-end-tests-with-playwright · 7-editors-linting-and-the-toolbelt
-- 3-publishing (0 of 4) — not built
+- 3-publishing (4): 1-the-shape-of-a-tag-library · 2-building-with-mtc ·
+  3-consuming-your-package · 4-shipping-it-for-real
 
 ## Topic Index
 
@@ -177,6 +178,14 @@ edition shelf · **[—]** deliberately excluded (with reason).
   6/2/6 (runs on download — WebContainers cannot launch browsers) ·
   ESLint flat config + `flat/marko` preset; language server; repo roster
   **[✓]** 6/2/7
+- Library shape: `src/tags`, `marko.json` `exports` (vs `tags-dir`,
+  `script-lang`), prefix collisions, private nested tags **[✓]** 6/3/1 ·
+  `mtc` emit mode: stripped `.marko` + generated `.d.marko`, import
+  rewriting, the buildinfo-inside-dist rule **[✓]** 6/3/2 · Consuming a
+  packed tarball: bare-name discovery of an installed package, published
+  types in the consumer's checker **[✓]** 6/3/3 · `files`, `pnpm pack`,
+  `sideEffects: ["**/*.marko"]`, the `"./dist/tags/*"` export, `pnpm pack`
+  vs `npm pack` **[✓]** 6/3/4 · `npm publish` itself **[✓-pointer]** 6/3/4
 - API routes **[✓]** 5/3/3 · Adapters, embedding (`Run.fetch`/`match`/
   `invoke`), typed URLs **[✓-pointer]** 5/3/5 (depth **[v2]**)
 

@@ -1,0 +1,21 @@
+{
+  "name": "marko-consumer-template",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "marko-run dev --port 3000",
+    "build": "marko-run build",
+    "preview": "marko-run preview",
+    "check": "mtc"
+  },
+  "dependencies": {
+    "@marko/run": "^0.11.5",
+    "marko": "^6.3.14",
+    "marko-fancy": "file:./marko-fancy-0.0.1.tgz"
+  },
+  "devDependencies": {
+    "@marko/language-tools": "^2.6.4",
+    "@marko/type-check": "3.1.2",
+    "vite": "^8.1.5"
+  }
+}
