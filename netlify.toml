@@ -1,0 +1,20 @@
+# Netlify deployment config for the Marko tutorial (a TutorialKit/Astro site).
+#
+# The one thing that is NOT optional here: the two Cross-Origin-* headers.
+# TutorialKit runs each lesson inside a WebContainer, and WebContainers
+# require the page to be "cross-origin isolated" — which the browser only
+# grants when these two headers are present. TutorialKit sets them on its DEV
+# server automatically, but a production build is static files with no server,
+# so the HOST must send them. Without these, the site loads, the prose shows,
+# and every lesson's terminal/preview silently fails to boot. This file is how
+# Netlify supplies them.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cross-Origin-Embedder-Policy = "require-corp"
+    Cross-Origin-Opener-Policy = "same-origin"
