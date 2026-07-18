@@ -1,0 +1,71 @@
+# Tutorial harness checks — the sidecar that replaces the old `harness:`
+# frontmatter block. Keyed by lesson path under src/content/tutorial (the same
+# path `node scripts/harness/verify.mjs --list` prints). The value under each
+# key is exactly what used to live under `harness:` in a lesson's content.md.
+#
+# This file lives OUTSIDE src/content on purpose: Astro's content-collection
+# schema rejects unknown frontmatter keys, and a `harness:` block there broke
+# the production site build (session 4 O32). Here, Astro never sees it.
+#
+# A lesson with no entry is still built (both _files and _solution must
+# compile) and reported BUILD-ONLY. See README.md for the full check vocabulary.
+
+# ---- Part 7: Colour Picker ----
+7-examples/1-colour-picker/1-the-shape:
+  ssr:
+    _files: "Colour Picker"
+    _solution: "rgb(128, 128, 128)"
+7-examples/1-colour-picker/2-making-it-live:
+  ssr:
+    _files: "rgb(128, 128, 128)"
+    _solution: "rgb(128, 128, 128)"
+7-examples/1-colour-picker/3-polish:
+  ssr:
+    _files: "rgb(128, 128, 128)"
+    _solution: "#808080"
+
+# ---- Part 7: Tic-Tac-Toe ----
+7-examples/2-tic-tac-toe/1-the-grid:
+  ssr:
+    _files: "Tic-Tac-Toe"
+    _solution: "X's turn"
+7-examples/2-tic-tac-toe/2-taking-turns:
+  ssr:
+    _files: "X's turn"
+    _solution: "X's turn"
+7-examples/2-tic-tac-toe/3-winning:
+  ssr:
+    _files: "X's turn"
+    _solution: "X's turn"
+
+# ---- Part 7: TodoMVC ----
+7-examples/3-todomvc/1-list-and-item:
+  ssr:
+    _files: "todos"
+    _solution: "Learn Marko"
+7-examples/3-todomvc/2-add-toggle-remove:
+  ssr:
+    _files: "Learn Marko"
+    _solution: "Learn Marko"
+7-examples/3-todomvc/3-filtering:
+  ssr:
+    _files: "Learn Marko"
+    _solution: "Learn Marko"
+
+# ---- Part 4: lessons whose _files is a PLANTED compile error the learner fixes ----
+# (both _solutions build; the harness verifies the broken state stays broken,
+#  the build-time twin of a red test state)
+4-components-in-depth/3-discovery-and-dynamic-components/1-discovery-in-full:
+  build:
+    _files: fail       # <fancy-divider> is in src/shared/, which isn't auto-discovered
+    _solution: pass
+4-components-in-depth/4-module-level-and-escape-hatches/3-escape-hatches:
+  build:
+    _files: fail       # JSON-LD in a raw <script> — Marko parses the block as JS
+    _solution: pass
+
+# ---- Part 1: Styling — SCSS (uses the marko-scss template) ----
+1-fundamentals/3-styling/7-scss:
+  ssr:
+    _files: "Release Notes"
+    _solution: "Release Notes"

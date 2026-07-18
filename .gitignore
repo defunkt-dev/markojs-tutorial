@@ -9,3 +9,5 @@ pnpm-debug.log*
 .env.production
 .DS_Store
 .idea
+# Verification harness scratch dirs (scripts/harness/verify.mjs --keep)
+.harness-scratch/

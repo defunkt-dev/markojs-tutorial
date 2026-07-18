@@ -9,7 +9,8 @@
     "dev": "astro dev",
     "preview": "astro preview",
     "start": "astro dev",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "verify": "node scripts/harness/verify.mjs"
   },
   "dependencies": {
     "@tutorialkit/react": "1.6.0",
@@ -28,6 +29,7 @@
     "astro": "^4.15.0",
     "patch-package": "^8.0.1",
     "prettier-plugin-astro": "^0.14.1",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "yaml": "^2.5.0"
   }
 }
