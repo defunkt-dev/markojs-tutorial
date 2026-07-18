@@ -7,7 +7,7 @@ under `src/content/tutorial/`.
 Legend: **[✓]** shipped · **[P5]** planned for part 5 · **[v2]** second
 edition shelf · **[—]** deliberately excluded (with reason).
 
-## Lesson Tree (72 lessons)
+## Lesson Tree (84 lessons)
 
 ### Part 1 — Fundamentals (16)
 - 1-first-steps: 1-welcome · 2-templates-are-html · 3-dynamic-text ·
@@ -42,14 +42,25 @@ edition shelf · **[—]** deliberately excluded (with reason).
 - 4-module-level-and-escape-hatches: 1-module-level-code ·
   2-the-lifecycle-tag · 3-escape-hatches · 4-coming-from-marko-5
 
-### Part 5 — Building Apps with marko-run (14)
+### Part 5 — Building Apps with marko-run (15)
 - 1-pages-and-routing: 1-your-first-routes · 2-layouts · 3-dynamic-routes ·
   4-route-organization
 - 2-data-and-handlers: 1-handlers-and-the-context · 2-loading-data ·
   3-validating-params-and-search · 4-request-bodies-and-forms ·
   5-middleware · 6-route-metadata
 - 3-the-full-picture: 1-globals-and-serialization ·
-  2-errors-and-special-pages · 3-api-routes · 4-where-to-go-next
+  2-errors-and-special-pages · 3-api-routes ·
+  4-plugin-options-and-cdn-assets · 5-where-to-go-next
+
+### Part 6 — Tooling: TypeScript, Testing & Publishing (11 of 19) **[v2 batch]**
+- 1-typescript (8): 1-enabling-typescript · 2-typing-input ·
+  3-typing-content · 4-typing-attribute-tags · 5-extending-native-tags ·
+  6-generics · 7-typed-routes · 8-augmenting-and-extracting
+- 2-tooling (3 of 7): 1-formatting-with-prettier ·
+  2-your-first-component-test · 3-testing-interactions ·
+  *(not built: storybook · stories-as-fixtures · e2e-with-playwright ·
+  editors-and-linting)*
+- 3-publishing (0 of 4) — not built
 
 ## Topic Index
 
@@ -155,15 +166,21 @@ edition shelf · **[—]** deliberately excluded (with reason).
   merges) **[✓]** 5/2/6
 - `+404`/`+500` (pipeline errors only — render errors are `<try>`'s job,
   verified), `redirect`/`back` **[✓]** 5/3/2
+- Plugin options: `routesDir`, `basePathVar`, `trailingSlashes`; CDN asset
+  base paths **[✓]** 5/3/4 · `linked`, `runtimeId`, `babelConfig`,
+  env/dotenv, connect-style apps **[v2]** (advanced marko-run)
+- Prettier + `prettier-plugin-marko`; `--marko-syntax` conversion **[✓]**
+  6/2/1 · Component testing: `@marko/testing-library`, vitest, jsdom,
+  `render`/`screen`/`fireEvent` **[✓]** 6/2/2, 6/2/3
 - API routes **[✓]** 5/3/3 · Adapters, embedding (`Run.fetch`/`match`/
-  `invoke`), typed URLs **[✓-pointer]** 5/3/4 (depth **[v2]**)
+  `invoke`), typed URLs **[✓-pointer]** 5/3/5 (depth **[v2]**)
 
 ### Explanations (docs/explanation)
 - immutable-state **[✓]** distributed: 2/1/4, 2/3/2, 3/2/4
 - targeted-compilation **[✓-half]** 2/3/2 (graph); platform-output half →
-  reading list 5/3/4
+  reading list 5/3/5
 - fine-grained-bundling, separation-of-concerns, streaming,
-  why-is-marko-fast, optimizing-performance **[✓-pointer]** 5/3/4 reading
+  why-is-marko-fast, optimizing-performance **[✓-pointer]** 5/3/5 reading
   list · controllable-components **[✓]** part 2 ch2 ·
   nested-reactivity **[✓]** 3/2/4 · serializable-state **[✓]** 5/3/1 ·
   class-vs-tags-api **[✓]** 4/4/4 · let-vs-const **[✓]** 2/1/3

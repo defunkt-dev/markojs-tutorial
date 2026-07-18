@@ -1,0 +1,31 @@
+{
+  "name": "marko-testing-template",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "marko-run dev --port 3000",
+    "build": "marko-run build",
+    "preview": "marko-run preview",
+    "test": "vitest run",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@marko/run": "^0.11.5",
+    "marko": "^6.3.14"
+  },
+  "devDependencies": {
+    "@marko/compiler": "^5.41.2",
+    "@marko/testing-library": "^6.4.2",
+    "@marko/vite": "^6.1.6",
+    "@playwright/test": "^1.61.1",
+    "@storybook/marko": "^10.1.0",
+    "eslint": "^10.7.0",
+    "eslint-plugin-testing-library": "^7.16.2",
+    "jsdom": "^29.1.1",
+    "storybook": "^10.5.2",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.64.0",
+    "vite": "^8.1.5",
+    "vitest": "^4.1.10"
+  }
+}

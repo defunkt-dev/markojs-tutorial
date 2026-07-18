@@ -1,0 +1,14 @@
+export interface Input { label: string; total: number; items: string[] }
+
+<let/open = false />
+<div class="card">
+<button onClick() { open = !open }>${input.label} — ${input.items.length} items</button>
+      <if=open>
+  <ul>
+<for|item| of=input.items>
+      <li>${item}</li>
+   </for>
+  </ul>
+        <p>Total: $${input.total.toFixed(2)}</p>
+      </if>
+</div>
