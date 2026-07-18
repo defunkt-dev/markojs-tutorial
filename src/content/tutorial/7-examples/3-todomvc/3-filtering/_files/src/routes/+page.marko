@@ -1,0 +1,31 @@
+static const countLeft = (list) => list.filter((t) => !t.done).length;
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Todos</title>
+  </head>
+  <body>
+    <let/todos=[
+      { id: 1, text: "Learn Marko", done: true },
+      { id: 2, text: "Build a todo app", done: false },
+    ]>
+    <let/draft="">
+    <const/remaining=countLeft(todos)>
+    <h1>todos</h1>
+    <input value:=draft placeholder="What needs doing?">
+    <button onClick() { if (draft.trim()) { todos = [...todos, { id: Date.now(), text: draft.trim(), done: false }]; draft = "" } }>Add</button>
+    <ul>
+      <for|todo| of=todos by="id">
+        <todo-item
+          todo=todo
+          onToggle() { todos = todos.map((t) => t.id === todo.id ? { ...t, done: !t.done } : t) }
+          onDelete() { todos = todos.filter((t) => t.id !== todo.id) }
+        />
+      </for>
+    </ul>
+    <p>${remaining} left</p>
+    <button onClick() { todos = todos.filter((t) => !t.done) }>Clear completed</button>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+static const countLeft = (list) => list.filter((t) => !t.done).length;
+static const applyFilter = (list, f) =>
+  f === "active" ? list.filter((t) => !t.done)
+  : f === "completed" ? list.filter((t) => t.done)
+  : list;
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Todos</title>
+  </head>
+  <body>
+    <let/todos=[
+      { id: 1, text: "Learn Marko", done: true },
+      { id: 2, text: "Build a todo app", done: false },
+    ]>
+    <let/draft="">
+    <let/filter="all">
+    <const/remaining=countLeft(todos)>
+    <const/shown=applyFilter(todos, filter)>
+    <h1>todos</h1>
+    <div style="display:flex;gap:6px">
+      <input value:=draft placeholder="What needs doing?" style="flex:1">
+      <button onClick() { if (draft.trim()) { todos = [...todos, { id: Date.now(), text: draft.trim(), done: false }]; draft = "" } }>Add</button>
+    </div>
+    <ul style="list-style:none;padding:0">
+      <for|todo| of=shown by="id">
+        <todo-item
+          todo=todo
+          onToggle() { todos = todos.map((t) => t.id === todo.id ? { ...t, done: !t.done } : t) }
+          onDelete() { todos = todos.filter((t) => t.id !== todo.id) }
+        />
+      </for>
+    </ul>
+    <if=(shown.length === 0)>
+      <p style="color:#94a3b8">Nothing here.</p>
+    </if>
+    <p>${remaining} left</p>
+    <div style="display:flex;gap:6px">
+      <button onClick() { filter = "all" }>All</button>
+      <button onClick() { filter = "active" }>Active</button>
+      <button onClick() { filter = "completed" }>Completed</button>
+      <button onClick() { todos = todos.filter((t) => !t.done) }>Clear completed</button>
+    </div>
+  </body>
+</html>
