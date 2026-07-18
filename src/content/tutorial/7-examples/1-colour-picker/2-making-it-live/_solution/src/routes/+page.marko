@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Colour Picker</title>
+  </head>
+  <body>
+    <let/r=128>
+    <let/g=128>
+    <let/b=128>
+    <const/rgb=`rgb(${r}, ${g}, ${b})`>
+    <h1>Colour Picker</h1>
+    <div style=`width:150px;height:150px;background:${rgb};border-radius:12px`></div>
+    <label>R <input type="range" min="0" max="255" value:Number:=r></label>
+    <label>G <input type="range" min="0" max="255" value:Number:=g></label>
+    <label>B <input type="range" min="0" max="255" value:Number:=b></label>
+    <p>${rgb}</p>
+  </body>
+</html>

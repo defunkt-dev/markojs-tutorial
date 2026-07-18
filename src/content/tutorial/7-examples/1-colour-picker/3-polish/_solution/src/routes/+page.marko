@@ -1,0 +1,38 @@
+static const PRESETS = [
+  { name: "Marko", r: 204, g: 0, b: 103 },
+  { name: "Sky", r: 56, g: 189, b: 248 },
+  { name: "Lime", r: 132, g: 204, b: 22 },
+  { name: "Slate", r: 51, g: 65, b: 85 },
+];
+
+static const toHex = (n) => n.toString(16).padStart(2, "0");
+static const readableText = (r, g, b) =>
+  (r * 299 + g * 587 + b * 114) / 1000 > 140 ? "#000" : "#fff";
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Colour Picker</title>
+  </head>
+  <body>
+    <let/r=128>
+    <let/g=128>
+    <let/b=128>
+    <const/rgb=`rgb(${r}, ${g}, ${b})`>
+    <const/hex=`#${toHex(r)}${toHex(g)}${toHex(b)}`>
+    <const/textColor=readableText(r, g, b)>
+    <h1>Colour Picker</h1>
+    <div style=`display:flex;align-items:center;justify-content:center;width:150px;height:150px;background:${rgb};color:${textColor};border-radius:12px;font-family:monospace;font-size:18px`>${hex}</div>
+    <label>R <input type="range" min="0" max="255" value:Number:=r></label>
+    <label>G <input type="range" min="0" max="255" value:Number:=g></label>
+    <label>B <input type="range" min="0" max="255" value:Number:=b></label>
+    <p>${rgb} · ${hex}</p>
+    <button onClick() { navigator.clipboard.writeText(hex) }>Copy hex</button>
+    <div>
+      <for|preset| of=PRESETS>
+        <button onClick() { r = preset.r; g = preset.g; b = preset.b }>${preset.name}</button>
+      </for>
+    </div>
+  </body>
+</html>
