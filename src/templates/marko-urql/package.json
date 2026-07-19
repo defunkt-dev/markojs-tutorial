@@ -1,0 +1,17 @@
+{
+  "name": "marko-urql-template",
+  "private": true,
+  "dependencies": {
+    "@marko/compiler": "^5",
+    "@marko/express": "^2",
+    "@marko/urql": "^2",
+    "@urql/core": "^6",
+    "express": "^4",
+    "graphql": "^16",
+    "marko": "^5",
+    "sql.js": "^1"
+  },
+  "scripts": {
+    "dev": "node server.cjs"
+  }
+}

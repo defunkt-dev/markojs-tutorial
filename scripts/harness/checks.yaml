@@ -261,3 +261,28 @@
       absent: "removeEventListener"
     _solution:
       contains: "removeEventListener"
+
+# ---- Styling: styles in files (was UNVERIFIED + broken — relied on colocated
+# auto-discovery, which @marko/vite does not apply). Fixed to explicit import.
+# Verify the hero's gradient color (0f766e) lands in the bundled CSS (so the
+# styles actually apply) and that _solution moved it out of an inline <style>.
+1-fundamentals/3-styling/4-styles-in-files:
+  command:
+    run: "cat dist/public/assets/*.css; echo '==='; cat src/tags/hero/index.marko"
+    _files:
+      contains: "0f766e"
+    _solution:
+      contains: "0f766e"
+      absent: "<style"
+
+# ---- Part 9: GraphQL — @marko/urql query (marko-urql template, MARKO 5 + express
+# + node:sqlite). Do-it = write the gql query + <gql-query> block. _solution SSRs
+# the seeded books (from sqlite via GraphQL); _files has just the <h1>. Discriminate
+# on a seeded title ("Refactoring") present only when the query renders.
+9-advanced-examples/9-graphql/1-a-graphql-query:
+  ssr:
+    _files:
+      contains: "Library"
+      absent: "Refactoring"
+    _solution:
+      contains: "Refactoring"

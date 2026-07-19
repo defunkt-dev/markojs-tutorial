@@ -7,7 +7,7 @@ under `src/content/tutorial/`.
 Legend: **[✓]** shipped · **[P5]** planned for part 5 · **[v2]** second
 edition shelf · **[—]** deliberately excluded (with reason).
 
-## Lesson Tree (115 lessons)
+## Lesson Tree (116 lessons)
 
 ### Part 1 — Fundamentals (17)
 - 1-first-steps: 1-welcome · 2-templates-are-html · 3-dynamic-text ·
@@ -75,7 +75,7 @@ edition shelf · **[—]** deliberately excluded (with reason).
 ### Part 8 — Advanced Marko Run **[planned]**
 - (reserved; folder `8-` left free so Part 9 additions don't renumber it)
 
-### Part 9 — Advanced Examples, Patterns & Integrations (11)
+### Part 9 — Advanced Examples, Patterns & Integrations (12)
 - 1-static-site-generation: 1-the-static-adapter **[✓]**
 - 2-server-sent-events: 1-the-eventsource-api **[✓]**
 - 3-shared-state: 1-a-signals-store **[✓]**
@@ -96,6 +96,12 @@ edition shelf · **[—]** deliberately excluded (with reason).
   `<subscribe>` wraps `addEventListener`/`removeEventListener` with `$signal` cleanup,
   the native v6 effect pattern. The v5 packages are Class-API + v4/5 transformers, don't
   port; `<context>` & others left as v5-only)
+- 9-graphql: 1-a-graphql-query **[✓ session 6]**
+  (**MARKO 5** lesson — `@marko/urql` is Class-API/v5, doesn't run on 6, so a dedicated
+  `marko-urql` template: express + `@marko/express` SSR + a `/graphql` endpoint (graphql
+  core) resolving from **`node:sqlite`** — real SQLite, `node --experimental-sqlite`. Do-it:
+  `gql` query + `<gql-query><@then>` renders books server-side. Recreates the book's
+  GraphQL+sqlite chapter; sqlite native won't run in WebContainer so `node:sqlite` used)
 
 ## Topic Index
 

@@ -1,0 +1,15 @@
+import { gql } from "@marko/urql";
+
+// TODO (1): define the query. Use a static const so it's built once:
+//   static const BOOKS = gql`query { books { title author } }`;
+// TODO (2): below <gql-client>, add a <gql-query query=BOOKS> block with an
+//   <@then|{ data }|> that renders each book, plus a <@placeholder>. See below.
+
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"/><title>Library</title></head>
+<body>
+  <h1>Library</h1>
+  <gql-client url=input.graphqlUrl/>
+</body>
+</html>
