@@ -7,7 +7,7 @@ under `src/content/tutorial/`.
 Legend: **[✓]** shipped · **[P5]** planned for part 5 · **[v2]** second
 edition shelf · **[—]** deliberately excluded (with reason).
 
-## Lesson Tree (108 lessons)
+## Lesson Tree (109 lessons)
 
 ### Part 1 — Fundamentals (17)
 - 1-first-steps: 1-welcome · 2-templates-are-html · 3-dynamic-text ·
@@ -72,16 +72,16 @@ edition shelf · **[—]** deliberately excluded (with reason).
 ### Part 8 — Advanced Marko Run **[planned]**
 - (reserved; folder `8-` left free so Part 9 additions don't renumber it)
 
-### Part 9 — Advanced Examples, Patterns & Integrations (5)
+### Part 9 — Advanced Examples, Patterns & Integrations (6)
 - 1-static-site-generation: 1-the-static-adapter **[✓]**
 - 2-server-sent-events: 1-the-eventsource-api **[✓]**
 - 3-shared-state: 1-a-signals-store **[✓]**
 - 4-forms: 1-a-validated-form **[✓]**
-- 5-client-side-rendering: 1-the-mount-api **[✓]** ·
-  (SPA/router5 · GraphQL on a marko@5 template · rive ·
-  &lt;portal&gt; on a marko@5 template — **planned**;
-  lazy-load-on-interaction is already covered by 4/3/3 lazy-loading-tags
-  via its `load: "on-mouseover…/on-focus…"` triggers)
+- 5-client-side-rendering: 1-the-mount-api **[✓]**
+- 6-dynamic-loading: 1-facade-tags **[✓]** (facades = always-lazy + `<try>`/
+  `@placeholder`; builds on 4/3/3, which covers the `load:` triggers incl.
+  interaction ones — so the book's dynamic-import version stays redundant) ·
+  (SPA/router5 · GraphQL · rive · &lt;portal&gt; on a marko@5 template — **planned**)
 
 ## Topic Index
 
@@ -169,6 +169,10 @@ edition shelf · **[—]** deliberately excluded (with reason).
   vite + `@marko/vite` app in **unlinked** mode (`marko({ linked: false })`); instance
   `.update`/`.destroy`/`.value`; builds to a static `dist/` (index.html + JS)
   **[✓]** 9/5/1
+- **facade tags** (always-lazy) — a wrapper that lazily imports a heavy impl (kept private
+  in a nested `tags/` dir) so every consumer gets code-splitting for free; `<try>` +
+  `@placeholder`/`@catch` for the loading/error state; SSR writes full HTML, only client JS
+  defers **[✓]** 9/6/1 (extends the `load:` triggers of 4/3/3)
 - Serialization limits; `serializedGlobals` **[✓]** 5/3/1-globals-and-serialization
 - html-comment / html-script / html-style **[✓]** 4/4/3-escape-hatches
 - html-text / include-text / include-html / scriptlets / `out` / `this.emit`

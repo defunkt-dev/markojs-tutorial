@@ -1,0 +1,13 @@
+<let/list=["Nice article!", "Thanks for sharing."]>
+<let/draft="">
+
+<h3>Comments</h3>
+<ul>
+  <for|comment| of=list by=(_, i) => i>
+    <li>${comment}</li>
+  </for>
+</ul>
+<input value=draft onInput(e) { draft = e.target.value } placeholder="Add a comment">
+<button onClick() { if (draft) { list = [...list, draft]; draft = "" } }>
+  Post
+</button>

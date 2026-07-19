@@ -153,3 +153,20 @@
       absent: "getElementById"
     _solution:
       contains: "getElementById"
+
+# ---- Part 9: Dynamic Loading — facade tags (base marko-run template) ----
+# The facade makes a heavy impl ALWAYS lazy. Both states SSR the impl's HTML
+# (lazy defers only client JS, not server HTML). The discriminator is the
+# code-split: _solution (lazy `with { load }`) emits a separate `comments-impl-*.js`
+# chunk; _files (eager import) inlines the impl into the main bundle (no such chunk).
+# NB must be a marko-run (linked) template — @marko/vite linked:false can't code-split.
+9-advanced-examples/6-dynamic-loading/1-facade-tags:
+  ssr:
+    _files: "Comments"
+    _solution: "Comments"
+  command:
+    run: "ls dist/public/assets/"
+    _files:
+      absent: "comments-impl"
+    _solution:
+      contains: "comments-impl"

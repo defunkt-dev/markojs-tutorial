@@ -1,0 +1,10 @@
+import CommentsImpl from "<comments-impl>" with { load: "visible.comments" }
+
+<div.comments>
+  <try>
+    <CommentsImpl ...input/>
+    <@placeholder>
+      <p>Loading comments…</p>
+    </@placeholder>
+  </try>
+</div>
