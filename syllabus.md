@@ -7,7 +7,7 @@ under `src/content/tutorial/`.
 Legend: **[✓]** shipped · **[P5]** planned for part 5 · **[v2]** second
 edition shelf · **[—]** deliberately excluded (with reason).
 
-## Lesson Tree (110 lessons)
+## Lesson Tree (111 lessons)
 
 ### Part 1 — Fundamentals (17)
 - 1-first-steps: 1-welcome · 2-templates-are-html · 3-dynamic-text ·
@@ -43,7 +43,7 @@ edition shelf · **[—]** deliberately excluded (with reason).
 - 4-module-level-and-escape-hatches: 1-module-level-code ·
   2-the-lifecycle-tag · 3-escape-hatches · 4-coming-from-marko-5
 
-### Part 5 — Building Apps with marko-run (15)
+### Part 5 — Building Apps with marko-run (16)
 - 1-pages-and-routing: 1-your-first-routes · 2-layouts · 3-dynamic-routes ·
   4-route-organization
 - 2-data-and-handlers: 1-handlers-and-the-context · 2-loading-data ·
@@ -52,6 +52,9 @@ edition shelf · **[—]** deliberately excluded (with reason).
 - 3-the-full-picture: 1-globals-and-serialization ·
   2-errors-and-special-pages · 3-api-routes ·
   4-plugin-options-and-cdn-assets · 5-where-to-go-next
+- 4-content-security: 1-a-csp-nonce **[✓ session 6]**
+  (`$global.cspNonce` set in middleware → Marko stamps the nonce on every
+  rendered `<script>`/`<style>`; own new chapter, no existing lesson touched)
 
 ### Part 6 — Tooling: TypeScript, Testing & Publishing (19) **[v2 batch]**
 - 1-typescript (8): 1-enabling-typescript · 2-typing-input ·
@@ -158,6 +161,8 @@ edition shelf · **[—]** deliberately excluded (with reason).
 - `static` **[✓]** 2/3/2 (explained) + 4/4/1 (consolidated)
 - `server` / `client` statements **[✓]** 4/4/1-module-level-code
 - `$global` **[✓]** 5/3/1-globals-and-serialization (intro 5/1/3)
+- `$global.cspNonce` (CSP nonce) → set in middleware, Marko stamps it on every rendered
+  `<script>`/`<style>` for a strict Content-Security-Policy **[✓]** 5/4/1-a-csp-nonce
 - shared state across non-parent/child components (Marko 6 has no context
   API) → a module-level **signals store** (`@preact/signals-core` `signal` +
   actions, bridged into a component via `count.subscribe` → `<let>` +

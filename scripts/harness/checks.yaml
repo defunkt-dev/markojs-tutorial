@@ -187,3 +187,16 @@
       absent: "rename"
     _solution:
       contains: "rename"
+
+# ---- Part 5: Content Security Policy — a CSP nonce (base marko-run template) ----
+# The middleware sets $global.cspNonce (context IS $global in marko-run), and Marko
+# stamps that nonce onto every <script>/<style> it renders. Do-it task = set
+# context.cspNonce. Both states SSR the page; _solution's response carries `nonce=`
+# on the rendered tags, _files' does not. (ssr boots the dev server + curls /.)
+5-marko-run/4-content-security/1-a-csp-nonce:
+  ssr:
+    _files:
+      contains: "Secured with a nonce"
+      absent: "nonce="
+    _solution:
+      contains: "nonce="

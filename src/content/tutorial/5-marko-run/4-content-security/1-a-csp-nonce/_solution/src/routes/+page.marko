@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Secured</title>
+  </head>
+  <body>
+    <h1>Secured with a nonce</h1>
+    <p>View the page source: every script and style Marko renders should
+      carry the same per-request nonce.</p>
+    <let/count=0>
+    <button onClick() { count++ }>Clicked ${count} times</button>
+  </body>
+</html>
