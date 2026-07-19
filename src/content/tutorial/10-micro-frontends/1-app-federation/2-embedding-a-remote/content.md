@@ -14,6 +14,10 @@ mainCommand: ['pnpm run dev', 'Starting the host and remote servers']
 
 # Embedding a Remote
 
+:::tip
+These lessons render on the **server**, so the preview doesn't always refresh by itself. If it looks stale after you Solve a step or switch lessons, hit **reload** on the preview.
+:::
+
 The host page (`host/src/routes/+page.marko`) is empty where the remote notice should go.
 Let's embed it. The remote already serves the notice at `http://localhost:3001/fragment`
 — your job is to pull it into the host.

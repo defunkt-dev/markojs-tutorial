@@ -14,6 +14,10 @@ mainCommand: ['pnpm run dev', 'Starting the host and remote servers']
 
 # The Idea
 
+:::tip
+These lessons render on the **server**, so the preview doesn't always refresh by itself. If it looks stale after you Solve a step or switch lessons, hit **reload** on the preview.
+:::
+
 A big app is rarely built, shipped, or owned by one team. **Micro-frontends** split a
 site into independent pieces — each with its own codebase, release schedule, and owner —
 that come together in the browser. They're the front-end cousin of microservices.
@@ -60,7 +64,9 @@ straight into the page. This embedding of one document's output inside another i
 This workspace has **two separate apps** — look at the file tree: a `host/` app on port
 3000 and a `remote/` app on port 3001, each with its own `package.json`. They can even be
 on different Marko versions (this host is on Marko 5 so it can use the `@micro-frame/marko`
-tags; the remote is a plain Marko 6 app). Open **both** previews: the host page already
+tags; the remote is a plain Marko 6 app). Each keeps its **own Marko runtime**, kept apart by
+a `runtimeId` (set in the remote's `vite.config`), so the two don't clash once the remote's
+HTML lands inside the host page. Open **both** previews: the host page already
 embeds the remote's notice with `<micro-frame>`, and the remote serves that same notice on
 its own at `/fragment`. Unlike an iframe, the embedded notice is just part of the host's
 HTML — no box, no separate scrollbar, and it's visible to search engines and screen

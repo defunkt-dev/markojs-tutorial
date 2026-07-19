@@ -14,6 +14,10 @@ mainCommand: ['pnpm run dev', 'Starting the host and remote servers']
 
 # Refreshing on the Client
 
+:::tip
+These lessons render on the **server**, so the preview doesn't always refresh by itself. If it looks stale after you Solve a step or switch lessons, hit **reload** on the preview.
+:::
+
 In the last lesson the host embedded the remote and it just worked — because that fetch
 happened on the **server**, before the page reached the browser. Now we want a **Refresh**
 button that re-fetches the remote *without* reloading the whole page.

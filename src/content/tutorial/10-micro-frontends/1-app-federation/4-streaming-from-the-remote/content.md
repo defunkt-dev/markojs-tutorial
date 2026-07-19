@@ -14,6 +14,10 @@ mainCommand: ['pnpm run dev', 'Starting the host and remote servers']
 
 # Streaming from the Remote
 
+:::tip
+These lessons render on the **server**, so the preview doesn't always refresh by itself. If it looks stale after you Solve a step or switch lessons, hit **reload** on the preview.
+:::
+
 A remote doesn't have to render all at once. It can **stream** — send the parts it already
 has, show a placeholder for the slow parts, and fill them in as they resolve. Because
 `<micro-frame>` embeds whatever the remote sends, the host gets that streaming for free: the
