@@ -136,3 +136,20 @@
       absent: "Email is required"
     _solution:
       contains: "Email is required"
+
+# ---- Part 9: Client-Side Rendering via .mount() (marko-csr template) ----
+# marko-csr is a plain vite + @marko/vite (linked:false) app, NOT marko-run:
+# `vite build` emits to dist/ (index.html + assets/), not dist/public/. The app
+# is client-rendered (no SSR), so there's no ssr check — the mount is browser-
+# oracle. Discriminate on the mount target lookup: _solution's main.js calls
+# document.getElementById in App.mount(...); the _files stub doesn't.
+9-advanced-examples/5-client-side-rendering/1-the-mount-api:
+  emit:
+    files:
+      - dist/index.html
+  command:
+    run: "cat dist/assets/*.js"
+    _files:
+      absent: "getElementById"
+    _solution:
+      contains: "getElementById"

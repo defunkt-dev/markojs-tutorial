@@ -1,0 +1,17 @@
+{
+  "name": "marko-csr-template",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 3000",
+    "build": "vite build",
+    "preview": "vite preview --port 3000"
+  },
+  "dependencies": {
+    "marko": "^6.3.14"
+  },
+  "devDependencies": {
+    "@marko/vite": "^6.1.6",
+    "vite": "^8.1.5"
+  }
+}
