@@ -97,13 +97,16 @@ edition shelf · **[—]** deliberately excluded (with reason).
   the native v6 effect pattern. The v5 packages are Class-API + v4/5 transformers, don't
   port; `<context>` & others left as v5-only)
 - 9-graphql: 1-a-graphql-query, 2-a-graphql-mutation **[✓ session 6]**
-  (**MARKO 5** lessons — `@marko/urql` is Class-API/v5, doesn't run on 6, so a dedicated
-  `marko-urql` template: **vite + `@marko/vite@5` + `@marko/express`** (express dev server with vite
+  (**MARKO 5** lessons — `@marko/urql` is Class-API/v5, doesn't run on 6, so **two per-lesson
+  templates** (`marko-urql-query`, `marko-urql-mutation`) given **different package.json `name`s** so
+  TutorialKit restarts the dev server between lessons — without that it reuses ONE server and the
+  in-memory DB carries over (confirmed). Each lesson thus gets its own seeded DB: **vite + `@marko/vite@5` + `@marko/express`** (express dev server with vite
   middleware) + a `/graphql` endpoint (graphql core) resolving from **sql.js** (WASM SQLite;
   `node:sqlite`'s `--experimental-sqlite` flag isn't supported in the WebContainer). The `/` route
   loads the page fresh per request (edits/Solve reflect) and injects the vite browser-entry so the page
-  **hydrates** — required for the mutation button; vite's HMR client should also auto-reload the preview
-  (a soft "reload if it doesn't show" tip is in both lessons). 1: `gql` query + `<gql-query><@then>`
+  **hydrates** — required for the mutation button. (vite's HMR socket doesn't work in the WebContainer —
+  harmless `WebSocket closed` console error — so the preview does NOT auto-reload; a soft "reload if a
+  change doesn't show" tip is in both lessons.) 1: `gql` query + `<gql-query><@then>`
   renders books server-side. 2: `<gql-mutation|mutate,results|>` + a button writes a new book (addBook
   resolver; DB seeded once in the server, persists across requests — verified). Recreates the book's
   GraphQL chapter)

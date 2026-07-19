@@ -1,6 +1,6 @@
 ---
 type: lesson
-template: marko-urql
+template: marko-urql-query
 title: A GraphQL Query
 focus: /src/index.marko
 ---
@@ -19,8 +19,8 @@ tagged templates, `<@then>` attribute tags. The GraphQL ideas carry straight
 over.
 
 :::tip
-If a change doesn't show up in the preview after you edit a file or press
-**Solve**, reload the preview.
+This lesson's preview doesn't refresh on its own — after you edit a file or
+press **Solve**, **reload the preview** to see the change.
 :::
 
 Everything around your page is already wired: an Express server with a

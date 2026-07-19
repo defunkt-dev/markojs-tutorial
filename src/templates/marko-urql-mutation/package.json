@@ -1,0 +1,19 @@
+{
+  "name": "marko-urql-mutation",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@marko/express": "^2",
+    "@marko/urql": "^2",
+    "@marko/vite": "^5",
+    "@urql/core": "^6",
+    "express": "^4",
+    "graphql": "^16",
+    "marko": "^5",
+    "sql.js": "^1",
+    "vite": "^8"
+  },
+  "scripts": {
+    "dev": "node index.js"
+  }
+}

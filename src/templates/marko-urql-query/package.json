@@ -1,5 +1,5 @@
 {
-  "name": "marko-urql-template",
+  "name": "marko-urql-query",
   "private": true,
   "type": "module",
   "dependencies": {

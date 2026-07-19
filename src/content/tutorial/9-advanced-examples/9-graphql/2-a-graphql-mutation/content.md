@@ -1,6 +1,6 @@
 ---
 type: lesson
-template: marko-urql
+template: marko-urql-mutation
 title: A GraphQL Mutation
 focus: /src/index.marko
 ---
@@ -12,8 +12,8 @@ GraphQL mutation and hands you a `mutate` function to fire it — usually from a
 button or form — plus a `results` object to show what came back.
 
 :::tip
-If a change doesn't show up in the preview after you edit a file or press
-**Solve**, reload the preview.
+This lesson's preview doesn't refresh on its own — after you edit a file or
+press **Solve**, **reload the preview** to see the change.
 :::
 
 The books list is already here (the `<gql-query>` from the last lesson), and the
