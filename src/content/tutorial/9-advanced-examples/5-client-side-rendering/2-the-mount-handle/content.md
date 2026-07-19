@@ -25,10 +25,19 @@ The handle has three members:
 - **`instance.value`** — read the value the template exposes through a
   `<return>` tag (and, if that return is assignable, write it too).
 
-There's also an optional third argument to `mount` — `position` — saying
-where to place the app relative to the node, using the same names as
-`insertAdjacentHTML`: `"beforeend"` (the default) appends, `"afterbegin"`
-prepends, and so on.
+And `mount` takes an optional **third argument, `position`** — where to
+place the app relative to the node, using the same names as
+`insertAdjacentHTML`: `"beforeend"` (the default) appends inside the node,
+`"afterbegin"` prepends, and `"beforebegin"`/`"afterend"` place it outside.
+This project already puts it to work: `#app` has a note sitting in it, and
+`src/main.js` mounts with
+
+```js
+App.mount({ name: "Ada" }, document.getElementById("app"), "afterbegin");
+```
+
+so the app lands *above* that note. Change `"afterbegin"` to `"beforeend"`
+and reload — the app drops below the note. That's `position` in one line.
 
 ## Driving it from the page (your job)
 

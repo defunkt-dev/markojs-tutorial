@@ -33,9 +33,9 @@ and right now the facade imports the widget eagerly, so its JavaScript ships
 in the page's main bundle for every reader.
 
 **Make the facade lazy.** In `src/tags/comments/index.marko`, add a `load`
-trigger so the widget splits into its own bundle and its JavaScript is
-fetched only when the comments scroll into view — and wrap it in `<try>` to
-give it a loading state:
+trigger so the widget splits into its own bundle — loaded on the trigger
+rather than up front with the page — and wrap it in `<try>` to give it a
+loading state:
 
 ```marko
 import CommentsImpl from "<comments-impl>" with { load: "visible.comments" }
@@ -60,9 +60,16 @@ byte. This isn't a change you *see*.
 
 What changes is the widget's **JavaScript**. Imported eagerly, it's baked
 into the page's main bundle and downloaded by every visitor up front. Behind
-the lazy facade, it becomes a separate file the browser fetches only as a
-reader scrolls toward the comments — so the initial page is lighter, and
+the lazy facade, it's split into a bundle of its own — which in a
+**production** build the browser fetches only when the trigger fires (here,
+as the comments scroll into view), so the initial page stays light and
 readers who never reach the bottom never download it.
+
+One honest caveat about *this* preview: the dev server serves modules
+eagerly and doesn't reproduce that deferral, so you'll see the comments'
+code load right away no matter what — don't read anything into that. The
+part you *can* verify here is the split itself, and that's a build artifact,
+which is what the next step checks.
 
 (The `@placeholder` is the loading state Marko shows *if* the widget is
 rendered in the browser — say, after a client-side navigation — instead of
@@ -86,10 +93,12 @@ import (*Reset*) and build again — it's gone, folded back into the main
 chunk. That one file appearing and disappearing **is** the whole lesson.
 
 :::tip
-Any trigger works in a facade, not just `visible` — a rarely-used widget
-might use `"idle"`, one behind a button `"on-click#open"`. You decide once,
-in the facade, for everywhere the tag is used. You can also drop a
-`<@catch|err|>` inside the `<try>` to handle a bundle that fails to load.
+Any trigger works in a facade, not just `visible`. You met the full menu —
+`"render"`, `"visible"`, `"idle"`, `"media(...)"`, `"on-focus/on-click/..."`,
+and `|` combinations — back in *Lazy Loading Tags* (4/3/3); a facade just
+picks one and applies it everywhere the tag is used. A rarely-seen widget
+might use `"idle"`, one behind a button `"on-click#open"`. You can also drop
+a `<@catch|err|>` inside the `<try>` to handle a bundle that fails to load.
 :::
 
 That's the facade pattern: a wrapper that makes a heavy tag always lazy,
