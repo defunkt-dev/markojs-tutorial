@@ -14,7 +14,7 @@ class {
     <p>The notice below comes from the remote app. Let's make it refreshable from the browser.</p>
 
     <button on-click("refresh")>Refresh</button>
-    <micro-frame src=`/notice?v=${state.nonce}` timeout=0>
+    <micro-frame src=`/notice?v=${state.nonce}` client-reorder timeout=0>
       <@loading>Loading the remote notice…</@loading>
       <@catch|err|>The remote notice is unavailable: ${err.message}</@catch>
     </micro-frame>

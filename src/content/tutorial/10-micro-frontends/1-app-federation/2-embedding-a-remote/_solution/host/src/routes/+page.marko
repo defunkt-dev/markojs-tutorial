@@ -9,7 +9,7 @@
     <p>Everything on this page is rendered by the host — except the notice below, which is
        fetched fully-rendered from a separate remote app and embedded in place.</p>
 
-    <micro-frame src="http://localhost:3001/fragment" timeout=0>
+    <micro-frame src="http://localhost:3001/fragment" client-reorder timeout=0>
       <@loading>Loading the remote notice…</@loading>
       <@catch|err|>The remote notice is unavailable: ${err.message}</@catch>
     </micro-frame>

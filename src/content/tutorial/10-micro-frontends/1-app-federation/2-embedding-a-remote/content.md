@@ -21,7 +21,7 @@ Let's embed it. The remote already serves the notice at `http://localhost:3001/f
 Add a `<micro-frame>` and point its **`src`** at that URL:
 
 ```marko
-<micro-frame src="http://localhost:3001/fragment" timeout=0/>
+<micro-frame src="http://localhost:3001/fragment" client-reorder timeout=0/>
 ```
 
 On the server, `<micro-frame>` fetches that URL and streams the returned HTML into the page
@@ -29,9 +29,11 @@ right where the tag sits — no iframe, no wrapper. Because the two apps run beh
 host here, there's no cross-origin problem to worry about (in production you'd serve them
 from the same domain, or add the right CORS headers).
 
-Two more attributes make it robust while the fetch is in flight:
+A few attributes make it robust:
 
-- **`<@loading>`** renders a placeholder until the remote responds.
+- **`client-reorder`** lets the rest of the page paint right away and drops the remote in
+  when it arrives, instead of blocking on the fetch.
+- **`<@loading>`** renders a placeholder in the meantime.
 - **`<@catch|err|>`** renders a fallback if the request fails or times out.
 
 `timeout=0` disables the default 30-second timeout — handy when a remote is slow; drop it
@@ -39,7 +41,7 @@ to get the default back.
 
 Build it:
 
-1. Add `<micro-frame>` with `src="http://localhost:3001/fragment"` where the comment is.
+1. Add `<micro-frame>` with `src="http://localhost:3001/fragment"` and `client-reorder` where the comment is.
 2. Give it a `<@loading>` message.
 3. Give it a `<@catch|err|>` fallback that shows `${err.message}`.
 
