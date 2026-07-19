@@ -7,7 +7,7 @@ under `src/content/tutorial/`.
 Legend: **[✓]** shipped · **[P5]** planned for part 5 · **[v2]** second
 edition shelf · **[—]** deliberately excluded (with reason).
 
-## Lesson Tree (113 lessons)
+## Lesson Tree (115 lessons)
 
 ### Part 1 — Fundamentals (17)
 - 1-first-steps: 1-welcome · 2-templates-are-html · 3-dynamic-text ·
@@ -75,7 +75,7 @@ edition shelf · **[—]** deliberately excluded (with reason).
 ### Part 8 — Advanced Marko Run **[planned]**
 - (reserved; folder `8-` left free so Part 9 additions don't renumber it)
 
-### Part 9 — Advanced Examples, Patterns & Integrations (9)
+### Part 9 — Advanced Examples, Patterns & Integrations (11)
 - 1-static-site-generation: 1-the-static-adapter **[✓]**
 - 2-server-sent-events: 1-the-eventsource-api **[✓]**
 - 3-shared-state: 1-a-signals-store **[✓]**
@@ -90,6 +90,12 @@ edition shelf · **[—]** deliberately excluded (with reason).
   `marko-run-rive` template — in a Marko 6 tag: `<canvas/ref>` node handle +
   `<script>` setup + `$signal` cleanup + `<return>` instance. The `@marko-tags/rive`
   package is Marko-5/Class-API and does NOT compile on 6, so we wrap the runtime directly)
+- 8-portals-and-events: 1-a-portal · 2-event-subscriptions **[✓ session 6]**
+  (base marko-run; reimplement two `@marko-tags` v5 tags for v6 — `<portal>` relocates
+  its rendered `<div>` to `document.body` via `<script>`+`appendChild`+`$signal`;
+  `<subscribe>` wraps `addEventListener`/`removeEventListener` with `$signal` cleanup,
+  the native v6 effect pattern. The v5 packages are Class-API + v4/5 transformers, don't
+  port; `<context>` & others left as v5-only)
 
 ## Topic Index
 
@@ -191,6 +197,12 @@ edition shelf · **[—]** deliberately excluded (with reason).
   `<script>` setup + `$signal.onabort` cleanup + `<return>` instance; Rive via `@rive-app/canvas`
   (the `@marko-tags/rive` package is Marko 5, doesn't compile on 6 — wrap the runtime directly)
   **[✓]** 9/7/1
+- **portal** (render into `document.body`) — a `<div/ref>` + `<${input.content}/>`, moved via
+  `<script>`+`appendChild`, put back on `$signal`; escapes `overflow`/`z-index` clipping for
+  dialogs/tooltips; pairs with `<if>` to avoid the SSR-in-place flash **[✓]** 9/8/1
+- **event subscriptions** — a reusable `<subscribe to= event= onFire()>` tag = `addEventListener`
+  in `<script>` + `removeEventListener` on `$signal`; conditional `<if>` drives its lifecycle
+  (the native v6 form of the old `@marko-tags/subscribe`) **[✓]** 9/8/2
 - Serialization limits; `serializedGlobals` **[✓]** 5/3/1-globals-and-serialization
 - html-comment / html-script / html-style **[✓]** 4/4/3-escape-hatches
 - html-text / include-text / include-html / scriptlets / `out` / `this.emit`

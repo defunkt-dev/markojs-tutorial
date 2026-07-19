@@ -1,0 +1,5 @@
+<script>
+  const handler = (...args) => input.onFire && input.onFire(...args);
+  input.to.addEventListener(input.event, handler);
+  $signal.onabort = () => input.to.removeEventListener(input.event, handler);
+</script>

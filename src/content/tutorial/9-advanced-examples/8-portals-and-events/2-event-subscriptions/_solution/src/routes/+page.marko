@@ -1,0 +1,16 @@
+<let/listening=false>
+<let/x=0>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8"/><title>Event Subscriptions</title></head>
+  <body>
+    <h1>Pointer X: ${x}px</h1>
+    <button onClick() { listening = !listening }>
+      ${listening ? "Stop" : "Start"} tracking
+    </button>
+    <if=(listening)>
+      <subscribe to=window event="mousemove" onFire(e) { x = e.clientX }/>
+    </if>
+  </body>
+</html>

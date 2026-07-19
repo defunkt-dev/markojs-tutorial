@@ -230,3 +230,34 @@
       absent: "resizeDrawingSurfaceToCanvas"
     _solution:
       contains: "resizeDrawingSurfaceToCanvas"
+
+# ---- Part 9: Portals & Events (base marko-run template) ----
+# Portal: do-it = the <script> that moves the rendered <div> to document.body
+# (or input.target). Both SSR the card (portal gated behind <if>, not rendered).
+# Discriminate on getElementById (the target lookup, _solution only; appendChild
+# is used by the runtime so it's in both).
+9-advanced-examples/8-portals-and-events/1-a-portal:
+  ssr:
+    _files: "clips its overflow"
+    _solution: "clips its overflow"
+  command:
+    run: "cat dist/public/assets/*.js"
+    _files:
+      absent: "getElementById"
+    _solution:
+      contains: "getElementById"
+
+# Subscribe: do-it = the <script> that adds/removes the listener. Both SSR the
+# page (subscribe gated behind <if>). Discriminate on removeEventListener —
+# _solution's explicit cleanup; Marko uses addEventListener{signal} internally
+# so addEventListener is in both, but removeEventListener is _solution-only.
+9-advanced-examples/8-portals-and-events/2-event-subscriptions:
+  ssr:
+    _files: "Pointer X"
+    _solution: "Pointer X"
+  command:
+    run: "cat dist/public/assets/*.js"
+    _files:
+      absent: "removeEventListener"
+    _solution:
+      contains: "removeEventListener"

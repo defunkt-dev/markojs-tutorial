@@ -1,0 +1,27 @@
+<let/open=false>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>A Portal</title>
+    <style>
+      .card { overflow: hidden; height: 90px; border: 2px solid #888; border-radius: 8px; padding: 1rem }
+      .dialog { position: fixed; top: 40%; left: 40%; background: #fff; border: 2px solid #333; padding: 1rem; box-shadow: 0 6px 24px rgba(0,0,0,.3) }
+    </style>
+  </head>
+  <body>
+    <div.card>
+      <h2>A card that clips its overflow</h2>
+      <button onClick() { open = true }>Open dialog</button>
+      <if=(open)>
+        <portal>
+          <div.dialog>
+            <p>Rendered inside the card, but escaped to document.body — so I'm not clipped.</p>
+            <button onClick() { open = false }>Close</button>
+          </div>
+        </portal>
+      </if>
+    </div>
+  </body>
+</html>
