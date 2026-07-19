@@ -25,7 +25,18 @@ tags/
     style.css      <- just... found
 ```
 
-(For flat files it's `hero.marko` + `hero.style.css`.)
+(For flat files it's `hero.marko` + `hero.style.css`.) The extension isn't
+limited to `.css` — a colocated `style.scss` or `style.less` is discovered
+exactly the same way and run through whatever preprocessor the project has
+configured (the same Less and Sass tooling you'll meet later in this
+chapter):
+
+```text
+tags/
+  hero/
+    index.marko
+    style.scss     <- also just... found, then compiled
+```
 
 **Imported.** Any template can pull in a stylesheet explicitly — useful
 for styles shared across templates:
