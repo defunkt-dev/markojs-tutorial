@@ -7,7 +7,7 @@ under `src/content/tutorial/`.
 Legend: **[✓]** shipped · **[P5]** planned for part 5 · **[v2]** second
 edition shelf · **[—]** deliberately excluded (with reason).
 
-## Lesson Tree (111 lessons)
+## Lesson Tree (112 lessons)
 
 ### Part 1 — Fundamentals (17)
 - 1-first-steps: 1-welcome · 2-templates-are-html · 3-dynamic-text ·
@@ -75,13 +75,13 @@ edition shelf · **[—]** deliberately excluded (with reason).
 ### Part 8 — Advanced Marko Run **[planned]**
 - (reserved; folder `8-` left free so Part 9 additions don't renumber it)
 
-### Part 9 — Advanced Examples, Patterns & Integrations (7)
+### Part 9 — Advanced Examples, Patterns & Integrations (8)
 - 1-static-site-generation: 1-the-static-adapter **[✓]**
 - 2-server-sent-events: 1-the-eventsource-api **[✓]**
 - 3-shared-state: 1-a-signals-store **[✓]**
 - 4-forms: 1-a-validated-form **[✓]**
 - 5-client-side-rendering: 1-the-mount-api · 2-the-mount-handle **[✓]**
-- 6-dynamic-loading: 1-facade-tags **[✓]** (facades = always-lazy + `<try>`/
+- 6-dynamic-loading: 1-facade-tags · 2-loading-on-demand **[✓]** (facades = always-lazy + `<try>`/
   `@placeholder`; builds on 4/3/3, which covers the `load:` triggers incl.
   interaction ones — so the book's dynamic-import version stays redundant) ·
   (SPA/router5 · GraphQL · rive · &lt;portal&gt; on a marko@5 template — **planned**)

@@ -1,0 +1,18 @@
+import DetailsPanel from "<details-panel>" with { load: "render" }
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>On demand</title>
+  </head>
+  <body>
+    <let/show=false>
+    <h1>Product page</h1>
+    <p>Everything a shopper needs up top; the details panel is heavier.</p>
+    <button onClick() { show = true }>Show details</button>
+    <if=(show)>
+      <DetailsPanel/>
+    </if>
+  </body>
+</html>

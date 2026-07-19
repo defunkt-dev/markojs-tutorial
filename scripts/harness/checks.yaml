@@ -200,3 +200,16 @@
       absent: "nonce="
     _solution:
       contains: "nonce="
+
+# ---- Part 9: Dynamic Loading — loading on demand (base marko-run template) ----
+# Do-it = gate a lazy component behind <if>. _files renders <DetailsPanel/> directly
+# (SSR'd, present on load); _solution gates it (show=false) so it's absent until the
+# button is clicked. Discriminate on SSR presence: _files shows the panel, _solution
+# shows the button and NOT the panel. (Content-deferral is observable, unlike facades.)
+9-advanced-examples/6-dynamic-loading/2-loading-on-demand:
+  ssr:
+    _files:
+      contains: "Details panel"
+    _solution:
+      contains: "Show details"
+      absent: "Details panel"
