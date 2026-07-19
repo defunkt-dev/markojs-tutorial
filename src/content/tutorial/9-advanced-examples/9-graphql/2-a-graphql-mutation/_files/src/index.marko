@@ -1,0 +1,36 @@
+import { gql } from "@marko/urql";
+
+static const BOOKS = gql`
+  query {
+    books {
+      title
+      author
+    }
+  }
+`;
+
+// TODO (1): define the ADD_BOOK mutation — see the lesson.
+// TODO (2): below the list, add a
+//   <gql-mutation|mutate, results| mutation=ADD_BOOK> block with a button
+//   whose handler calls mutate({ title, author }).
+
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"/><title>Library</title></head>
+<body>
+  <h1>Library</h1>
+  <gql-client url=input.graphqlUrl/>
+  <gql-query query=BOOKS>
+    <@then|{ data }|>
+      <ul>
+        <for|book| of=data.books>
+          <li>${book.title} — ${book.author}</li>
+        </for>
+      </ul>
+    </@then>
+    <@placeholder>
+      <p>Loading books…</p>
+    </@placeholder>
+  </gql-query>
+</body>
+</html>

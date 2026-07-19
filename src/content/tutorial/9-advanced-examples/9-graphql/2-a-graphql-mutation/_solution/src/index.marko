@@ -1,0 +1,51 @@
+import { gql } from "@marko/urql";
+
+static const BOOKS = gql`
+  query {
+    books {
+      title
+      author
+    }
+  }
+`;
+
+static const ADD_BOOK = gql`
+  mutation($title: String!, $author: String!) {
+    addBook(title: $title, author: $author) {
+      title
+    }
+  }
+`;
+
+class {
+  addBook(mutate) {
+    mutate({ title: "Domain-Driven Design", author: "Eric Evans" });
+  }
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"/><title>Library</title></head>
+<body>
+  <h1>Library</h1>
+  <gql-client url=input.graphqlUrl/>
+  <gql-query query=BOOKS>
+    <@then|{ data }|>
+      <ul>
+        <for|book| of=data.books>
+          <li>${book.title} — ${book.author}</li>
+        </for>
+      </ul>
+    </@then>
+    <@placeholder>
+      <p>Loading books…</p>
+    </@placeholder>
+  </gql-query>
+  <gql-mutation|mutate, results| mutation=ADD_BOOK>
+    <button on-click("addBook", mutate)>Add a book</button>
+    <if(results.data)>
+      <p>Added "${results.data.addBook.title}" — reload the preview to see it in the list above.</p>
+    </if>
+  </gql-mutation>
+</body>
+</html>

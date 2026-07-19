@@ -18,6 +18,11 @@ looks a little different from the rest of the tutorial — `static const`, `gql`
 tagged templates, `<@then>` attribute tags. The GraphQL ideas carry straight
 over.
 
+:::tip
+If a change doesn't show up in the preview after you edit a file or press
+**Solve**, reload the preview.
+:::
+
 Everything around your page is already wired: an Express server with a
 `/graphql` endpoint whose resolvers read from a real **SQLite** database of
 books. The client is pointed at it for you:

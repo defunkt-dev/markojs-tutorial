@@ -286,3 +286,16 @@
       absent: "Refactoring"
     _solution:
       contains: "Refactoring"
+
+# ---- Part 9: GraphQL — @marko/urql mutation (9/9/2). Same marko-urql template
+# (now with an addBook mutation + resolver in server.cjs). Do-it = the
+# <gql-mutation> block + button. _solution SSRs the "Add a book" button; _files
+# has the books list but no button. (Click->write is browser-oracle; the DB
+# persistence + resolver were verified separately.)
+9-advanced-examples/9-graphql/2-a-graphql-mutation:
+  ssr:
+    _files:
+      contains: "Refactoring"
+      absent: "Add a book"
+    _solution:
+      contains: "Add a book"
