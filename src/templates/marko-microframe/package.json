@@ -1,0 +1,8 @@
+{
+  "name": "marko-microframe-template",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node start.mjs"
+  }
+}

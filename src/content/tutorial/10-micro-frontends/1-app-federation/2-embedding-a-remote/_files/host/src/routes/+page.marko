@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Host App</title>
+  </head>
+  <body style="font-family:system-ui,sans-serif;max-width:640px;margin:2rem auto;padding:0 1rem">
+    <h1>The host app</h1>
+    <p>Everything on this page is rendered by the host — except the notice below, which is
+       fetched fully-rendered from a separate remote app and embedded in place.</p>
+
+    <!-- Embed the remote here with <micro-frame>. Its notice is served at
+         http://localhost:3001/fragment -->
+
+    <p style="color:#666;margin-top:1.5rem">↑ That notice lives in its own app. The host only knows its URL.</p>
+  </body>
+</html>
