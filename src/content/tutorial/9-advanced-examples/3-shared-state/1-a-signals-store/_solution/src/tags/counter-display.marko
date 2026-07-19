@@ -1,0 +1,8 @@
+import { count } from "../shared/store.js"
+
+<let/value=0>
+<script>
+  $signal.onabort = count.subscribe((v) => { value = v });
+</script>
+
+<p>Shared count: <strong>${value}</strong></p>

@@ -1,0 +1,10 @@
+import { count } from "../shared/store.js"
+
+<let/value=0>
+<script>
+  // TODO: subscribe to the shared `count` and push each new value into
+  // `value`, so this readout re-renders. Tear the subscription down with
+  // $signal.onabort.
+</script>
+
+<p>Shared count: <strong>${value}</strong></p>

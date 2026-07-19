@@ -106,3 +106,16 @@
       absent: "EventSource"
     _solution:
       contains: "EventSource"
+
+# ---- Part 9: Shared State via a signals store (marko-run-signals template) ----
+# Both states SSR the same "Shared count: 0" — the store bridge (count.subscribe
+# -> a <let>) is a client-only <script>, so it doesn't run on the server, and the
+# _files/_solution difference is entirely client-runtime. No command check: the
+# discriminating string "subscribe" is also present in @preact/signals-core's own
+# bundled code (stub .js already contains 1), so absent/contains can't separate the
+# states. Build (both compile) + ssr (both render) is the automatable coverage; the
+# live cross-component sync is the browser-oracle part.
+9-advanced-examples/3-shared-state/1-a-signals-store:
+  ssr:
+    _files: "Shared count"
+    _solution: "Shared count"

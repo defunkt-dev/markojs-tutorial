@@ -7,7 +7,7 @@ under `src/content/tutorial/`.
 Legend: **[✓]** shipped · **[P5]** planned for part 5 · **[v2]** second
 edition shelf · **[—]** deliberately excluded (with reason).
 
-## Lesson Tree (105 lessons)
+## Lesson Tree (106 lessons)
 
 ### Part 1 — Fundamentals (17)
 - 1-first-steps: 1-welcome · 2-templates-are-html · 3-dynamic-text ·
@@ -72,10 +72,11 @@ edition shelf · **[—]** deliberately excluded (with reason).
 ### Part 8 — Advanced Marko Run **[planned]**
 - (reserved; folder `8-` left free so Part 9 additions don't renumber it)
 
-### Part 9 — Advanced Examples, Patterns & Integrations (2)
+### Part 9 — Advanced Examples, Patterns & Integrations (3)
 - 1-static-site-generation: 1-the-static-adapter **[✓]**
-- 2-server-sent-events: 1-the-eventsource-api **[✓]** ·
-  (signals store · lazy loading · SPA/router5 · final-form ·
+- 2-server-sent-events: 1-the-eventsource-api **[✓]**
+- 3-shared-state: 1-a-signals-store **[✓]** ·
+  (lazy loading · SPA/router5 · final-form ·
   GraphQL on a marko@5 template — **planned**)
 
 ## Topic Index
@@ -153,6 +154,10 @@ edition shelf · **[—]** deliberately excluded (with reason).
 - `static` **[✓]** 2/3/2 (explained) + 4/4/1 (consolidated)
 - `server` / `client` statements **[✓]** 4/4/1-module-level-code
 - `$global` **[✓]** 5/3/1-globals-and-serialization (intro 5/1/3)
+- shared state across non-parent/child components (Marko 6 has no context
+  API) → a module-level **signals store** (`@preact/signals-core` `signal` +
+  actions, bridged into a component via `count.subscribe` → `<let>` +
+  `$signal` cleanup) **[✓]** 9/3/1
 - Serialization limits; `serializedGlobals` **[✓]** 5/3/1-globals-and-serialization
 - html-comment / html-script / html-style **[✓]** 4/4/3-escape-hatches
 - html-text / include-text / include-html / scriptlets / `out` / `this.emit`
