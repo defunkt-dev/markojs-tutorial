@@ -1,0 +1,28 @@
+<let/messages=[]>
+<let/live=true>
+
+<script>
+  if (live) {
+    const source = new EventSource("/api/events");
+    source.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      messages = [...messages.slice(-5), data];
+    };
+    $signal.onabort = () => source.close();
+  }
+</script>
+
+<h2>Live server clock</h2>
+<button onClick() { live = !live }>
+  ${live ? "Stop" : "Subscribe"}
+</button>
+<if=(messages.length)>
+  <ul>
+    <for|msg| of=messages by="id">
+      <li>${msg.message}</li>
+    </for>
+  </ul>
+</if>
+<else>
+  <p>Waiting for the server…</p>
+</else>

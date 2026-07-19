@@ -89,3 +89,20 @@
       absent: "assets/counter"
     _solution:
       contains: "assets/counter"
+
+# ---- Part 9: Server-Sent Events (base marko-run template) ----
+# Both states SSR the same "Waiting…" initial state (the EventSource <script>
+# is client-only, so it doesn't run on the server). The discriminating check
+# is the client bundle: _files (stub) ships no EventSource; _solution does.
+# (cat only the built .js, never the .map — the stub's TODO comment names
+#  "EventSource" and would false-match a sourcemap.)
+9-advanced-examples/2-server-sent-events/1-the-eventsource-api:
+  ssr:
+    _files: "Waiting for the server"
+    _solution: "Waiting for the server"
+  command:
+    run: "cat dist/public/assets/*.js"
+    _files:
+      absent: "EventSource"
+    _solution:
+      contains: "EventSource"

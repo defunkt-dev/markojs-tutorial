@@ -7,7 +7,7 @@ under `src/content/tutorial/`.
 Legend: **[✓]** shipped · **[P5]** planned for part 5 · **[v2]** second
 edition shelf · **[—]** deliberately excluded (with reason).
 
-## Lesson Tree (104 lessons)
+## Lesson Tree (105 lessons)
 
 ### Part 1 — Fundamentals (17)
 - 1-first-steps: 1-welcome · 2-templates-are-html · 3-dynamic-text ·
@@ -72,9 +72,10 @@ edition shelf · **[—]** deliberately excluded (with reason).
 ### Part 8 — Advanced Marko Run **[planned]**
 - (reserved; folder `8-` left free so Part 9 additions don't renumber it)
 
-### Part 9 — Advanced Examples, Patterns & Integrations (1)
-- 1-static-site-generation: 1-the-static-adapter **[✓]** ·
-  (SSE · signals store · lazy loading · SPA/router5 · final-form ·
+### Part 9 — Advanced Examples, Patterns & Integrations (2)
+- 1-static-site-generation: 1-the-static-adapter **[✓]**
+- 2-server-sent-events: 1-the-eventsource-api **[✓]** ·
+  (signals store · lazy loading · SPA/router5 · final-form ·
   GraphQL on a marko@5 template — **planned**)
 
 ## Topic Index
@@ -200,7 +201,9 @@ edition shelf · **[—]** deliberately excluded (with reason).
   types in the consumer's checker **[✓]** 6/3/3 · `files`, `pnpm pack`,
   `sideEffects: ["**/*.marko"]`, the `"./dist/tags/*"` export, `pnpm pack`
   vs `npm pack` **[✓]** 6/3/4 · `npm publish` itself **[✓-pointer]** 6/3/4
-- API routes **[✓]** 5/3/3 · Adapters, embedding (`Run.fetch`/`match`/
+- API routes **[✓]** 5/3/3 · **server-sent events** (streaming
+  `text/event-stream` handler + browser `EventSource`, `<script>` effect +
+  `$signal` cleanup) **[✓]** 9/2/1 · Adapters, embedding (`Run.fetch`/`match`/
   `invoke`), typed URLs **[✓-pointer]** 5/3/5 (depth **[v2]**)
 
 ### Explanations (docs/explanation)

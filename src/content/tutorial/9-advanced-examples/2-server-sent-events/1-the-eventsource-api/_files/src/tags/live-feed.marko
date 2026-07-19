@@ -1,0 +1,24 @@
+<let/messages=[]>
+<let/live=true>
+
+<script>
+  // TODO: subscribe to the /api/events stream with EventSource.
+  // While `live`, open the connection and — for each message — parse
+  // event.data and append it to `messages` (keep the last few). Close
+  // the connection on cleanup with $signal.onabort.
+</script>
+
+<h2>Live server clock</h2>
+<button onClick() { live = !live }>
+  ${live ? "Stop" : "Subscribe"}
+</button>
+<if=(messages.length)>
+  <ul>
+    <for|msg| of=messages by="id">
+      <li>${msg.message}</li>
+    </for>
+  </ul>
+</if>
+<else>
+  <p>Waiting for the server…</p>
+</else>
