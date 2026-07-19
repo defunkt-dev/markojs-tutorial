@@ -75,7 +75,7 @@ edition shelf · **[—]** deliberately excluded (with reason).
 ### Part 8 — Advanced Marko Run **[planned]**
 - (reserved; folder `8-` left free so Part 9 additions don't renumber it)
 
-### Part 9 — Advanced Examples, Patterns & Integrations (12)
+### Part 9 — Advanced Examples, Patterns & Integrations (14)
 - 1-static-site-generation: 1-the-static-adapter **[✓]**
 - 2-server-sent-events: 1-the-eventsource-api **[✓]**
 - 3-shared-state: 1-a-signals-store **[✓]**
@@ -83,8 +83,7 @@ edition shelf · **[—]** deliberately excluded (with reason).
 - 5-client-side-rendering: 1-the-mount-api · 2-the-mount-handle **[✓]**
 - 6-dynamic-loading: 1-facade-tags · 2-loading-on-demand **[✓]** (facades = always-lazy + `<try>`/
   `@placeholder`; builds on 4/3/3, which covers the `load:` triggers incl.
-  interaction ones — so the book's dynamic-import version stays redundant) ·
-  (SPA/router5 · GraphQL · &lt;portal&gt; on a marko@5 template — **planned**)
+  interaction ones — so the book's dynamic-import version stays redundant)
 - 7-wrapping-a-js-library: 1-a-rive-animation **[✓ session 6]**
   (wrap an imperative JS runtime — Rive via `@rive-app/canvas`, on a new
   `marko-run-rive` template — in a Marko 6 tag: `<canvas/ref>` node handle +
@@ -110,6 +109,20 @@ edition shelf · **[—]** deliberately excluded (with reason).
   renders books server-side. 2: `<gql-mutation|mutate,results|>` + a button writes a new book (addBook
   resolver; DB seeded once in the server, persists across requests — verified). Recreates the book's
   GraphQL chapter)
+- 10-single-page-app: 1-client-side-routing **[✓ session 8]**
+  (an SSR-rendered shell that hydrates, then does client-side navigation with **NO full reload**,
+  on a new lean **`marko-run-spa`** template — base marko-run + a catch-all `$$path` route so the
+  server renders the right view for any deep link (`/completed`) and a **hand-rolled History-API
+  router** (`src/router.js` — the do-it: `matchRoute` / `navigate` (`history.pushState`) /
+  `onPopState`; zero deps). The shell holds a reactive `<let/route=$global.route>` (bridged via
+  `context.serializedGlobals`) and swaps the view with a **static `<if>/<else-if>` chain** — NOT a
+  reactive-`<const>` component map + `<${…}>`, which works in dev but silently ships **only the
+  initial view** in a prod build (Marko's fine-grained bundling); a static tag, a direct
+  conditional expression, or a **module-level `static const`** map all bundle correctly. Feasibility
+  + the no-reload swap + deep-linking + back/forward were proven in-sandbox with a **real headless
+  browser**, on both dev AND prod builds. A `:::tip` notes the Marko team is developing official SPA
+  support. marko-run has no client router by design (`Run.href`/`fetch`/`match`/`invoke` only) — this
+  is the idiomatic hand-rolled answer)
 
 ## Topic Index
 
@@ -200,6 +213,12 @@ edition shelf · **[—]** deliberately excluded (with reason).
   `dist/` (index.html + JS) **[✓]** 9/5/1 · the returned **mount handle** — `instance.update(input)`
   / `.destroy()` / `.value` (two-way with an assignable `<return>`) for driving/embedding a
   mounted app from outside **[✓]** 9/5/2
+- client-side routing / single-page app → an **SSR-rendered shell that hydrates**, then swaps views
+  on client navigation with **no full reload**, via a **hand-rolled History-API router**
+  (`history.pushState` + `popstate` + a path matcher — marko-run has no client router by design). A
+  catch-all `$$path` route makes deep links / reloads SSR the right view; the shell holds a reactive
+  `<let/route>` and selects the view with a **static `<if>` chain** (a reactive-`<const>` component
+  map + `<${…}>` works in dev but ships only the initial view in a prod build) **[✓]** 9/10/1
 - **facade tags** (always-lazy) — a wrapper that lazily imports a heavy impl (kept private
   in a nested `tags/` dir) so every consumer gets code-splitting for free; `<try>` +
   `@placeholder`/`@catch` for the loading/error state; SSR writes full HTML, only client JS

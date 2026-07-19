@@ -1,0 +1,46 @@
+import ActiveView from "../../tags/active-view.marko";
+import CompletedView from "../../tags/completed-view.marko";
+import ArchivedView from "../../tags/archived-view.marko";
+import { ROUTES, matchRoute, navigate, onPopState } from "../../router.js";
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Tasks</title>
+  </head>
+  <body>
+    <h1>Tasks</h1>
+
+    <let/route=$global.route>
+
+    <nav>
+      <for|name| of=ROUTES>
+        <a href=`/${name}` onClick(e) {
+          e.preventDefault();
+          navigate(name);
+          route = matchRoute(location.pathname);
+        }>${name}</a>
+        <span> </span>
+      </for>
+    </nav>
+
+    <main>
+      <if=(route === "active")>
+        <ActiveView/>
+      </if>
+      <else-if=(route === "completed")>
+        <CompletedView/>
+      </else-if>
+      <else-if=(route === "archived")>
+        <ArchivedView/>
+      </else-if>
+    </main>
+
+    <script>
+      // When the user presses back/forward, sync the view to the URL.
+      const stop = onPopState((name) => { route = name; });
+      $signal.onabort = stop;
+    </script>
+  </body>
+</html>

@@ -299,3 +299,27 @@
       absent: "Add a book"
     _solution:
       contains: "Add a book"
+
+# ---- Part 9: Single-Page App — client-side routing (marko-run-spa template) ----
+# SSR-shell + client SPA on a catch-all route. The do-it is src/router.js
+# (matchRoute / navigate / onPopState on the History API). Both states build.
+# ssr: the handler uses matchRoute, so completing it makes deep links render the
+# right view server-side — _solution SSRs the Completed view for /completed;
+# _files' stub matchRoute always returns "active", so it SSRs the Active view.
+# command: navigate()'s history.pushState is client-only — present in _solution's
+# bundle, absent from the _files stub. (The actual no-reload click swap + back/
+# forward is browser-oracle; verified in-sandbox with a real headless browser.)
+9-advanced-examples/10-single-page-app/1-client-side-routing:
+  ssr:
+    path: "/completed"
+    _files:
+      contains: "These are the active items"
+      absent: "Everything here is done"
+    _solution:
+      contains: "Everything here is done"
+  command:
+    run: "cat dist/public/assets/*.js"
+    _files:
+      absent: "pushState"
+    _solution:
+      contains: "pushState"
