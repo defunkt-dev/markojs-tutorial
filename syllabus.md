@@ -7,7 +7,7 @@ under `src/content/tutorial/`.
 Legend: **[✓]** shipped · **[P5]** planned for part 5 · **[v2]** second
 edition shelf · **[—]** deliberately excluded (with reason).
 
-## Lesson Tree (106 lessons)
+## Lesson Tree (107 lessons)
 
 ### Part 1 — Fundamentals (17)
 - 1-first-steps: 1-welcome · 2-templates-are-html · 3-dynamic-text ·
@@ -72,12 +72,13 @@ edition shelf · **[—]** deliberately excluded (with reason).
 ### Part 8 — Advanced Marko Run **[planned]**
 - (reserved; folder `8-` left free so Part 9 additions don't renumber it)
 
-### Part 9 — Advanced Examples, Patterns & Integrations (3)
+### Part 9 — Advanced Examples, Patterns & Integrations (4)
 - 1-static-site-generation: 1-the-static-adapter **[✓]**
 - 2-server-sent-events: 1-the-eventsource-api **[✓]**
-- 3-shared-state: 1-a-signals-store **[✓]** ·
-  (lazy loading · SPA/router5 · final-form ·
-  GraphQL on a marko@5 template — **planned**)
+- 3-shared-state: 1-a-signals-store **[✓]**
+- 4-forms: 1-a-validated-form **[✓]** ·
+  (lazy loading · SPA/router5 · GraphQL on a marko@5 template ·
+  rive · &lt;portal&gt; on a marko@5 template — **planned**)
 
 ## Topic Index
 
@@ -158,6 +159,9 @@ edition shelf · **[—]** deliberately excluded (with reason).
   API) → a module-level **signals store** (`@preact/signals-core` `signal` +
   actions, bridged into a component via `count.subscribe` → `<let>` +
   `$signal` cleanup) **[✓]** 9/3/1
+- client-side form state → **final-form** (`createForm` + `validate` + `subscribe`,
+  form built client-only in `<script>` since it isn't serializable, bridged into
+  `<let>`s) **[✓]** 9/4/1
 - Serialization limits; `serializedGlobals` **[✓]** 5/3/1-globals-and-serialization
 - html-comment / html-script / html-style **[✓]** 4/4/3-escape-hatches
 - html-text / include-text / include-html / scriptlets / `out` / `this.emit`

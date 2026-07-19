@@ -119,3 +119,20 @@
   ssr:
     _files: "Shared count"
     _solution: "Shared count"
+
+# ---- Part 9: Client-Side Forms via final-form (marko-run-forms template) ----
+# Both states SSR the same empty form ("Sign up"); the do-it task is the
+# validate() function (client-only, in the <script>). Discriminate on the
+# validation message, which is a literal in _solution's validate and absent
+# from the _files stub (cat only .js — comments are stripped there, and the
+# stub comment is worded to avoid the literal anyway).
+9-advanced-examples/4-forms/1-a-validated-form:
+  ssr:
+    _files: "Sign up"
+    _solution: "Sign up"
+  command:
+    run: "cat dist/public/assets/*.js"
+    _files:
+      absent: "Email is required"
+    _solution:
+      contains: "Email is required"
