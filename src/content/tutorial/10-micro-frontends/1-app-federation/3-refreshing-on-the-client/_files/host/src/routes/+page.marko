@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="UTF-8"/><title>Host App</title></head>
+  <body style="font-family:system-ui,sans-serif;max-width:640px;margin:2rem auto;padding:0 1rem">
+    <h1>The host app</h1>
+    <p>The notice below comes from the remote app. Let's make it refreshable from the browser.</p>
+
+    <!-- TODO: add a class {} block, a Refresh button, and a ?v= param on the src (see the steps) -->
+    <micro-frame src="/notice" timeout=0>
+      <@loading>Loading the remote notice…</@loading>
+      <@catch|err|>The remote notice is unavailable: ${err.message}</@catch>
+    </micro-frame>
+  </body>
+</html>
