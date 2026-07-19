@@ -213,3 +213,20 @@
     _solution:
       contains: "Show details"
       absent: "Details panel"
+
+# ---- Part 9: Wrapping a JS Library — Rive animation (marko-run-rive template) ----
+# Do-it = fill in the wrapper's <script> that starts the @rive-app/canvas runtime.
+# Both states SSR the page + canvas. _solution uses the rive runtime (it's bundled,
+# ~154kB); _files' stub doesn't, so the runtime tree-shakes out (~2.5kB). Discriminate
+# on resizeDrawingSurfaceToCanvas — called in _solution's onLoad (+ runtime bundled),
+# absent from _files. Animation itself is browser-oracle (WASM canvas).
+9-advanced-examples/7-wrapping-a-js-library/1-a-rive-animation:
+  ssr:
+    _files: "A Rive animation"
+    _solution: "A Rive animation"
+  command:
+    run: "cat dist/public/assets/*.js"
+    _files:
+      absent: "resizeDrawingSurfaceToCanvas"
+    _solution:
+      contains: "resizeDrawingSurfaceToCanvas"

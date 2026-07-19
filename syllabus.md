@@ -7,7 +7,7 @@ under `src/content/tutorial/`.
 Legend: **[✓]** shipped · **[P5]** planned for part 5 · **[v2]** second
 edition shelf · **[—]** deliberately excluded (with reason).
 
-## Lesson Tree (112 lessons)
+## Lesson Tree (113 lessons)
 
 ### Part 1 — Fundamentals (17)
 - 1-first-steps: 1-welcome · 2-templates-are-html · 3-dynamic-text ·
@@ -75,7 +75,7 @@ edition shelf · **[—]** deliberately excluded (with reason).
 ### Part 8 — Advanced Marko Run **[planned]**
 - (reserved; folder `8-` left free so Part 9 additions don't renumber it)
 
-### Part 9 — Advanced Examples, Patterns & Integrations (8)
+### Part 9 — Advanced Examples, Patterns & Integrations (9)
 - 1-static-site-generation: 1-the-static-adapter **[✓]**
 - 2-server-sent-events: 1-the-eventsource-api **[✓]**
 - 3-shared-state: 1-a-signals-store **[✓]**
@@ -84,7 +84,12 @@ edition shelf · **[—]** deliberately excluded (with reason).
 - 6-dynamic-loading: 1-facade-tags · 2-loading-on-demand **[✓]** (facades = always-lazy + `<try>`/
   `@placeholder`; builds on 4/3/3, which covers the `load:` triggers incl.
   interaction ones — so the book's dynamic-import version stays redundant) ·
-  (SPA/router5 · GraphQL · rive · &lt;portal&gt; on a marko@5 template — **planned**)
+  (SPA/router5 · GraphQL · &lt;portal&gt; on a marko@5 template — **planned**)
+- 7-wrapping-a-js-library: 1-a-rive-animation **[✓ session 6]**
+  (wrap an imperative JS runtime — Rive via `@rive-app/canvas`, on a new
+  `marko-run-rive` template — in a Marko 6 tag: `<canvas/ref>` node handle +
+  `<script>` setup + `$signal` cleanup + `<return>` instance. The `@marko-tags/rive`
+  package is Marko-5/Class-API and does NOT compile on 6, so we wrap the runtime directly)
 
 ## Topic Index
 
@@ -179,6 +184,13 @@ edition shelf · **[—]** deliberately excluded (with reason).
   in a nested `tags/` dir) so every consumer gets code-splitting for free; `<try>` +
   `@placeholder`/`@catch` for the loading/error state; SSR writes full HTML, only client JS
   defers **[✓]** 9/6/1 (extends the `load:` triggers of 4/3/3)
+- **deferring content vs. hydration** — facade defers hydration (HTML SSR'd); `<if>` + a lazy
+  component (or a dynamic `import()` + `<${C}/>`) defers the content itself; observable in dev
+  **[✓]** 9/6/2
+- **wrapping an imperative JS library** in a Marko 6 tag — `<canvas/ref>` DOM-node handle +
+  `<script>` setup + `$signal.onabort` cleanup + `<return>` instance; Rive via `@rive-app/canvas`
+  (the `@marko-tags/rive` package is Marko 5, doesn't compile on 6 — wrap the runtime directly)
+  **[✓]** 9/7/1
 - Serialization limits; `serializedGlobals` **[✓]** 5/3/1-globals-and-serialization
 - html-comment / html-script / html-style **[✓]** 4/4/3-escape-hatches
 - html-text / include-text / include-html / scriptlets / `out` / `this.emit`

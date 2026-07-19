@@ -1,0 +1,20 @@
+import * as rive from "@rive-app/canvas"
+
+<let/instance=null>
+
+<canvas/canvasEl width=input.width height=input.height/>
+
+<script>
+  // TODO: start the Rive runtime and point it at the <canvas> above.
+  //   const r = new rive.Rive({
+  //     src: input.src,
+  //     canvas: canvasEl(),
+  //     autoplay: true,
+  //     stateMachines: input.stateMachines,
+  //     onLoad() { r.resizeDrawingSurfaceToCanvas() },
+  //   });
+  // Hand the instance back with `instance = r`, and tear it down when this
+  // effect re-runs or the tag unmounts: `$signal.onabort = () => r.cleanup()`.
+</script>
+
+<return=instance>
