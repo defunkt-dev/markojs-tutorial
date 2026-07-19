@@ -170,3 +170,20 @@
       absent: "comments-impl"
     _solution:
       contains: "comments-impl"
+
+# ---- Part 9: Client-Side Rendering — the mount handle (marko-csr template) ----
+# Second CSR lesson. Provides its OWN index.html (with #rename/#remove buttons)
+# overlaying the template's shell. Do-it task = wire those buttons to the mount
+# handle (instance.update / instance.destroy) in main.js. CSR, so no ssr check.
+# Discriminate on "rename" — a getElementById arg only in _solution's wiring
+# (the _files stub only mentions it in a stripped comment; we cat only .js).
+9-advanced-examples/5-client-side-rendering/2-the-mount-handle:
+  emit:
+    files:
+      - dist/index.html
+  command:
+    run: "cat dist/assets/*.js"
+    _files:
+      absent: "rename"
+    _solution:
+      contains: "rename"

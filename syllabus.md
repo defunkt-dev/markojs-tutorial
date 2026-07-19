@@ -7,7 +7,7 @@ under `src/content/tutorial/`.
 Legend: **[✓]** shipped · **[P5]** planned for part 5 · **[v2]** second
 edition shelf · **[—]** deliberately excluded (with reason).
 
-## Lesson Tree (109 lessons)
+## Lesson Tree (110 lessons)
 
 ### Part 1 — Fundamentals (17)
 - 1-first-steps: 1-welcome · 2-templates-are-html · 3-dynamic-text ·
@@ -72,12 +72,12 @@ edition shelf · **[—]** deliberately excluded (with reason).
 ### Part 8 — Advanced Marko Run **[planned]**
 - (reserved; folder `8-` left free so Part 9 additions don't renumber it)
 
-### Part 9 — Advanced Examples, Patterns & Integrations (6)
+### Part 9 — Advanced Examples, Patterns & Integrations (7)
 - 1-static-site-generation: 1-the-static-adapter **[✓]**
 - 2-server-sent-events: 1-the-eventsource-api **[✓]**
 - 3-shared-state: 1-a-signals-store **[✓]**
 - 4-forms: 1-a-validated-form **[✓]**
-- 5-client-side-rendering: 1-the-mount-api **[✓]**
+- 5-client-side-rendering: 1-the-mount-api · 2-the-mount-handle **[✓]**
 - 6-dynamic-loading: 1-facade-tags **[✓]** (facades = always-lazy + `<try>`/
   `@placeholder`; builds on 4/3/3, which covers the `load:` triggers incl.
   interaction ones — so the book's dynamic-import version stays redundant) ·
@@ -165,10 +165,11 @@ edition shelf · **[—]** deliberately excluded (with reason).
 - client-side form state → **final-form** (`createForm` + `validate` + `subscribe`,
   form built client-only in `<script>` since it isn't serializable, bridged into
   `<let>`s) **[✓]** 9/4/1
-- client-side rendering, no server → **`Template.mount(input, node)`** on a plain
-  vite + `@marko/vite` app in **unlinked** mode (`marko({ linked: false })`); instance
-  `.update`/`.destroy`/`.value`; builds to a static `dist/` (index.html + JS)
-  **[✓]** 9/5/1
+- client-side rendering, no server → **`Template.mount(input, node, position?)`** on a plain
+  vite + `@marko/vite` app in **unlinked** mode (`marko({ linked: false })`); builds to a static
+  `dist/` (index.html + JS) **[✓]** 9/5/1 · the returned **mount handle** — `instance.update(input)`
+  / `.destroy()` / `.value` (two-way with an assignable `<return>`) for driving/embedding a
+  mounted app from outside **[✓]** 9/5/2
 - **facade tags** (always-lazy) — a wrapper that lazily imports a heavy impl (kept private
   in a nested `tags/` dir) so every consumer gets code-splitting for free; `<try>` +
   `@placeholder`/`@catch` for the loading/error state; SSR writes full HTML, only client JS
