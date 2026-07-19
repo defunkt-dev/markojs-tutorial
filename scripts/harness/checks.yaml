@@ -69,3 +69,23 @@
   ssr:
     _files: "Release Notes"
     _solution: "Release Notes"
+
+# ---- Part 9: Static Site Generation (marko-run-static template) ----
+# _files ships both pages static (counter.html has no island JS);
+# _solution makes the counter interactive (counter.html gains its island).
+# NOTE: the harness builds each state in isolation (no dev server), so
+# `marko-run build` writes to the DEFAULT dist/public/ and we assert there.
+# The lesson prose instead builds with `--output dist-static` — only to avoid
+# clobbering the live dev-server preview the lesson keeps running (a preview
+# concern the harness doesn't have). Same output, different folder.
+9-advanced-examples/1-static-site-generation/1-the-static-adapter:
+  emit:
+    files:
+      - dist/public/index.html
+      - dist/public/counter.html
+  command:
+    run: "cat dist/public/counter.html"
+    _files:
+      absent: "assets/counter"
+    _solution:
+      contains: "assets/counter"

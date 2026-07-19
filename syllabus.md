@@ -7,7 +7,7 @@ under `src/content/tutorial/`.
 Legend: **[✓]** shipped · **[P5]** planned for part 5 · **[v2]** second
 edition shelf · **[—]** deliberately excluded (with reason).
 
-## Lesson Tree (103 lessons)
+## Lesson Tree (104 lessons)
 
 ### Part 1 — Fundamentals (17)
 - 1-first-steps: 1-welcome · 2-templates-are-html · 3-dynamic-text ·
@@ -68,6 +68,14 @@ edition shelf · **[—]** deliberately excluded (with reason).
 - 1-colour-picker: 1-the-shape · 2-making-it-live · 3-polish **[✓]**
 - 2-tic-tac-toe: 1-the-grid · 2-taking-turns · 3-winning **[✓]**
 - 3-todomvc: 1-list-and-item · 2-add-toggle-remove · 3-filtering **[✓]**
+
+### Part 8 — Advanced Marko Run **[planned]**
+- (reserved; folder `8-` left free so Part 9 additions don't renumber it)
+
+### Part 9 — Advanced Examples, Patterns & Integrations (1)
+- 1-static-site-generation: 1-the-static-adapter **[✓]** ·
+  (SSE · signals store · lazy loading · SPA/router5 · final-form ·
+  GraphQL on a marko@5 template — **planned**)
 
 ## Topic Index
 
@@ -199,8 +207,10 @@ edition shelf · **[—]** deliberately excluded (with reason).
 - immutable-state **[✓]** distributed: 2/1/4, 2/3/2, 3/2/4
 - targeted-compilation **[✓]** 2/3/2 (the compile-time graph) + 2/3/3
   (the platform outputs: `compileFile` html vs dom, `$template` + `$walks`)
-- fine-grained-bundling **[✓-half]** 2/3/3 (why a static tag ships no
-  walk and no runtime); depth → 5/3/5 reading list
+- fine-grained-bundling **[✓]** 2/3/3 (why a static tag ships no walk and
+  no runtime) + 9/1/1 (seen in a real build's per-route size table: a
+  no-interaction page ships 0 kB, an interactive one ships only its island);
+  depth → 5/3/5 reading list
 - separation-of-concerns, streaming, why-is-marko-fast,
   optimizing-performance **[✓-pointer]** 5/3/5 reading
   list · controllable-components **[✓]** part 2 ch2 ·
