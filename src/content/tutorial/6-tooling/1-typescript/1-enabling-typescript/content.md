@@ -47,6 +47,11 @@ adopt checking *incrementally* with JSDoc — a `// @ts-check` comment
 at the top of a `.marko` file plus a `@typedef {...} Input` block
 gives you real checking with zero TypeScript syntax.
 
+If `mtc` ever gets slow on a large codebase, `mtc --generateTrace <dir>`
+writes a trace you can open in a profiler to see which files and types
+dominate the type-check — the same `--generateTrace` TypeScript itself
+supports, handy for keeping CI checks fast.
+
 You should now see Coffee priced at 4.95 in the preview, and
 `pnpm check` exiting silently. One catch: with `strict` checking on,
 *untyped* tags become errors too. Next lesson shows why — and how to

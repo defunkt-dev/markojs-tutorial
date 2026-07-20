@@ -362,7 +362,7 @@
 # Lesson 1 (streaming search results): _files renders only page 0 (items 0-2, no
 # "Nike Free Run" which is item 3 / page 1); _solution recurses through all pages.
 # curl -s reads the full stream until the server closes it (~10s solution / ~1s files).
-11-streaming-and-progressive-rendering/1-streaming-html/1-streaming-search-results:
+11-streaming-and-progressive-rendering/1-streaming-html/2-streaming-search-results:
   ssr:
     _files: { contains: "Marko Streaming Results", absent: "Nike Free Run" }
     _solution: { contains: "Nike Free Run" }

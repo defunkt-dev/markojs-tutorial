@@ -1,6 +1,6 @@
 ---
 type: lesson
-mainCommand: ['pnpm run dev --lesson-5-3-5', 'Starting dev server']
+mainCommand: ['pnpm run dev --lesson-5-3-6', 'Starting dev server']
 title: Where to Go Next
 focus: /src/routes/+page.marko
 editor:

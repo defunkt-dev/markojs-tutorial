@@ -32,7 +32,10 @@ Swap that adapter and the identical app builds for a different target:
   Generation** lesson in Part 9 built exactly this.
 - **`@marko/run-adapter-netlify`** → Netlify (below).
 
-Your route and component code never changes — only the adapter does.
+Your route and component code never changes — only the adapter does. And if no adapter exists for
+your target, you can **write your own**: an adapter is just a package implementing marko-run's
+adapter interface (build hooks plus a runtime entry), so any host that can run JavaScript is
+reachable.
 
 ## Example: deploying to Netlify
 
@@ -56,6 +59,11 @@ runtime at Netlify's locations around the world, close to your users, rather tha
 server. So an adapter can retarget not just the *output format* but the *runtime your code runs
 on*. Handlers also get typed access to Netlify's platform context (geo, cookies, and more) through
 the request.
+
+For a real, end-to-end example, [`tanstack-table-markojs`](https://github.com/defunkt-dev/tanstack-table-markojs)
+is a Marko 6 app deployed to Netlify — its `netlify.toml` plus the adapter setup above show the
+whole picture, and the [live demo](https://bejewelled-torte-140a7b.netlify.app/) serves
+server-rendered, client-side, and virtualized tables from Netlify.
 
 :::info
 Adapters are a **build/deploy** concern, so there's nothing to run in this preview — it's just the

@@ -1,4 +1,4 @@
 ---
 type: chapter
-title: Streaming HTML
+title: Streaming
 ---

@@ -33,6 +33,32 @@ set headers, redirect on failure, and the page stays a pure renderer.
 In-template `<await>` remains right for per-component data; the
 handler owns per-route data.
 
+## Pass promises, don't await them
+
+The bestseller array here is synchronous, so `next({ anvils })` hands
+over a ready list. But when route data is loaded **asynchronously** — a
+database query, a `fetch` — there's a rule worth learning: **don't
+`await` it in the handler, pass the promise.** marko-run streams, so
+handing down an unresolved promise lets the response start at once (the
+`<head>` and static markup flush while the data is still loading), and
+the template's `<await>` releases each section as its promise settles:
+
+```js
+export const GET = Run.GET((context, next) =>
+  next({ products: loadProducts() }), // no await — pass the promise
+);
+```
+```marko
+<await|products|=$global.data.products>
+  <for|p| of=products> … </for>
+</await>
+```
+
+Every `await` *before* `next` holds back the whole response until it
+resolves — forfeiting streaming and delaying even parts that never
+needed the data. Keep independent sources as separate promises so their
+`<await>`s flush independently.
+
 The bestseller list on the right renders `$global.data.anvils` — which
 nobody provides, so the page crashes:
 

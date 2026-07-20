@@ -1,0 +1,43 @@
+static const FEATURES = [
+  ["No virtual DOM", "server renders straight to an HTML stream"],
+  ["Zero-JS static", "static markup ships no client JavaScript"],
+  ["Streaming by default", "slow sections flush when ready"],
+  ["Compile-time reactivity", "the browser updates only what changed"],
+];
+
+<let/open=false>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Why Marko Is Fast</title>
+    <style>
+      body { font-family: system-ui, sans-serif; max-width: 640px; margin: 2rem auto; padding: 0 1rem; }
+      h1 { font-size: 1.4rem; }
+      .row { border: 1px solid #d8d8d8; border-radius: 8px; padding: 10px 14px; margin: 8px 0; }
+      .row b { display: block; }
+      .row span { color: #555; font-size: 0.9rem; }
+      button { font-size: 0.95rem; padding: 6px 14px; margin-top: 8px; cursor: pointer; }
+      .note { margin-top: 10px; color: #333; }
+    </style>
+  </head>
+  <body>
+    <h1>What makes Marko fast</h1>
+    <!-- Every .row below is fully static: it compiles to plain HTML with
+         no client JavaScript at all. -->
+    <for|[title, detail]| of=FEATURES>
+      <div class="row"><b>${title}</b><span>${detail}</span></div>
+    </for>
+
+    <!-- This button is the ONLY interactive part of the page, so it is the
+         only thing that ships any client JS. -->
+    <button onClick() { open = !open }>
+      ${open ? "Hide" : "Show"} the point
+    </button>
+    <if=open>
+      <p class="note">This entire page is static HTML except for one button.
+        Marko shipped JavaScript for the button — and nothing else.</p>
+    </if>
+  </body>
+</html>
