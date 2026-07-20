@@ -2,6 +2,7 @@ import ActiveView from "../../tags/active-view.marko";
 import CompletedView from "../../tags/completed-view.marko";
 import ArchivedView from "../../tags/archived-view.marko";
 import { ROUTES, matchRoute, navigate, onPopState } from "../../router.js";
+import { reportUrl } from "../../preview-url.js";
 
 <!doctype html>
 <html lang="en">
@@ -20,6 +21,7 @@ import { ROUTES, matchRoute, navigate, onPopState } from "../../router.js";
           e.preventDefault();
           navigate(name);
           route = matchRoute(location.pathname);
+          reportUrl();
         }>${name}</a>
         <span> </span>
       </for>
@@ -38,8 +40,9 @@ import { ROUTES, matchRoute, navigate, onPopState } from "../../router.js";
     </main>
 
     <script>
+      reportUrl(); // show the current path in the address bar
       // When the user presses back/forward, sync the view to the URL.
-      const stop = onPopState((name) => { route = name; });
+      const stop = onPopState((name) => { route = name; reportUrl(); });
       $signal.onabort = stop;
     </script>
   </body>

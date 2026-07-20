@@ -88,14 +88,13 @@ History API. None of this is Marko-specific — it's the plumbing every SPA need
 
 ## What you'll see
 
-Before you touch `src/router.js`, the tabs are dead — clicking them does nothing.
+Before you touch `src/router.js`, the tabs are dead — clicking them does nothing,
+and the address bar above the preview stays on `/` no matter which tab you click.
 Once the three functions are in, click a tab and the view swaps **instantly**, with
-no full-page reload. Behind the scenes the address bar is now updating too and the
-**back** button walks you through the views — but the tutorial preview is a
-bare frame with no address bar, so to watch the URL change (and try back/forward,
-and deep-link straight to `/completed`) open the preview in its own browser tab.
-Either way, the swap you *can* see is the tell: that's a client-side route change,
-served from one small file that still renders on the server for the first load.
+no full-page reload — and the **address bar above the preview updates** to match. The
+**back** button walks you through the views too. A URL that changes with no page reload
+is the tell: that's a client-side route change, served from one small file that still
+renders on the server for the first load.
 
 :::warning
 The view is chosen with a plain `<if>` / `<else-if>` chain over static component
