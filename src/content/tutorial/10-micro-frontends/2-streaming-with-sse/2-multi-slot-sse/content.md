@@ -20,7 +20,7 @@ mainCommand: ['pnpm run dev', 'Building the remote, then starting both apps']
 One faucet can feed **many** boxes. The real power of `<micro-frame-sse>` is fanning a single
 stream out to **different spots on the page** — each chunk routed to its own slot by id.
 
-The remote endpoint (`/remote-app-sse-multi-slot`) does two new things per message:
+The remote endpoint (`remote/src/routes/remote-app-sse-multi-slot/+handler.js`, now visible in the file tree) does two new things per message:
 
 - it picks a **different template** for each id (an *information*, a *confirmation*, and an
   *attention* notice), and

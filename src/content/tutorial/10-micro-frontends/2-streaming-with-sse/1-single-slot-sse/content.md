@@ -27,10 +27,12 @@ and app federation handles it with a second pair of tags:
   (a slot id); the chunk lands in the box whose `slot` matches. The slot's `from` ties it back
   to the faucet's `name`.
 
-The remote endpoint (`/remote-app-sse-single-slot`, already built into the remote app) reads a
-mock SSE feed and, for **each** message, renders a small notice to HTML and sends it as one SSE
-frame tagged with the slot id. On the host, the `read` function turns each raw event into
-`[slotId, html, isDone]`:
+Open the remote's code in the file tree to follow along —
+`remote/src/routes/remote-app-sse-single-slot/+handler.js`. It reads a mock SSE feed
+(`remote/src/routes/api`), turns that byte stream into an event stream with
+`createMessageEmitter` (`remote/src/message-emitter.js`), and for **each** message renders a
+small notice to HTML and sends it as one SSE frame tagged with the slot id. On the host, the
+`read` function turns each raw event into `[slotId, html, isDone]`:
 
 ```marko
 <micro-frame-sse timeout=0 name="notices"
@@ -46,12 +48,18 @@ the notices should appear, wire it to the faucet, and give it a loading placehol
 2. Give it a `<@loading>` message and a `<@catch|err|>` fallback.
 
 Load the page: five notices stream in one by one, each into that same slot, accumulating as they
-arrive. `client-reorder` lets the page paint immediately and fill the slot as chunks land.
+arrive. `client-reorder` lets the page paint immediately and fill the slot as chunks land. Each
+notice is **interactive** — dismiss any of them with its ×.
 
-## A note on the render API
+## The render API, and renderId
 
 The remote builds each frame's HTML with `template.render(...)`. In **Marko 5** the book used a
 separate **`template.stream(...)`** here — this SSE page is about the only place that API shows up.
 **Marko 6 removed `template.stream`** and folded it into `template.render`, which returns a value
 you can either **`await`** (→ a finished HTML string) or **`for await`** (→ a stream of chunks).
 The single-slot endpoint `await`s it for a string; the next lesson uses the `for await` form.
+
+Notice the render also sets a `$global.renderId`. Five **interactive** notices now hydrate on the
+same page, so each render gets a **unique** `renderId` to keep their scope ids from colliding. With
+one slot it's easy to miss why that matters — the next lesson, with three different notices in three
+slots, makes it obvious.

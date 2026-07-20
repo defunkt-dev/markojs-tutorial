@@ -26,7 +26,7 @@ page reload. Same tags, same slot — the only new part is host-side state that 
 There's one wrinkle, the same as the earlier Refreshing lesson: from the browser, the host can't
 reach the remote's port directly. So the faucet points at a **same-origin host route**,
 `/sse-stream`, which proxies the remote's SSE endpoint back to the browser (a backend-for-frontend).
-That handler is already in place.
+That handler is already in place — `host/src/routes/sse-stream/+handler.js` in the file tree.
 
 > **Heads up — this file is Class API, on purpose.** `@micro-frame/marko` is a **Marko 5** library,
 > and its tags can only be driven from Marko 5's **Class API**. So the reactive bits look different
