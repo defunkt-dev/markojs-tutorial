@@ -1,0 +1,24 @@
+class {
+  onCreate() { this.state = { time: 0 }; }
+  reload() { this.state.time = Date.now(); }
+}
+<!doctype html>
+<html lang="en">
+  <head><meta charset="UTF-8"/><title>Host App</title></head>
+  <body style="font-family:system-ui,sans-serif;max-width:640px;margin:2rem auto;padding:0 1rem">
+    <h1>The host app</h1>
+    <p>The stream runs on first load. Click Refresh to re-run it on the client.</p>
+
+    <button on-click("reload")>Refresh</button>
+    <micro-frame-sse timeout=0 name="notices"
+      src=`/sse-stream?slotName=main&dt=${state.time}`
+      read(ev) { return [ev.lastEventId, JSON.parse(ev.data), false]; }
+    />
+
+    <micro-frame-slot from="notices" slot="main" timeout=0 client-reorder>
+      <@loading>Waiting for the stream…</@loading>
+      <@catch|err|>Stream error: ${err.message || err}</@catch>
+    </micro-frame-slot>
+
+  </body>
+</html>

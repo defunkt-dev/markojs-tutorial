@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="UTF-8"/><title>Host App</title></head>
+  <body style="font-family:system-ui,sans-serif;max-width:640px;margin:2rem auto;padding:0 1rem">
+    <h1>The host app</h1>
+    <p>One stream, fanned out to three separate slots on the page.</p>
+
+    <micro-frame-sse timeout=0 name="stream"
+      src=`http://localhost:3001/remote-app-sse-multi-slot?dt=${Date.now()}`
+      read(ev) { return [ev.lastEventId, JSON.parse(ev.data), false]; }
+    />
+
+    <h2>Slot one</h2>
+    <micro-frame-slot from="stream" slot="module_1" timeout=0 client-reorder>
+      <@loading>Waiting…</@loading>
+      <@catch|err|>Stream error: ${err.message || err}</@catch>
+    </micro-frame-slot>
+
+    <h2>Slot two</h2>
+    <micro-frame-slot from="stream" slot="module_2" timeout=0 client-reorder>
+      <@loading>Waiting…</@loading>
+      <@catch|err|>Stream error: ${err.message || err}</@catch>
+    </micro-frame-slot>
+
+    <h2>Slot three</h2>
+    <!-- TODO: add the third <micro-frame-slot> here — from="stream", slot="module_3",
+         with a <@loading> and <@catch|err|>, like the two above. -->
+
+  </body>
+</html>
