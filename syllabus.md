@@ -98,6 +98,17 @@ edition shelf · **[—]** deliberately excluded (with reason).
     way — the crash is the live Solve hot-swap itself, NOT `process.env` in the final output (define
     removed that), so no env method survives a Solve here. New **`marko-run-env-vite`** template.
     Prose contrasts runtime (`-e`, dotenvx) vs build-time (`define`) injection.
+- 3-deployment: Deployment
+  - 1-deploying-with-adapters **[✓ session 8]** — READ-ONLY conceptual. `marko-run build` already
+    emits a runnable Node server (`node dist/index.mjs`); **adapters retarget the same app** for a
+    different host, chosen by one line in `vite.config.ts` (`marko({ adapter: nodeAdapter() })`).
+    Covers node (default), static (`@marko/run-adapter-static` — the Part 9 SSG lesson), and
+    **`@marko/run-adapter-netlify`** as the concrete example: `netlifyAdapter()` → Netlify Functions,
+    `netlifyAdapter({ edge: true })` → Netlify Edge Functions (Deno/webworker runtime — the adapter
+    retargets the *runtime*, not just the format); typed Netlify platform context. Read-only because
+    it's a build/deploy concept (Netlify build/preview needs the Netlify CLI + subprocess, which the
+    WebContainer can't run) — the preview is just the app. New **`marko-run-deploy`** template
+    (marko-run + `@marko/run-adapter-node`, node-adapter vite.config visible).
 
 ### Part 9 — Advanced Examples, Patterns & Integrations (14)
 - 1-static-site-generation: 1-the-static-adapter **[✓]**
@@ -325,8 +336,9 @@ edition shelf · **[—]** deliberately excluded (with reason).
   vs `npm pack` **[✓]** 6/3/4 · `npm publish` itself **[✓-pointer]** 6/3/4
 - API routes **[✓]** 5/3/3 · **server-sent events** (streaming
   `text/event-stream` handler + browser `EventSource`, `<script>` effect +
-  `$signal` cleanup) **[✓]** 9/2/1 · Adapters, embedding (`Run.fetch`/`match`/
-  `invoke`), typed URLs **[✓-pointer]** 5/3/5 (depth **[v2]**)
+  `$signal` cleanup) **[✓]** 9/2/1 · Adapters/**deployment** (node/static/netlify
+  Functions+Edge) **[✓]** 8/3/1 · embedding **[✓]** 8/1/1 · `Run.fetch`/`match`/
+  `invoke`, typed URLs **[✓-pointer]** 5/3/5 (depth **[v2]**)
 
 ### Explanations (docs/explanation)
 - immutable-state **[✓]** distributed: 2/1/4, 2/3/2, 3/2/4

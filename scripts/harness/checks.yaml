@@ -343,3 +343,10 @@
   ssr:
     _files:
       contains: "Marko Shop"
+
+# ---- Part 8 ch.3: Deployment ----
+8-advanced-marko-run/3-deployment/1-deploying-with-adapters:
+  states: [_files]
+  ssr:
+    _files:
+      contains: "The Shop"
