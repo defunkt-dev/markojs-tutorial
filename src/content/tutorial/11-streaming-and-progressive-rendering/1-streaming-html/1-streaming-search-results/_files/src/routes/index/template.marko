@@ -1,0 +1,53 @@
+import { items as ALL } from "./data.js";
+
+static const PAGE_SIZE = 3;
+static const TOTAL_PAGES = 10;
+
+// One page of results, cycling through the data so the stream never runs dry.
+static function getPage(pageIndex) {
+  const page = [];
+  for (let i = 0; i < PAGE_SIZE; i++) {
+    page.push(ALL[(pageIndex * PAGE_SIZE + i) % ALL.length]);
+  }
+  return page;
+}
+
+// Each page "arrives" one second after it is requested.
+static function loadPage(pageIndex) {
+  return new Promise((resolve) => setTimeout(() => resolve(getPage(pageIndex)), 1000));
+}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="data:,">
+    <title>Marko Streaming Results</title>
+  </head>
+  <body>
+    <h1>Marko Streaming Results</h1>
+
+    <define/Results|input|>
+      <await|page|=loadPage(input.pageIndex)>
+        <for|item| of=page>
+          <div class="result">
+            <h2>${item.title}</h2>
+            <b>Price:</b> ${item.price}
+          </div>
+        </for>
+        <!-- TODO: after this page renders, kick off the NEXT one.
+             Render <Results/> again with the next pageIndex, but stop
+             once you reach TOTAL_PAGES. Wrap it in an <if>. -->
+      </await>
+    </>
+
+    <Results pageIndex=0/>
+
+    <style>
+      body { font-family: system-ui, sans-serif; max-width: 640px; margin: 1.5rem auto; padding: 0 1rem; }
+      h1 { font-size: 1.3rem; }
+      .result { border: 1px solid #d0d0d0; border-radius: 8px; padding: 10px 14px; margin-bottom: 1em; }
+      .result h2 { font-size: 1rem; margin: 0 0 4px; }
+    </style>
+  </body>
+</html>
