@@ -8,7 +8,7 @@ previews:
 prepareCommands:
   - ['pnpm install', 'Installing dependencies']
   - ['pnpm run build', 'Building the app']
-mainCommand: ['pnpm run preview', 'Starting the Express server']
+mainCommand: ['node dist/index.mjs', 'Starting the Express server']
 ---
 
 # Mounting the Router
@@ -89,3 +89,8 @@ The adapter also ships a **match middleware**: it attaches the matched route to 
 "run it" — auth, logging, rate limiting. `routerMiddleware()` is the common case; reach for
 the match middleware when you need that seam.
 :::
+
+---
+
+Don't want marko-run at all? Part 9's **Rendering by Hand** reaches the same goal — Marko
+pages served by Express — using only `@marko/vite`, with every route written by hand.

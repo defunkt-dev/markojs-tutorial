@@ -324,18 +324,10 @@
     _solution:
       contains: "pushState"
 
-# ---- Part 8: Advanced marko-run — embedding in an Express server (marko-run-embed template) ----
-# A custom Express entry (src/index.js) using the node adapter. The do-it is
-# mounting marko-run's routes via routerMiddleware(). Both states build and boot
-# the Express server (its own /api/status route works in both). Discriminator: the
-# marko-run page at "/" — _files (no routerMiddleware) gives Express's 404;
-# _solution (routerMiddleware mounted) renders the page. (Dev server is
-# `marko-run dev src/index.js`; the entry listens on PORT||3000.)
-8-advanced-marko-run/1-embedding/1-mounting-the-router:
+# ---- Part 9 ch.11: Marko without marko-run ----
+9-advanced-examples/11-marko-without-marko-run/1-rendering-by-hand:
   ssr:
     _files:
-      status: 404
-      absent: "Welcome to the Shop"
+      absent: "Rendered by a plain Express handler"
     _solution:
-      status: 200
-      contains: "Welcome to the Shop"
+      contains: "Rendered by a plain Express handler"
