@@ -1,4 +1,7 @@
-<div style="padding:1rem 1.25rem;border-radius:8px;background:#fff0f5;border:1px solid #f3c2d6;color:#8a1f4b;font-family:system-ui,sans-serif">
-  <strong>Heads up</strong> — this notice is rendered by the remote app on port 3001, then
-  embedded into the host page on port 3000. The host never touches its markup.
-</div>
+<let/shown = true>
+<if=shown>
+  <div style="padding:.8rem 1rem;border-radius:8px;background:#fff0f5;border:1px solid #f3c2d6;color:#8a1f4b;display:flex;justify-content:space-between;gap:1rem;align-items:center;font-family:system-ui,sans-serif">
+    <span><strong>Heads up</strong> — this notice is rendered by the remote app and embedded in the host. Try dismissing it with the ×.</span>
+    <button style="border:0;background:none;cursor:pointer;font-size:1.2em;color:inherit;line-height:1" aria-label="Dismiss" onClick() { shown = false }>×</button>
+  </div>
+</if>

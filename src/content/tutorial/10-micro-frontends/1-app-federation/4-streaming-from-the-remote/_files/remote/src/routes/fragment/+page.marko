@@ -1,5 +1,17 @@
-<div style="padding:1rem 1.25rem;border-radius:8px;background:#fff0f5;border:1px solid #f3c2d6;color:#8a1f4b;font-family:system-ui,sans-serif">
-  <strong>Latest deal</strong>
-  <!-- TODO: this text appears instantly. Make it stream: fetch it via a slow <await> with a <@placeholder>. -->
-  <p>50% off — ends tonight</p>
-</div>
+<let/shown = true>
+<if=shown>
+  <div style="padding:.8rem 1rem;border-radius:8px;background:#fff0f5;border:1px solid #f3c2d6;color:#8a1f4b;display:flex;justify-content:space-between;gap:1rem;align-items:center;font-family:system-ui,sans-serif">
+    <div>
+      <strong>Latest deal</strong>
+      <try>
+        <await|deal|=new Promise((resolve) => setTimeout(() => resolve("50% off — ends tonight"), 800))>
+          <div>${deal}</div>
+        </await>
+        <@placeholder>
+          <div style="opacity:.7">Loading the latest deal…</div>
+        </@placeholder>
+      </try>
+    </div>
+    <button style="border:0;background:none;cursor:pointer;font-size:1.2em;color:inherit;line-height:1" aria-label="Dismiss" onClick() { shown = false }>×</button>
+  </div>
+</if>

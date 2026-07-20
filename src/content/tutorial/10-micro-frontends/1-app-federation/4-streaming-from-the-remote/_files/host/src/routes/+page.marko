@@ -4,7 +4,7 @@
   <body style="font-family:system-ui,sans-serif;max-width:640px;margin:2rem auto;padding:0 1rem">
     <h1>The host app</h1>
     <p>The panel below is a separate remote app that fetches its data before rendering — watch it stream in.</p>
-    <micro-frame src="http://localhost:3001/fragment" client-reorder timeout=0>
+    <micro-frame src="http://localhost:3001/fragment" timeout=0>
       <@loading>Contacting the remote…</@loading>
       <@catch|err|>The remote is unavailable: ${err.message}</@catch>
     </micro-frame>

@@ -1,5 +1,6 @@
 ---
 type: lesson
+autoReload: true
 template: marko-microframe
 title: Embedding a Remote
 focus: /host/src/routes/+page.marko
@@ -9,14 +10,12 @@ previews:
 prepareCommands:
   - ['pnpm -C host install', 'Installing the host app']
   - ['pnpm -C remote install', 'Installing the remote app']
-mainCommand: ['pnpm run dev', 'Starting the host and remote servers']
+mainCommand: ['pnpm run dev', 'Building the remote, then starting both apps']
 ---
 
 # Embedding a Remote
 
-:::tip
-These lessons render on the **server**, so the preview doesn't always refresh by itself. If it looks stale after you Solve a step or switch lessons, hit **reload** on the preview.
-:::
+<div style="margin:1.25rem 0;border:2px solid #f59e0b;border-left-width:8px;border-radius:8px;background:#fff7ed;color:#7c2d12;padding:0.85rem 1rem;font-size:0.95rem;line-height:1.5"><div style="font-weight:800;text-transform:uppercase;letter-spacing:0.05em;font-size:0.8rem;color:#b45309;margin-bottom:0.3rem">⚠️ If the preview looks stale — reload it</div>This lesson runs <strong>two apps</strong> in the preview, and it doesn't always refresh on its own. After you Solve a step, switch lessons, or if the notice's <strong>×</strong> button stops working, hit <strong>reload on the preview</strong> — or reload the whole page. Everything also works if you <strong>download the lesson</strong> and run it locally.</div>
 
 The host page (`host/src/routes/+page.marko`) is empty where the remote notice should go.
 Let's embed it. The remote already serves the notice at `http://localhost:3001/fragment`
@@ -50,4 +49,6 @@ Build it:
 3. Give it a `<@catch|err|>` fallback that shows `${err.message}`.
 
 When it renders, you've composed two independently-built apps into one page — the essence
-of app federation. The host embeds the remote's **output**, never its code.
+of app federation. The host embeds the remote's **output**, never its code. The embedded
+notice is fully interactive too — its × runs in the browser, served by the remote through the
+host.

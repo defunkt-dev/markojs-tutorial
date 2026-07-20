@@ -1,12 +1,26 @@
+static async function cleanFetch(url, options, defaultFetch) {
+  // Preview-only workaround: StackBlitz injects its own runtime <script> into fetched
+  // HTML, which errors if it runs twice when the notice is re-inserted. Strip that
+  // injected script; keep the remote's own hydration script. Not needed outside StackBlitz.
+  const res = await defaultFetch(url, options);
+  if (!res.ok) return res;
+  const raw = await res.text();
+  const html = raw.replace(/<script\b[\s\S]*?<\/script>/gi, (m) =>
+    /webcontainer|__WC_ENV__/i.test(m) ? "" : m
+  );
+  return new Response(html, { status: 200, headers: { "content-type": "text/html" } });
+}
 <!doctype html>
 <html lang="en">
   <head><meta charset="UTF-8"/><title>Host App</title></head>
   <body style="font-family:system-ui,sans-serif;max-width:640px;margin:2rem auto;padding:0 1rem">
     <h1>The host app</h1>
-    <p>The notice below comes from the remote app. Let's make it refreshable from the browser.</p>
+    <p>Let's make the notice refreshable from the browser — without reloading the page.</p>
 
-    <!-- TODO: add a class {} block, a Refresh button, and a ?v= param on the src (see the steps) -->
-    <micro-frame src="/notice" client-reorder timeout=0>
+    <!-- TODO 1: add a `class {}` block ABOVE this doctype with state { nonce: 0 } and a refresh() method -->
+    <!-- TODO 2: add a <button on-click("refresh")>Refresh</button> here -->
+    <!-- TODO 3: change the src below to `/notice?v=${state.nonce}` -->
+    <micro-frame src="/notice" fetch=cleanFetch client-reorder timeout=0>
       <@loading>Loading the remote notice…</@loading>
       <@catch|err|>The remote notice is unavailable: ${err.message}</@catch>
     </micro-frame>

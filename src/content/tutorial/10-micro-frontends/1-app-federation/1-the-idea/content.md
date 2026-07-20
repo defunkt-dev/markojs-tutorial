@@ -1,5 +1,6 @@
 ---
 type: lesson
+autoReload: true
 template: marko-microframe
 title: The Idea
 focus: /host/src/routes/+page.marko
@@ -9,14 +10,12 @@ previews:
 prepareCommands:
   - ['pnpm -C host install', 'Installing the host app']
   - ['pnpm -C remote install', 'Installing the remote app']
-mainCommand: ['pnpm run dev', 'Starting the host and remote servers']
+mainCommand: ['pnpm run dev', 'Building the remote, then starting both apps']
 ---
 
 # The Idea
 
-:::tip
-These lessons render on the **server**, so the preview doesn't always refresh by itself. If it looks stale after you Solve a step or switch lessons, hit **reload** on the preview.
-:::
+<div style="margin:1.25rem 0;border:2px solid #f59e0b;border-left-width:8px;border-radius:8px;background:#fff7ed;color:#7c2d12;padding:0.85rem 1rem;font-size:0.95rem;line-height:1.5"><div style="font-weight:800;text-transform:uppercase;letter-spacing:0.05em;font-size:0.8rem;color:#b45309;margin-bottom:0.3rem">⚠️ If the preview looks stale — reload it</div>This lesson runs <strong>two apps</strong> in the preview, and it doesn't always refresh on its own. After you Solve a step, switch lessons, or if the notice's <strong>×</strong> button stops working, hit <strong>reload on the preview</strong> — or reload the whole page. Everything also works if you <strong>download the lesson</strong> and run it locally.</div>
 
 A big app is rarely built, shipped, or owned by one team. **Micro-frontends** split a
 site into independent pieces — each with its own codebase, release schedule, and owner —
@@ -66,10 +65,37 @@ This workspace has **two separate apps** — look at the file tree: a `host/` ap
 on different Marko versions (this host is on Marko 5 so it can use the `@micro-frame/marko`
 tags; the remote is a plain Marko 6 app). Each keeps its **own Marko runtime**, kept apart by
 a `runtimeId` (set in the remote's `vite.config`), so the two don't clash once the remote's
-HTML lands inside the host page. Open **both** previews: the host page already
-embeds the remote's notice with `<micro-frame>`, and the remote serves that same notice on
-its own at `/fragment`. Unlike an iframe, the embedded notice is just part of the host's
-HTML — no box, no separate scrollbar, and it's visible to search engines and screen
-readers.
+HTML lands inside the host page.
 
-In the next lesson you'll wire it up yourself.
+The remote notice is a **real, interactive** component — try dismissing it with the ×. Its
+JavaScript is served by the remote, but the browser can't reach the remote's port directly, so
+the host forwards those requests through itself (the `/remote-assets/` route in `host/`). That's
+the point of app federation: the remote is a fully independent app — its own render, data, and
+interactivity — and the host just embeds the result and relays what the browser needs. Open
+**both** previews: the host page already embeds the remote's notice with `<micro-frame>`, and
+the remote serves that same notice on its own at `/fragment`. Unlike an iframe, the embedded
+notice is just part of the host's HTML — no box, no separate scrollbar, and it's visible to search
+engines and screen readers.
+
+## Seeing the runtime isolation
+
+How do two Marko runtimes share one page without stepping on each other? The `runtimeId`.
+The remote is built with `runtimeId: 'mr'`, so every marker and every piece of hydration data
+it emits is namespaced with `mr` — no other app's runtime uses that key, so nothing collides.
+
+Open the **Remote app** preview (port 3001), then use your browser's **View Source** to see the
+real bytes. Alongside the notice's HTML you'll find Marko's component-boundary comments and a
+small hydration script, all carrying the `mr` id — roughly like this (simplified):
+
+```html
+<!--mr ...-->                          <!-- component boundary, namespaced by runtimeId -->
+<div ...>…the notice…</div>
+<script>$mr_C = window.$mr_C || [];    /* the remote's hydration registry, keyed by "mr" */
+        $mr_C.push(/* scope + state for the × button */)</script>
+```
+
+When the host embeds this, its own runtime lives under a **different** id, so the two sets of
+markers and registries never overlap. That's what lets you drop as many remotes as you like
+onto one page — each stays sandboxed by its own `runtimeId`.
+
+In the next lesson you'll wire the embed up yourself.
