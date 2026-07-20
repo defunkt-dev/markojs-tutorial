@@ -72,8 +72,20 @@ edition shelf · **[—]** deliberately excluded (with reason).
 - 2-tic-tac-toe: 1-the-grid · 2-taking-turns · 3-winning **[✓]**
 - 3-todomvc: 1-list-and-item · 2-add-toggle-remove · 3-filtering **[✓]**
 
-### Part 8 — Advanced Marko Run **[planned]**
-- (reserved; folder `8-` left free so Part 9 additions don't renumber it)
+### Part 8 — Advanced marko-run (1)
+- 1-embedding: 1-mounting-the-router **[✓ session 8]**
+  (embed marko-run into an **existing Express app** via the **Node adapter**. A custom
+  server entry `src/index.js` (`marko({ adapter: nodeAdapter() })` in vite.config;
+  package.json scripts run `marko-run dev/build/preview src/index.js`) mounts all
+  file-based routes with `routerMiddleware()` from `@marko/run-adapter-node/middleware`,
+  alongside the app's own Express routes. Do-it = add `app.use(routerMiddleware())`;
+  before it the marko-run page at `/` gives Express's "Cannot GET /" while the app's own
+  `/api/status` route works — after, both work. New lean **`marko-run-embed`** template
+  (marko-run + `@marko/run-adapter-node` + express + compression). Grounding: the DEFAULT
+  `marko-run build` already emits a runnable Node server (`node dist/index.mjs`), so a
+  bare "node adapter" lesson would be redundant — the distinct capability is *embedding*.
+  Proven on Marko 6, dev + build. The adapter's **match middleware** (attach the route,
+  invoke later) is noted as an advanced seam.)
 
 ### Part 9 — Advanced Examples, Patterns & Integrations (14)
 - 1-static-site-generation: 1-the-static-adapter **[✓]**
@@ -266,8 +278,9 @@ edition shelf · **[—]** deliberately excluded (with reason).
 - `+404`/`+500` (pipeline errors only — render errors are `<try>`'s job,
   verified), `redirect`/`back` **[✓]** 5/3/2
 - Plugin options: `routesDir`, `basePathVar`, `trailingSlashes`; CDN asset
-  base paths **[✓]** 5/3/4 · `linked`, `runtimeId`, `babelConfig`,
-  env/dotenv, connect-style apps **[v2]** (advanced marko-run)
+  base paths **[✓]** 5/3/4 · connect-style embedding (Node adapter +
+  `routerMiddleware()`) **[✓]** 8/1/1 · `linked`, `runtimeId`, `babelConfig`,
+  env/dotenv **[v2]** (advanced marko-run)
 - Prettier + `prettier-plugin-marko`; `--marko-syntax` conversion **[✓]**
   6/2/1 · Component testing: `@marko/testing-library`, vitest, jsdom,
   `render`/`screen`/`fireEvent` **[✓]** 6/2/2, 6/2/3 · Storybook + CSF,
@@ -286,8 +299,12 @@ edition shelf · **[—]** deliberately excluded (with reason).
   vs `npm pack` **[✓]** 6/3/4 · `npm publish` itself **[✓-pointer]** 6/3/4
 - API routes **[✓]** 5/3/3 · **server-sent events** (streaming
   `text/event-stream` handler + browser `EventSource`, `<script>` effect +
-  `$signal` cleanup) **[✓]** 9/2/1 · Adapters, embedding (`Run.fetch`/`match`/
-  `invoke`), typed URLs **[✓-pointer]** 5/3/5 (depth **[v2]**)
+  `$signal` cleanup) **[✓]** 9/2/1 · **embedding marko-run in an existing Express
+  server** — the Node adapter (`marko({ adapter: nodeAdapter() })`) + a custom
+  `src/index.js` mounting file-based routes via `routerMiddleware()` next to your own
+  Express routes; note the default `marko-run build` is already a runnable Node server
+  (`node dist/index.mjs`) **[✓]** 8/1/1 · other adapters (`Run.fetch`/`match`/`invoke`,
+  typed URLs) **[✓-pointer]** 5/3/5 (depth **[v2]**)
 
 ### Explanations (docs/explanation)
 - immutable-state **[✓]** distributed: 2/1/4, 2/3/2, 3/2/4

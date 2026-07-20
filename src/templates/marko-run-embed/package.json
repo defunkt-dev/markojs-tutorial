@@ -1,0 +1,20 @@
+{
+  "name": "marko-run-embed-template",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "marko-run dev src/index.js",
+    "build": "marko-run build src/index.js",
+    "preview": "marko-run preview src/index.js"
+  },
+  "dependencies": {
+    "@marko/run": "^0.11.5",
+    "@marko/run-adapter-node": "^2.0.6",
+    "compression": "^1.8.1",
+    "express": "^4.21.1",
+    "marko": "^6.3.14"
+  },
+  "devDependencies": {
+    "vite": "^8.1.5"
+  }
+}
