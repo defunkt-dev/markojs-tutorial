@@ -1,0 +1,34 @@
+import Fragment from "../fragment/index.marko";
+
+static function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+static function rejectAfter(ms) {
+  return new Promise((_, reject) =>
+    setTimeout(() => reject(new Error(`data timed out after ${ms}ms`)), ms),
+  );
+}
+
+// Start this section's work now. "Main" also races a timeout.
+<const/data = (input.timeout
+  ? Promise.race([delay(input.ms), rejectAfter(input.timeout)])
+  : delay(input.ms))>
+
+<if=(input.mode === "out-of-order")>
+  <try>
+    <await=data>
+      <Fragment label=input.label cssClass=input.cssClass/>
+    </await>
+    <@placeholder>
+      <div class="fragment placeholder">Loading ${input.label}…</div>
+    </@placeholder>
+    <@catch|err|>
+      <div class="fragment error">${input.label} — ${err.message}</div>
+    </@catch>
+  </try>
+</if>
+<else>
+  <await=data>
+    <Fragment label=input.label cssClass=input.cssClass/>
+  </await>
+</else>

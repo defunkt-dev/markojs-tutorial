@@ -7,7 +7,7 @@ under `src/content/tutorial/`.
 Legend: **[✓]** shipped · **[P5]** planned for part 5 · **[v2]** second
 edition shelf · **[—]** deliberately excluded (with reason).
 
-## Lesson Tree (116 lessons)
+## Lesson Tree (125 lessons, parts 1–11)
 
 ### Part 1 — Fundamentals (17)
 - 1-first-steps: 1-welcome · 2-templates-are-html · 3-dynamic-text ·
@@ -177,6 +177,44 @@ edition shelf · **[—]** deliberately excluded (with reason).
   a **raw Node response** to the bare Router, so only raw `res`/`.pipe(res)` work in dev — not Express's
   `res.send`/`res.type`. The mirror image of Part 8's embedding showcase — with vs. without the framework.)
 
+### Part 10 — Micro-frontends (7)
+- 1-app-federation: 1-the-idea · 2-embedding-a-remote · 3-refreshing-on-the-client ·
+  4-streaming-from-the-remote (host/remote **app federation** via `@micro-frame/marko`:
+  `<micro-frame src>` transcludes a remote's rendered HTML seamlessly (iframe-like, no box);
+  host-side Refresh + BFF; streamed remote via `<try>`/`<await>`/`<@placeholder>`. Class-API host
+  (micro-frame is Marko 5); `marko-microframe` multi-app template + `start.mjs`. The embedded × only
+  re-arms on a full container reload — sandbox limitation, works in the download.)
+- 2-streaming-with-sse: 1-single-slot-sse · 2-multi-slot-sse · 3-isomorphic-sse
+  (`<micro-frame-sse>` faucet + `<micro-frame-slot>` drop-box stream SSE chunks into labeled slots;
+  a recursive `<define/Wait>`+`<await>` page renders one notice per event so each hydrates
+  independently; `template.render()` for-await streaming + `renderId`. `createMessageEmitter`
+  bridges a fetch SSE body to a Node EventEmitter.)
+
+### Part 11 — Streaming, Async & Progressive Rendering (2)
+- 1-streaming-html: 1-streaming-search-results **[✓ session 9]** — recreates the v3
+  **marko-streaming** demo (HTTP streaming search results). A single Express handler
+  `template.render({}).pipe(res)` streams a page whose results are appended over time by a
+  **recursive `<define>`+`<await>`** (`<for>` has no async-iterable support, so recursion is the
+  "append over time" idiom): 10 pages × 3 results, one batch/second, down one held-open response.
+  Pure HTML, **no client JS** (faithful to v3). Do-it = add the recursive `<Results
+  pageIndex=.../>` call. New single-app vite-express template **`marko-stream-search`**. Verified
+  in-sandbox with a real headless browser (3→30 results one batch/sec; raw HTTP body = 11 chunks
+  over ~10s) and **DS-confirmed in the container**.
+- 2-progressive-rendering: 1-in-order-out-of-order-and-single-chunk **[✓ session 9]** — recreates
+  the v3 **marko-progressive-rendering** demo. Header/nav/main/footer as independent delayed
+  promises (750/500/3000/1000ms) with a `?mode=` switch handled by a handler that **parses
+  `req.url`** (vite dev gives a raw Node req — no `req.query`): **single-chunk** buffers
+  (`await template.render()`), **in-order** bare `<await>`, **out-of-order** `<try>`+`<@placeholder>`
+  (reordered as-ready; Footer before Main). Each section is an **interactive fragment** proving
+  reordered content hydrates — **must be a child component**: inline reactive state inside a
+  reordered `<await>` **crashes hydration** (`getAttribute` / `i is not a function`) in **both
+  frameworks, dev AND prod, on marko 6.3.15**; wrapping it in a component fixes it (the Part-10
+  `<Notice>` pattern). `main` guards a 5s timeout via `Promise.race`→`<@catch>`. Do-it = add the
+  single-chunk buffering branch (maps 1:1 to v3's `if (renderMode === 'single-chunk')`;
+  `.pipe(res)` streams vs `await render()` buffers). New single-app vite-express template
+  **`marko-progressive-render`** (distinct name → container reboots between the two lessons).
+  All three modes + hydration + mode-nav verified with a real headless browser.
+
 ## Topic Index
 
 ### Language basics
@@ -231,6 +269,18 @@ edition shelf · **[—]** deliberately excluded (with reason).
 - Per-item `<style>` values (+ nth-of-type warning) **[✓]** 3/2/5-per-item-styles
 - `<await>`; in-order streaming **[✓]** 3/3/1-the-await-tag
 - `<try>` `@placeholder`; out-of-order streaming **[✓]** 3/3/2-out-of-order
+- **HTTP streaming — appending results over time** → recursive `<define>`+`<await>` (one held-open
+  response; `<for>` has no async-iterable support so recursion is the idiom); `template.render().pipe(res)`
+  **[✓]** 11/1/1-streaming-search-results
+- **Three delivery modes on one page** (single-chunk buffered `await render()` / in-order bare
+  `<await>` / out-of-order `<try>`+`@placeholder`); streaming = *delivery*, progressive = *strategy*
+  **[✓]** 11/2/1-in-order-out-of-order-and-single-chunk
+- **OO-hydration gotcha** — reordered content with **inline** reactive state fails to hydrate
+  (`getAttribute` / `i is not a function`, both frameworks, dev+prod, marko 6.3.15); fix = move the
+  interactive part into its **own component** **[✓]** 11/2/1
+- **Buffering vs streaming at the render API** — `await template.render()` (thenable, buffered) vs
+  `.render().pipe(res)` (streamed); marko-run `req.query` unavailable in vite dev → parse `req.url`
+  **[✓]** 11/2/1 (render-API catalogue first at 9/11/1)
 - `<try>` `@catch` error boundaries **[✓]** 3/3/3-error-boundaries
 
 ### Tag variables, params, slots

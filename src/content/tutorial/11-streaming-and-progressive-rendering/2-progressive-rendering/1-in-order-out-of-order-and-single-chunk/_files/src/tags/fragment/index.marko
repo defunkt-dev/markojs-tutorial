@@ -1,0 +1,7 @@
+<let/clicked=false>
+<div class=`fragment ${input.cssClass}${clicked ? " clicked" : ""}`>
+  <h2>${input.label}</h2>
+  <button type="button" onClick() { clicked = true }>
+    ${clicked ? "Clicked!" : "Behavior attached — click me"}
+  </button>
+</div>

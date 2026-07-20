@@ -1,0 +1,50 @@
+import Section from "../../tags/section/index.marko";
+<const/mode = (input.mode ?? "out-of-order")>
+
+<define/ModeLink|m|>
+  <if=(m.mode === m.current)>
+    <b class="active">${m.mode} ←</b>
+  </if>
+  <else>
+    <a href=`/?mode=${m.mode}`>${m.mode}</a>
+  </else>
+</>
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="data:,">
+    <title>Progressive Rendering</title>
+  </head>
+  <body>
+    <h1>Progressive Rendering</h1>
+    <p class="modes">
+      Render mode:
+      <ModeLink mode="single-chunk" current=mode/>
+      <ModeLink mode="in-order" current=mode/>
+      <ModeLink mode="out-of-order" current=mode/>
+    </p>
+
+    <Section mode=mode label="1) Header" cssClass="header" ms=750/>
+    <Section mode=mode label="2) Nav" cssClass="nav" ms=500/>
+    <Section mode=mode label="3) Main" cssClass="main" ms=3000 timeout=5000/>
+    <Section mode=mode label="4) Footer" cssClass="footer" ms=1000/>
+
+    <style>
+      body { font-family: system-ui, sans-serif; max-width: 640px; margin: 1.5rem auto; padding: 0 1rem; }
+      h1 { font-size: 1.3rem; }
+      .modes a, .modes .active { margin: 0 5px; }
+      .fragment { padding: 8px 12px; margin: 8px 0; border-radius: 6px; color: #fff; }
+      .fragment h2 { font-size: 0.95rem; margin: 0 0 6px; text-transform: uppercase; }
+      .fragment button { cursor: pointer; border: 0; border-radius: 4px; padding: 4px 8px; }
+      .fragment.header { background: #16a085; }
+      .fragment.nav { background: #e67e22; }
+      .fragment.main { background: #c0392b; }
+      .fragment.footer { background: #8e44ad; }
+      .fragment.placeholder { background: #f1c40f; color: #333; }
+      .fragment.error { background: #7f8c8d; }
+      .fragment.clicked { outline: 3px solid #111; }
+    </style>
+  </body>
+</html>
