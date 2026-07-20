@@ -79,9 +79,25 @@ edition shelf · **[—]** deliberately excluded (with reason).
     app via `routerMiddleware()` (from `@marko/run-adapter-node`): a custom `/api/status` route
     and marko-run's `/` + `/products` pages are served by the same server. Delivered as a showcase
     because marko-run's custom-entry `dev` uses `cluster.fork`, which StackBlitz WebContainers
-    don't support — so it's served from a production build (`marko-run preview`, plain node), which
-    runs anywhere. New **`marko-run-embed`** template. (A sibling "Marko without marko-run" lesson —
-    the vite-express `@marko/vite`-only path — is planned for this chapter.)
+    don't support — so it's served from a production build, run via a directly-killable
+    `node dist/index.mjs` mainCommand (NOT `marko-run preview`, whose surviving grandchild held
+    port 3000 and blocked the next lesson's preview from refreshing). New **`marko-run-embed`**
+    template. (Its "Marko without marko-run" counterpart is the vite-express lesson — it landed in
+    **Part 9 ch.11**, cross-referenced both ways.)
+- 2-environment-config: Environment Configuration — two ways to read a `.env`, shown side by side
+  - 1-with-marko-run **[✓ session 8]** — READ-ONLY example (no do-it). marko-run's runtime dotenv:
+    `marko-run dev -e .env` (the `-e/--env` flag; dotenvx; does NOT auto-load `.env`), read
+    server-side with `${process.env.SITE_NAME}`. Read-only because clicking Solve to introduce a
+    `process.env` reference into a live route module crashes marko-run's dev hot-swap in the
+    WebContainer ("Cannot GET /") — first load is fine; the Solve hot-swap is the trigger. New
+    **`marko-run-env`** template.
+  - 2-with-vite **[✓ session 8]** — READ-ONLY example. Vite's build-time env: `vite.config.ts`
+    (visible) uses `loadEnv` + `define` to replace `process.env.SITE_NAME` with the literal value at
+    compile (no `-e`; plain `marko-run dev`). Read-only because clicking Solve to introduce a
+    `process.env` reference LIVE-recompiles the route and crashes the container's dev server the same
+    way — the crash is the live Solve hot-swap itself, NOT `process.env` in the final output (define
+    removed that), so no env method survives a Solve here. New **`marko-run-env-vite`** template.
+    Prose contrasts runtime (`-e`, dotenvx) vs build-time (`define`) injection.
 
 ### Part 9 — Advanced Examples, Patterns & Integrations (14)
 - 1-static-site-generation: 1-the-static-adapter **[✓]**
@@ -289,7 +305,8 @@ edition shelf · **[—]** deliberately excluded (with reason).
 - Plugin options: `routesDir`, `basePathVar`, `trailingSlashes`; CDN asset
   base paths **[✓]** 5/3/4 · connect-style embedding (Node adapter +
   `routerMiddleware()`) **[✓]** 8/1/1 · `linked` mode (`@marko/vite` app build, no marko-run)
-  **[✓]** 9/11/1 · `runtimeId`, `babelConfig`, env/dotenv **[v2]** (advanced marko-run)
+  **[✓]** 9/11/1 · env/dotenv (`marko-run dev -e .env`, dotenvx) **[✓]** 8/2/1 · `runtimeId`,
+  `babelConfig` **[v2]** (advanced marko-run)
 - Prettier + `prettier-plugin-marko`; `--marko-syntax` conversion **[✓]**
   6/2/1 · Component testing: `@marko/testing-library`, vitest, jsdom,
   `render`/`screen`/`fireEvent` **[✓]** 6/2/2, 6/2/3 · Storybook + CSF,

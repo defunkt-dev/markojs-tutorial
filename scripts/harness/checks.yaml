@@ -331,3 +331,15 @@
       absent: "Rendered by a plain Express handler"
     _solution:
       contains: "Rendered by a plain Express handler"
+
+# ---- Part 8 ch.2: Environment Configuration ----
+8-advanced-marko-run/2-environment-config/1-with-marko-run:
+  states: [_files]
+  ssr:
+    _files:
+      contains: "Marko Shop"
+8-advanced-marko-run/2-environment-config/2-with-vite:
+  states: [_files]
+  ssr:
+    _files:
+      contains: "Marko Shop"
