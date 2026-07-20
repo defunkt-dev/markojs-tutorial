@@ -7,7 +7,7 @@ under `src/content/tutorial/`.
 Legend: **[✓]** shipped · **[P5]** planned for part 5 · **[v2]** second
 edition shelf · **[—]** deliberately excluded (with reason).
 
-## Lesson Tree (125 lessons, parts 1–11)
+## Lesson Tree (133 lessons, parts 1–11)
 
 ### Part 1 — Fundamentals (17)
 - 1-first-steps: 1-welcome · 2-templates-are-html · 3-dynamic-text ·
@@ -17,7 +17,7 @@ edition shelf · **[—]** deliberately excluded (with reason).
 - 3-styling: 1-style-blocks · 2-less · 3-css-modules · 4-styles-in-files ·
   5-dynamic-styles · 6-tailwind · 7-scss
 
-### Part 2 — Reactivity (15)
+### Part 2 — Reactivity (16)
 - 1-state: 1-the-let-tag · 2-handling-events · 3-derived-values ·
   4-objects-and-arrays · 5-inspecting-state
 - 2-inputs-and-binding: 1-reading-inputs · 2-two-way-binding ·
@@ -77,7 +77,7 @@ edition shelf · **[—]** deliberately excluded (with reason).
 - 2-tic-tac-toe: 1-the-grid · 2-taking-turns · 3-winning **[✓]**
 - 3-todomvc: 1-list-and-item · 2-add-toggle-remove · 3-filtering **[✓]**
 
-### Part 8 — Advanced Marko Run
+### Part 8 — Advanced Marko Run (4)
 - 1-embedding: Embedding in an Existing Server
   - 1-mounting-the-router **[✓ session 8]** — SHOWCASE (pre-solved; no do-it). A hand-written
     Express entry (`src/index.js`) mounts marko-run's file-based router into an existing Express
@@ -115,7 +115,7 @@ edition shelf · **[—]** deliberately excluded (with reason).
     WebContainer can't run) — the preview is just the app. New **`marko-run-deploy`** template
     (marko-run + `@marko/run-adapter-node`, node-adapter vite.config visible).
 
-### Part 9 — Advanced Examples, Patterns & Integrations (14)
+### Part 9 — Advanced Examples, Patterns & Integrations (15)
 - 1-static-site-generation: 1-the-static-adapter **[✓]**
 - 2-server-sent-events: 1-the-eventsource-api **[✓]**
 - 3-shared-state: 1-a-signals-store **[✓]**
@@ -409,3 +409,26 @@ edition shelf · **[—]** deliberately excluded (with reason).
   nested-reactivity **[✓]** 3/2/4 · serializable-state **[✓]** 5/3/1 ·
   class-vs-tags-api **[✓]** 4/4/4 · let-vs-const **[✓]** 2/1/3
   
+### Guides (docs/guide)
+Every page under `docs/guide` mapped against the curriculum (comparison run this session):
+- styling **[✓]** part 1 ch3 (style blocks, LESS, CSS-modules, dynamic styles, Tailwind, SCSS)
+- publishing-components **[✓]** 6/3 (the-shape-of-a-tag-library → shipping-it-for-real)
+- library-integration **[✓]** 9/7/1-a-rive-animation (wrapping a non-Marko JS library)
+- marko-5-interop **[✓]** 4/4/4-coming-from-marko-5 (the class→tags translation table)
+- duplicate-form-submissions **[—]** NOT covered — a small practical technique (disable the
+  button/form after the first submit to prevent double submission). Genuine gap; natural fit as a
+  short addition to 9/4/1-a-validated-form or 5/2/4-request-bodies-and-forms. Low effort, real-world
+  useful — the one concrete feature-doc the tutorial doesn't touch.
+- low-level-apis **[—]** out of scope — writing custom compiler **migrators & translators**; the doc
+  itself says do this "only when you absolutely need it." Compiler-author escape hatch, beyond a
+  learner curriculum (the compile-time model is already introduced at 2/3/3).
+
+### Coverage verdict (docs ↔ curriculum, this session)
+Compared all of `docs/{reference,explanation,marko-run,guide}` against the tree. **All 18 core tags,
+all reference topics (concise-syntax, native-tag, language, custom-tag, typescript, lazy-loading,
+reactivity, template, generics, supported-environments), all marko-run topics (routing, data-loading,
+validation, handlers/middleware, adapters, cli, vite-plugin, runtime, typed-routes), and all
+explanation concepts are covered.** The only untracked-until-now items are the two guide docs above:
+`duplicate-form-submissions` (a real, small gap worth adding) and `low-level-apis` (reasonably out of
+scope). `docs/introduction/*` and `docs/tutorial/*` are the site's own intro/tutorial, not feature
+surface, so not curriculum targets.

@@ -357,3 +357,45 @@
   ssr:
     _files:
       contains: "rendered on the server"
+
+# ---- Part 11: Streaming, Async & Progressive Rendering ----
+# Lesson 1 (streaming search results): _files renders only page 0 (items 0-2, no
+# "Nike Free Run" which is item 3 / page 1); _solution recurses through all pages.
+# curl -s reads the full stream until the server closes it (~10s solution / ~1s files).
+11-streaming-and-progressive-rendering/1-streaming-html/1-streaming-search-results:
+  ssr:
+    _files: { contains: "Marko Streaming Results", absent: "Nike Free Run" }
+    _solution: { contains: "Nike Free Run" }
+# Lesson 2 (progressive rendering): default mode is out-of-order. _files omits the
+# <@placeholder>, so out-of-order behaves in-order and NO "Loading" placeholder is
+# emitted; _solution adds <@placeholder>, so the stream carries "Loading ...".
+11-streaming-and-progressive-rendering/2-progressive-rendering/1-in-order-out-of-order-and-single-chunk:
+  ssr:
+    _files: { contains: "Progressive Rendering", absent: "Loading" }
+    _solution: { contains: "Loading" }
+
+# ---- Part 8: Embedding marko-run in Express (marko-run-embed) ----
+# _files-only lesson (no _solution): a prod-built Express app that mounts the
+# marko-run router. Build produces dist/index.mjs; run it and curl the mounted page.
+8-advanced-marko-run/1-embedding/1-mounting-the-router:
+  states: [_files]
+  ssr:
+    command: node dist/index.mjs
+    _files: { contains: "Welcome to the Shop" }
+
+# ---- Part 10: Micro-frontends (marko-microframe) — intentionally BUILD-ONLY here ----
+# marko-microframe is a pnpm-orchestrated MULTI-APP monorepo: start.mjs builds the
+# `remote` package, serves it in preview on :3001, and runs the `host` package in dev
+# on :3000, with three separate package.json files and NO root build script. This does
+# not fit this harness's single-app model (one template, one `npm run build`, one dev
+# server on one port), so the harness materialises and reports these lessons BUILD-ONLY
+# rather than ssr-asserting them. They were verified in session 7 with purpose-built
+# multi-app probes (headless browser, host+remote booted together) and DS-confirmed in
+# the StackBlitz container. Listed here explicitly so the gap is documented, not silent:
+#   10-micro-frontends/1-app-federation/1-the-idea                  (files-only)
+#   10-micro-frontends/1-app-federation/2-embedding-a-remote
+#   10-micro-frontends/1-app-federation/3-refreshing-on-the-client
+#   10-micro-frontends/1-app-federation/4-streaming-from-the-remote (files-only)
+#   10-micro-frontends/2-streaming-with-sse/1-single-slot-sse
+#   10-micro-frontends/2-streaming-with-sse/2-multi-slot-sse
+#   10-micro-frontends/2-streaming-with-sse/3-isomorphic-sse
