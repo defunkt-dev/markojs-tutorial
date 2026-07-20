@@ -39,4 +39,4 @@ your own machine. (Some adapters make it smarter: the Netlify adapter's
 `preview` launches `netlify dev` for you.)
 
 Three verbs — `dev` while you build, `build` to ship, `preview` to
-double-check. The full flag list lives in `@marko/run`'s CLI reference.
+double-check. The full flag list lives in [`@marko/run`'s CLI reference](https://markojs.com/docs/marko-run/cli).

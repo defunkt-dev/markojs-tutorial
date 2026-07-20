@@ -55,5 +55,7 @@ touch exactly the nodes a changed signal feeds, nothing more.
 Put together: small bundles, single-pass server renders, streaming by
 default, and surgical client updates. Not one trick — an architecture
 where the compiler carries the weight so your code, and your users'
-browsers, don't. For the deeper write-ups, see the docs' *Why Is Marko
-Fast* and *Targeted Compilation* explanations.
+browsers, don't. For the deeper write-ups, see the docs'
+[*Why Is Marko Fast*](https://markojs.com/docs/explanation/why-is-marko-fast) and
+[*Targeted Compilation*](https://markojs.com/docs/explanation/targeted-compilation)
+explanations.

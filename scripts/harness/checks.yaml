@@ -408,3 +408,16 @@
   ssr:
     _files: "Sign up"
     _solution: "Sign up"
+
+# ---- Part 2: Fine-Grained Bundling (build-and-inspect do-it) ----
+# `node inspect.mjs` builds unminified and reports what shipped. _files is a fully
+# static page (ships no page-specific client JS); _solution adds one interactive
+# piece (its code appears in the bundle). This asserts that difference directly.
+2-reactivity/3-under-the-hood/6-fine-grained-bundling:
+  command:
+    run: node inspect.mjs
+    _files:
+      contains: "shipped NO page-specific client JavaScript"
+      absent: "▸ SHIPPED"
+    _solution:
+      contains: "▸ SHIPPED"

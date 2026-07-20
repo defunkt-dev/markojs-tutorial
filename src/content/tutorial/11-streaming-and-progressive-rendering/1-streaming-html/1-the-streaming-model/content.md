@@ -52,4 +52,5 @@ Marko has streamed HTML since 2014 — long before most of the ecosystem.
 That's the whole toolkit. The next lesson uses `<await>` to stream a
 search page's results over one long response; the chapter after puts
 `<await>`, `<@placeholder>`, and `<@catch>` together across a whole
-page. For the background, see the docs' *HTML Streaming* explanation.
+page. For the background, see the docs'
+[*HTML Streaming*](https://markojs.com/docs/explanation/streaming) explanation.

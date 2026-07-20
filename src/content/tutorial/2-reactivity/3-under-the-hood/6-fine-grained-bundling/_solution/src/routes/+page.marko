@@ -1,0 +1,27 @@
+static const PRICE_CENTS = 29900;
+static const STOCK = 7;
+static const SPECS = [
+  ["Weight", "1.2 kg"],
+  ["Battery life", "18 hours"],
+];
+static function formatPrice(cents) {
+  return "$" + (cents / 100).toFixed(2);
+}
+
+<let/likes=0>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8"/><title>Aurora Headphones</title></head>
+  <body>
+    <h1>Aurora Headphones</h1>
+    <p>Premium wireless headphones tuned for long listening sessions.</p>
+    <p class="price">Price: ${formatPrice(PRICE_CENTS)}</p>
+    <p class="stock">${STOCK > 0 ? `In stock (${STOCK} left)` : "Sold out"}</p>
+    <h2>Specifications</h2>
+    <for|[name, value]| of=SPECS>
+      <div class="spec">${name}: ${value}</div>
+    </for>
+    <button onClick() { likes++ }>♥ Like (${likes})</button>
+  </body>
+</html>
