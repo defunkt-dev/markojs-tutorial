@@ -24,7 +24,12 @@ edition shelf · **[—]** deliberately excluded (with reason).
   3-checkboxes-and-radios · 4-selects · 5-transforming-bound-values ·
   6-binding-your-own-tags · 7-details-and-dialogs
 - 3-under-the-hood: 1-effects-and-cleanup · 2-how-reactivity-works ·
-  3-two-programs-from-one-template
+  3-two-programs-from-one-template · 4-resumability **[✓ session 8]** (READ-ONLY demo — Marko
+  *resumes* rather than *replays*: a render-time `console.log` + an interactive button show the
+  code runs once on the server (terminal) and does NOT re-run on the client (browser console),
+  yet the button still works — proving it hydrated by resuming, not re-running. Builds on the
+  `_el_resume` markers from 2/3/3. Browser-console behavior, so DS-verified in the container;
+  headless-browser-confirmed in the sandbox.)
 
 ### Part 3 — Control Flow, Lists & Async (11)
 - 1-conditionals: 1-if-and-else · 2-show

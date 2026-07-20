@@ -350,3 +350,10 @@
   ssr:
     _files:
       contains: "The Shop"
+
+# ---- Part 2 ch.3: Resumability (read-only demo) ----
+2-reactivity/3-under-the-hood/4-resumability:
+  states: [_files]
+  ssr:
+    _files:
+      contains: "rendered on the server"
