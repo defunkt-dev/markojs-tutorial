@@ -1,0 +1,49 @@
+import { createForm } from "final-form"
+
+<let/form=null>
+<let/values={}>
+<let/errors={}>
+<let/submitFailed=false>
+<let/succeeded=false>
+<let/submitting=false>
+
+<script>
+  const f = createForm({
+    async onSubmit(values) {
+      // A real signup POSTs to a server — that takes a moment.
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+    },
+    validate(values) {
+      const errors = {};
+      if (!values.email) errors.email = "Email is required";
+      else if (!values.email.includes("@")) errors.email = "Enter a valid email";
+      return errors;
+    },
+  });
+  form = f;
+  // final-form tracks `submitting` — true while onSubmit's promise is pending.
+  $signal.onabort = f.subscribe(
+    (state) => {
+      values = state.values;
+      errors = state.errors;
+      submitFailed = state.submitFailed;
+      succeeded = state.submitSucceeded;
+      submitting = state.submitting;
+    },
+    { values: true, errors: true, submitFailed: true, submitSucceeded: true, submitting: true },
+  );
+</script>
+
+<form onSubmit(e) { e.preventDefault(); form.submit() }>
+  <label>
+    Email
+    <input type="email" value=values.email onInput(e) { form.change("email", e.target.value) }>
+  </label>
+  <if=(submitFailed && errors.email)>
+    <p class="error">${errors.email}</p>
+  </if>
+  <button type="submit">Sign up</button>
+</form>
+<if=(succeeded)>
+  <p>Thanks — you're signed up!</p>
+</if>

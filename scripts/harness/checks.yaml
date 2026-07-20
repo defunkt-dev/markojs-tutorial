@@ -399,3 +399,12 @@
 #   10-micro-frontends/2-streaming-with-sse/1-single-slot-sse
 #   10-micro-frontends/2-streaming-with-sse/2-multi-slot-sse
 #   10-micro-frontends/2-streaming-with-sse/3-isomorphic-sse
+
+# ---- Part 9: Forms — Preventing Double Submits ----
+# The do-it (disabled button while submitting) is client-side (final-form runs
+# after hydration), so SSR renders "Sign up" in both states — this asserts the
+# page boots; the disable/pending behavior is verified with a real browser.
+9-advanced-examples/4-forms/2-preventing-double-submits:
+  ssr:
+    _files: "Sign up"
+    _solution: "Sign up"
