@@ -1,7 +1,8 @@
-// Consumes the /api SSE stream and re-emits each message as an SSE frame carrying
-// RENDERED HTML for one slot. The host's <micro-frame-slot slot="..."> drops each frame's
-// HTML into the matching spot.
-import template from "./notice-sse.marko";
+// Consumes the /api SSE stream and streams a single PAGE render whose <await> recurses, emitting one
+// notice per message. Each streamed chunk is re-framed as an SSE frame tagged with the slot id; the
+// host's <micro-frame-slot slot="..."> assembles them. Because it's ONE render (notices nested as
+// branches), the notices hydrate independently and each × works.
+import template from "./+page.marko";
 import { createMessageEmitter } from "../../message-emitter.js";
 
 export async function GET({ platform: { request } }) {
@@ -20,26 +21,20 @@ export async function GET({ platform: { request } }) {
   const encoder = new TextEncoder();
 
   const sseStream = new ReadableStream({
-    start(controller) {
-      const pending = new Set();
-      emitter.on("data", (dataChunk) => {
-        const p = (async () => {
-          // Marko 6 folded template.stream into template.render. Awaiting it buffers the
-          // fragment to an HTML string. renderId namespaces this render's scope ids.
-          const html = await template.render({
-            messages: dataChunk,
-            $global: { renderId: `s_${dataChunk.id}_${Date.now().toString(36)}` },
-          });
-          controller.enqueue(encoder.encode(`id: ${slotName}\ndata: ${JSON.stringify(String(html))}\n\n`));
-        })();
-        pending.add(p);
-        p.finally(() => pending.delete(p));
-      });
-      emitter.on("done", async () => { await Promise.all([...pending]); controller.close(); });
-      emitter.on("error", (err) => {
+    async start(controller) {
+      try {
+        // Marko 6 has no template.stream; template.render() returns a value you can `for await`
+        // to STREAM its chunks (or `await` for a string). renderId namespaces this whole render.
+        for await (const chunk of template.render({
+          messageStream: emitter,
+          $global: { renderId: `sse_${Date.now().toString(36)}` },
+        })) {
+          controller.enqueue(encoder.encode(`id: ${slotName}\ndata: ${JSON.stringify(String(chunk))}\n\n`));
+        }
+      } catch (err) {
         controller.enqueue(encoder.encode(`event: error\ndata: ${JSON.stringify(err.message)}\n\n`));
-        controller.close();
-      });
+      }
+      controller.close();
     },
   });
 

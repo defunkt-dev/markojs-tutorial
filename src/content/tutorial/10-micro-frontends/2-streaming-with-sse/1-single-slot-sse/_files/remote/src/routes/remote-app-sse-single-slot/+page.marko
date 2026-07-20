@@ -1,0 +1,26 @@
+import { once } from "events";
+import Notice from "./notice-sse.marko";
+<const/messageStream = input.messageStream>
+
+<!-- <define> replaces Marko 5's <macro>. This snippet awaits the next stream event; on a data
+     event it renders one notice and then invokes ITSELF, nesting the next notice as a new branch.
+     Because every notice is a distinct branch of this ONE page render, each hydrates independently
+     — so each × dismisses its own notice. -->
+<define/Wait>
+  <try>
+    <await|messages|=Promise.any([once(messageStream, "done"), once(messageStream, "data")])>
+      <if=messages && Array.isArray(messages) && messages.length>
+        <Notice message=messages[0].message/>
+        <Wait/>
+      </if>
+    </await>
+    <@placeholder>
+      <div style="opacity:.7;font-family:system-ui,sans-serif">Waiting for the stream…</div>
+    </@placeholder>
+    <@catch|err|>
+      <div style="font-family:system-ui,sans-serif">Stream error: ${err.message || err}</div>
+    </@catch>
+  </try>
+</>
+
+<Wait/>

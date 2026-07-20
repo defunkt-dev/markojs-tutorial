@@ -30,9 +30,9 @@ and app federation handles it with a second pair of tags:
 Open the remote's code in the file tree to follow along —
 `remote/src/routes/remote-app-sse-single-slot/+handler.js`. It reads a mock SSE feed
 (`remote/src/routes/api`), turns that byte stream into an event stream with
-`createMessageEmitter` (`remote/src/message-emitter.js`), and for **each** message renders a
-small notice to HTML and sends it as one SSE frame tagged with the slot id. On the host, the
-`read` function turns each raw event into `[slotId, html, isDone]`:
+`createMessageEmitter` (`remote/src/message-emitter.js`), and streams back rendered notices as SSE
+frames tagged with the slot id. On the host, the `read` function turns each raw event into
+`[slotId, html, isDone]`:
 
 ```marko
 <micro-frame-sse timeout=0 name="notices"
@@ -49,17 +49,45 @@ the notices should appear, wire it to the faucet, and give it a loading placehol
 
 Load the page: five notices stream in one by one, each into that same slot, accumulating as they
 arrive. `client-reorder` lets the page paint immediately and fill the slot as chunks land. Each
-notice is **interactive** — dismiss any of them with its ×.
+notice is a **real interactive component** — dismiss any of them with its ×, independently.
+
+## How the notices stream (and stay independent)
+
+Look at `remote/src/routes/remote-app-sse-single-slot/+page.marko`. It renders **one** page, but
+that page **recurses**:
+
+```marko
+<define/Wait>
+  <try>
+    <await|messages|=Promise.any([once(messageStream, "done"), once(messageStream, "data")])>
+      <if=messages && Array.isArray(messages) && messages.length>
+        <Notice message=messages[0].message/>
+        <Wait/>                     <!-- render the next one -->
+      </if>
+    </await>
+    <@placeholder>Waiting for the stream…</@placeholder>
+  </try>
+</>
+
+<Wait/>
+```
+
+`<define>` is Marko 6's replacement for Marko 5's `<macro>` — a reusable snippet, here named
+`Wait`. It `<await>`s the next stream event; on a **data** event it renders one `<Notice>` and then
+invokes **itself** (`<Wait/>`), so the next notice nests inside the last. On **done**, the `<if>`
+fails and the recursion stops.
+
+The payoff: every notice is a **distinct branch of one render tree**, so each gets its own
+client-side identity and hydrates independently — that's why each × dismisses only its own notice.
+(Rendering the same component as five *separate* top-level renders would make them collide.)
 
 ## The render API, and renderId
 
-The remote builds each frame's HTML with `template.render(...)`. In **Marko 5** the book used a
-separate **`template.stream(...)`** here — this SSE page is about the only place that API shows up.
-**Marko 6 removed `template.stream`** and folded it into `template.render`, which returns a value
-you can either **`await`** (→ a finished HTML string) or **`for await`** (→ a stream of chunks).
-The single-slot endpoint `await`s it for a string; the next lesson uses the `for await` form.
+The handler streams that page with `template.render(...)`. In **Marko 5** the book used a separate
+**`template.stream(...)`** here — this SSE page is about the only place that API shows up. **Marko 6
+removed `template.stream`** and folded it into `template.render`, which returns a value you can
+either **`for await`** (→ a stream of chunks, used here) or **`await`** (→ a finished string).
 
-Notice the render also sets a `$global.renderId`. Five **interactive** notices now hydrate on the
-same page, so each render gets a **unique** `renderId` to keep their scope ids from colliding. With
-one slot it's easy to miss why that matters — the next lesson, with three different notices in three
-slots, makes it obvious.
+The render also sets a **`renderId`** on `$global`, which namespaces the whole render's scope ids.
+With a single render it isn't doing much yet — the **next lesson** renders several *separate*
+fragments onto one page, and that's where `renderId` (Marko 5's `componentIdPrefix`) earns its keep.
