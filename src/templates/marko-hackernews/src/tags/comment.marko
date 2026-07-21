@@ -1,0 +1,31 @@
+import type { Comment } from "#src/api";
+export interface Input {
+  comment: Comment;
+}
+
+<li class="comment">
+  <div class="by">
+    <a href=`/user/${input.comment.user}`>
+      ${input.comment.user}
+    </a> ${input.comment.time_ago}
+  </div>
+
+  <div class="text">
+    $!{input.comment.content}
+  </div>
+
+  <if=input.comment.comments.length>
+    <let/open=true>
+
+    <div class=["toggle", { open }]>
+      <a role="button" onClick() { open = !open }>
+        ${open ? "[-]" : "[+] comments collapsed"}
+      </a>
+    </div>
+    <ul class="comment-children" style={ display: open ? undefined : "none" }>
+      <for|nested| of=input.comment.comments>
+        <comment comment=nested/>
+      </for>
+    </ul>
+  </if>
+</li>
