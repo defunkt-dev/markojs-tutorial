@@ -62,7 +62,7 @@ straight into the page. This embedding of one document's output inside another i
 
 This workspace has **two separate apps** — look at the file tree: a `host/` app on port
 3000 and a `remote/` app on port 3001, each with its own `package.json`. They can even be
-on different Marko versions (this host is on Marko 5 so it can use the `@micro-frame/marko`
+on different Marko versions (this host is on Marko 5 so it can use the [`@micro-frame/marko`](https://github.com/marko-js/micro-frame)
 tags; the remote is a plain Marko 6 app). Each keeps its **own Marko runtime**, kept apart by
 a `runtimeId` (set in the remote's `vite.config`), so the two don't clash once the remote's
 HTML lands inside the host page.

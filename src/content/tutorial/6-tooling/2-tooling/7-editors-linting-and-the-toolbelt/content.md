@@ -10,10 +10,12 @@ focus: /src/tags/counter-widget/index.test.ts
 One lesson left, and it's the one that makes all the others cheaper: the
 tools that tell you you're wrong *before* you ask.
 
-**Your editor already knows Marko.** The VS Code extension bundles
-everything — highlighting, type checking, accessibility hints,
+**Your editor already knows Marko.** The [VS Code extension](https://marketplace.visualstudio.com/items?itemName=Marko-JS.marko-vscode)
+bundles everything — highlighting, type checking, accessibility hints,
 IntelliSense — and needs no setup. Any editor with LSP support gets the
-same through the Marko Language Server, and that's worth saying precisely:
+same through the Marko Language Server (there's a dedicated
+[Zed extension](https://github.com/marko-js/zed) too), and that's worth
+saying precisely:
 the type checking your editor draws in red is the *same engine* as the
 `mtc` you've been running in the terminal all chapter. This tutorial has no
 language server, which is why the terminal has been your squiggle. Your

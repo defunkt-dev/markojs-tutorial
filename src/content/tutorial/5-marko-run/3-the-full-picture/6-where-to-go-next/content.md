@@ -15,7 +15,7 @@ a streaming, server-rendered, form-handling, API-serving Marko app
 from an empty folder. What this tutorial deliberately left for your
 next session:
 
-**Your own project.** `npm init marko` scaffolds one. `--dir` picks
+**Your own project.** [`npm init marko`](https://github.com/marko-js/cli/tree/main/packages/create) scaffolds one. `--dir` picks
 where it lands, `--template` pulls a starter from
 [marko-js/examples](https://github.com/marko-js/examples), and
 `--installer` overrides the package manager it reaches for. You never

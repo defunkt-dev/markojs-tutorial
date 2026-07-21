@@ -7,7 +7,7 @@ under `src/content/tutorial/`.
 Legend: **[✓]** shipped · **[P5]** planned for part 5 · **[v2]** second
 edition shelf · **[—]** deliberately excluded (with reason).
 
-## Lesson Tree (133 lessons, parts 1–11)
+## Lesson Tree (138 lessons, parts 1–11)
 
 ### Part 1 — Fundamentals (17)
 - 1-first-steps: 1-welcome · 2-templates-are-html · 3-dynamic-text ·
@@ -17,7 +17,7 @@ edition shelf · **[—]** deliberately excluded (with reason).
 - 3-styling: 1-style-blocks · 2-less · 3-css-modules · 4-styles-in-files ·
   5-dynamic-styles · 6-tailwind · 7-scss
 
-### Part 2 — Reactivity (16)
+### Part 2 — Reactivity (18)
 - 1-state: 1-the-let-tag · 2-handling-events · 3-derived-values ·
   4-objects-and-arrays · 5-inspecting-state
 - 2-inputs-and-binding: 1-reading-inputs · 2-two-way-binding ·
@@ -29,7 +29,17 @@ edition shelf · **[—]** deliberately excluded (with reason).
   code runs once on the server (terminal) and does NOT re-run on the client (browser console),
   yet the button still works — proving it hydrated by resuming, not re-running. Builds on the
   `_el_resume` markers from 2/3/3. Browser-console behavior, so DS-verified in the container;
-  headless-browser-confirmed in the sandbox.)
+  headless-browser-confirmed in the sandbox.) · 5-why-marko-is-fast **[✓ session 9]** (READ-ONLY —
+  synthesizes the four speed pillars: targeted single-pass compilation, JS-scales-from-zero,
+  streaming-by-default, compile-time reactivity; preview is a mostly-static page + one toggle) ·
+  6-fine-grained-bundling **[✓ session 9]** (DO-IT + build-inspect — `node inspect.mjs` builds
+  unminified into `dist-inspect/` and prints what shipped. Fully-static page ships ZERO client JS;
+  do-it adds one interactive piece → only that piece appears. Re-angled to show three faces: static
+  markup → HTML, **server-only computation → stays on the server** (`formatPrice`/`toFixed` absent
+  from the bundle), interactive piece → the only thing shipped. Dedicated template
+  **`marko-run-inspect`** with `vite.config.ts`(minify off)+`inspect.mjs` baked in — the overlay is
+  ONLY `+page.marko`, because shipping vite.config in `_files`/`_solution` makes Solve restart vite
+  and wipe marko-run's dev router → "Cannot GET /" (session-3 §O8 rule). DS-confirmed working in container.)
 
 ### Part 3 — Control Flow, Lists & Async (11)
 - 1-conditionals: 1-if-and-else · 2-show
@@ -48,7 +58,7 @@ edition shelf · **[—]** deliberately excluded (with reason).
 - 4-module-level-and-escape-hatches: 1-module-level-code ·
   2-the-lifecycle-tag · 3-escape-hatches · 4-coming-from-marko-5
 
-### Part 5 — Building Apps with marko-run (16)
+### Part 5 — Building Apps with marko-run (17)
 - 1-pages-and-routing: 1-your-first-routes · 2-layouts · 3-dynamic-routes ·
   4-route-organization
 - 2-data-and-handlers: 1-handlers-and-the-context · 2-loading-data ·
@@ -56,7 +66,8 @@ edition shelf · **[—]** deliberately excluded (with reason).
   5-middleware · 6-route-metadata
 - 3-the-full-picture: 1-globals-and-serialization ·
   2-errors-and-special-pages · 3-api-routes ·
-  4-plugin-options-and-cdn-assets · 5-where-to-go-next
+  4-plugin-options-and-cdn-assets · 5-the-marko-run-cli **[✓ session 9]** (READ-ONLY — the three
+  verbs: `dev`/`build`/`preview`) · 6-where-to-go-next
 - 4-content-security: 1-a-csp-nonce **[✓ session 6]**
   (`$global.cspNonce` set in middleware → Marko stamps the nonce on every
   rendered `<script>`/`<style>`; own new chapter, no existing lesson touched)
@@ -115,11 +126,13 @@ edition shelf · **[—]** deliberately excluded (with reason).
     WebContainer can't run) — the preview is just the app. New **`marko-run-deploy`** template
     (marko-run + `@marko/run-adapter-node`, node-adapter vite.config visible).
 
-### Part 9 — Advanced Examples, Patterns & Integrations (15)
+### Part 9 — Advanced Examples, Patterns & Integrations (16)
 - 1-static-site-generation: 1-the-static-adapter **[✓]**
 - 2-server-sent-events: 1-the-eventsource-api **[✓]**
 - 3-shared-state: 1-a-signals-store **[✓]**
-- 4-forms: 1-a-validated-form **[✓]**
+- 4-forms: 1-a-validated-form **[✓]** · 2-preventing-double-submits **[✓ session 9]** (DO-IT —
+  async `onSubmit` (1.5s); `final-form`'s `submitting` flag mirrored into a `<let>`; do-it wires the
+  button: `disabled=submitting` + "Submitting…" — feedback and no double signup. Headless-verified.)
 - 5-client-side-rendering: 1-the-mount-api · 2-the-mount-handle **[✓]**
 - 6-dynamic-loading: 1-facade-tags · 2-loading-on-demand **[✓]** (facades = always-lazy + `<try>`/
   `@placeholder`; builds on 4/3/3, which covers the `load:` triggers incl.
@@ -190,8 +203,11 @@ edition shelf · **[—]** deliberately excluded (with reason).
   independently; `template.render()` for-await streaming + `renderId`. `createMessageEmitter`
   bridges a fetch SSE body to a Node EventEmitter.)
 
-### Part 11 — Streaming, Async & Progressive Rendering (2)
-- 1-streaming-html: 1-streaming-search-results **[✓ session 9]** — recreates the v3
+### Part 11 — Streaming, Async & Progressive Rendering (3)
+- 1-streaming-html (chapter title "Streaming"): 1-the-streaming-model **[✓ session 9]** (READ-ONLY —
+  the concept: streaming vs buffering, in-order vs out-of-order, the three tags `<await>` /
+  `<try>`+`<@placeholder>` / `<@catch>`; a LIVE streaming preview, verified fast card @605ms, slow
+  @2508ms) · 2-streaming-search-results **[✓ session 9]** — recreates the v3
   **marko-streaming** demo (HTTP streaming search results). A single Express handler
   `template.render({}).pipe(res)` streams a page whose results are appended over time by a
   **recursive `<define>`+`<await>`** (`<for>` has no async-iterable support, so recursion is the
@@ -271,7 +287,7 @@ edition shelf · **[—]** deliberately excluded (with reason).
 - `<try>` `@placeholder`; out-of-order streaming **[✓]** 3/3/2-out-of-order
 - **HTTP streaming — appending results over time** → recursive `<define>`+`<await>` (one held-open
   response; `<for>` has no async-iterable support so recursion is the idiom); `template.render().pipe(res)`
-  **[✓]** 11/1/1-streaming-search-results
+  **[✓]** 11/1/2-streaming-search-results
 - **Three delivery modes on one page** (single-chunk buffered `await render()` / in-order bare
   `<await>` / out-of-order `<try>`+`@placeholder`); streaming = *delivery*, progressive = *strategy*
   **[✓]** 11/2/1-in-order-out-of-order-and-single-chunk
@@ -393,18 +409,20 @@ edition shelf · **[—]** deliberately excluded (with reason).
   `text/event-stream` handler + browser `EventSource`, `<script>` effect +
   `$signal` cleanup) **[✓]** 9/2/1 · Adapters/**deployment** (node/static/netlify
   Functions+Edge) **[✓]** 8/3/1 · embedding **[✓]** 8/1/1 · `Run.fetch`/`match`/
-  `invoke`, typed URLs **[✓-pointer]** 5/3/5 (depth **[v2]**)
+  `invoke`, typed URLs **[✓-pointer]** 5/3/6 (depth **[v2]**) · **CLI**
+  (`dev`/`build`/`preview`) **[✓]** 5/3/5-the-marko-run-cli
 
 ### Explanations (docs/explanation)
 - immutable-state **[✓]** distributed: 2/1/4, 2/3/2, 3/2/4
 - targeted-compilation **[✓]** 2/3/2 (the compile-time graph) + 2/3/3
-  (the platform outputs: `compileFile` html vs dom, `$template` + `$walks`)
-- fine-grained-bundling **[✓]** 2/3/3 (why a static tag ships no walk and
-  no runtime) + 9/1/1 (seen in a real build's per-route size table: a
-  no-interaction page ships 0 kB, an interactive one ships only its island);
-  depth → 5/3/5 reading list
-- separation-of-concerns, streaming, why-is-marko-fast,
-  optimizing-performance **[✓-pointer]** 5/3/5 reading
+  (the platform outputs: `compileFile` html vs dom, `$template` + `$walks`) + 2/3/5
+- fine-grained-bundling **[✓]** 2/3/6-fine-grained-bundling (dedicated DO-IT + build-inspect:
+  static markup AND server-only computation both absent from the client bundle, only the
+  interactive piece ships) + 2/3/3 (why a static tag ships no walk and no runtime) + 9/1/1
+  (a real build's per-route size table); further reading → 5/3/6
+- why-is-marko-fast **[✓]** 2/3/5-why-marko-is-fast (dedicated) ·
+  streaming **[✓]** 11/1/1-the-streaming-model (dedicated concept lesson) + all of Part 11 ·
+  separation-of-concerns, optimizing-performance **[✓-pointer]** 5/3/6 reading
   list · controllable-components **[✓]** part 2 ch2 ·
   nested-reactivity **[✓]** 3/2/4 · serializable-state **[✓]** 5/3/1 ·
   class-vs-tags-api **[✓]** 4/4/4 · let-vs-const **[✓]** 2/1/3
@@ -415,10 +433,9 @@ Every page under `docs/guide` mapped against the curriculum (comparison run this
 - publishing-components **[✓]** 6/3 (the-shape-of-a-tag-library → shipping-it-for-real)
 - library-integration **[✓]** 9/7/1-a-rive-animation (wrapping a non-Marko JS library)
 - marko-5-interop **[✓]** 4/4/4-coming-from-marko-5 (the class→tags translation table)
-- duplicate-form-submissions **[—]** NOT covered — a small practical technique (disable the
-  button/form after the first submit to prevent double submission). Genuine gap; natural fit as a
-  short addition to 9/4/1-a-validated-form or 5/2/4-request-bodies-and-forms. Low effort, real-world
-  useful — the one concrete feature-doc the tutorial doesn't touch.
+- duplicate-form-submissions **[✓ session 9]** 9/4/2-preventing-double-submits — disable the
+  submit button while `final-form`'s `submitting` is true (feedback + no double signup). (Was the
+  one genuine guide-doc gap; now closed.)
 - low-level-apis **[—]** out of scope — writing custom compiler **migrators & translators**; the doc
   itself says do this "only when you absolutely need it." Compiler-author escape hatch, beyond a
   learner curriculum (the compile-time model is already introduced at 2/3/3).
@@ -428,7 +445,9 @@ Compared all of `docs/{reference,explanation,marko-run,guide}` against the tree.
 all reference topics (concise-syntax, native-tag, language, custom-tag, typescript, lazy-loading,
 reactivity, template, generics, supported-environments), all marko-run topics (routing, data-loading,
 validation, handlers/middleware, adapters, cli, vite-plugin, runtime, typed-routes), and all
-explanation concepts are covered.** The only untracked-until-now items are the two guide docs above:
-`duplicate-form-submissions` (a real, small gap worth adding) and `low-level-apis` (reasonably out of
-scope). `docs/introduction/*` and `docs/tutorial/*` are the site's own intro/tutorial, not feature
+explanation concepts are covered.** The only remaining out-of-scope item is `low-level-apis`
+(custom compiler migrators/translators). `duplicate-form-submissions` is now covered by
+9/4/2-preventing-double-submits, and `why-is-marko-fast` / `streaming` / `fine-grained-bundling` /
+the `marko-run` CLI now have dedicated lessons (2/3/5, 11/1/1, 2/3/6, 5/3/5) rather than reading-list
+pointers. `docs/introduction/*` and `docs/tutorial/*` are the site's own intro/tutorial, not feature
 surface, so not curriculum targets.

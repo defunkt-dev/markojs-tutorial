@@ -12,7 +12,9 @@ that render themselves. But **Marko doesn't require marko-run**. The only piece 
 need is `@marko/vite` — the build plugin that compiles `.marko` files and wires up client
 hydration. Bring your own server, and render templates yourself.
 
-This project is a plain **Express** app. `@marko/vite` is just the bundler.
+This project is a plain **Express** app (it mirrors the official
+[vite-express example](https://github.com/marko-js/examples/tree/master/examples/vite-express)).
+`@marko/vite` is just the bundler.
 
 ## The setup (already written)
 
