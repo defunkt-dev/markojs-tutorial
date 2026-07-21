@@ -49,6 +49,16 @@ Marko has streamed HTML since 2014 — long before most of the ecosystem.
 - **`<@catch>`** inside a `<try>` is the error boundary — if the promise
   rejects, it renders instead of the section.
 
+## The same tag runs on the client, too
+
+`<await>` isn't a server-only tag. This initial render *streams from the
+server* — the resolved content lands in the HTML with no client
+JavaScript at all. But the very same `<await>` also runs in the browser:
+when a client interaction changes the promise you're awaiting, it
+re-renders the new result on the client. One tag for both places — you
+don't reach for a separate "client await" the way earlier versions of
+Marko required.
+
 That's the whole toolkit. The next lesson uses `<await>` to stream a
 search page's results over one long response; the chapter after puts
 `<await>`, `<@placeholder>`, and `<@catch>` together across a whole
