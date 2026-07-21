@@ -421,3 +421,13 @@
       absent: "▸ SHIPPED"
     _solution:
       contains: "▸ SHIPPED"
+
+# ---- Part 12: A Hacker News App (marko-hackernews) — showcase, BUILD-ONLY here ----
+# A complete, read-only showcase app: one lesson, _files only (no _solution, no do-it).
+# It fetches live data at request time from api.hnpwa.com (stories/items) and
+# hacker-news.firebaseio.com (users), which this harness's sandbox can't reach — so it
+# can't be ssr-asserted. The harness materialises and BUILDS it (marko-run build needs
+# no network) and reports it build-only; the _solution state is absent and skipped.
+# Verified running in the StackBlitz container (feed, story comments, and user profiles
+# populate) and DS-confirmed. Listed here so the gap is documented, not silent:
+#   12-hacker-news/1-the-app/1-how-it-works                         (files-only)

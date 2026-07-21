@@ -7,7 +7,7 @@ under `src/content/tutorial/`.
 Legend: **[✓]** shipped · **[P5]** planned for part 5 · **[v2]** second
 edition shelf · **[—]** deliberately excluded (with reason).
 
-## Lesson Tree (138 lessons, parts 1–11)
+## Lesson Tree (139 lessons, parts 1–12)
 
 ### Part 1 — Fundamentals (17)
 - 1-first-steps: 1-welcome · 2-templates-are-html · 3-dynamic-text ·
@@ -230,6 +230,25 @@ edition shelf · **[—]** deliberately excluded (with reason).
   `.pipe(res)` streams vs `await render()` buffers). New single-app vite-express template
   **`marko-progressive-render`** (distinct name → container reboots between the two lessons).
   All three modes + hydration + mode-nav verified with a real headless browser.
+
+### Part 12 — A Hacker News App (1)
+- 1-the-app (chapter "The App"): 1-how-it-works **[✓ session 9]** — a complete, **read-only
+  showcase**: the official Marko **Hacker News** reader, adapted to marko 6.3.15 / @marko/run 0.11.5.
+  One lesson touring how the app ties the course together — file-based routing (`+page`,
+  `story.$id+page`, `user.$id+page`, `+layout`), **`server import`** keeping the API server-side, the
+  story list streaming via **`<await>`**, the **self-recursive `comment.marko`** for nested threads,
+  interactive `<let/open>` collapse toggles, and the **fine-grained-bundling payoff** (list + user
+  pages ship **0 kB**, only the story page ships its toggle JS). Data: **api.hnpwa.com**
+  (stories/items, CDN-cached, schema-compatible drop-in for the original node-hnapi) +
+  **hacker-news.firebaseio.com** (users). New dedicated template **`marko-hackernews`**, trimmed to
+  just `marko` + `@marko/run` so the WebContainer installs in seconds (the original's
+  `netlify-cli` + netlify adapter were dropped — deploy-only weight that hung the boot). CORS in the
+  container was fixed by dropping the `Content-Type` header (a bare GET skips the preflight
+  api.hnpwa.com rejected). A tutorial-only `public/preview-url.js` — loaded via the **`html-script`**
+  core tag so it stays *out* of the client bundle (0 kB preserved) — reports the URL (path + query)
+  to the preview's address bar. Showcase form = `_files` only, no `_solution`, **build-only** in the
+  harness (live data can't be ssr-asserted; documented in checks.yaml). DS-confirmed running in the
+  container.
 
 ## Topic Index
 
