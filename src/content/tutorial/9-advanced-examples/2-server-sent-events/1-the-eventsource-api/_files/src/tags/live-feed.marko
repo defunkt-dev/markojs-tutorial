@@ -4,8 +4,12 @@
 <script>
   // TODO: subscribe to the /api/events stream with EventSource.
   // While `live`, open the connection and — for each message — parse
-  // event.data and append it to `messages` (keep the last few). Close
-  // the connection on cleanup with $signal.onabort.
+  // event.data and show the last few in `messages`.
+  // Keep the running list in a plain local array and *assign* it to
+  // `messages`. Don't read `messages` in here: this effect re-runs
+  // whenever a tag variable it reads changes, so reading it would
+  // reopen the connection on every event.
+  // Close the connection on cleanup with $signal.onabort.
 </script>
 
 <h2>Live server clock</h2>

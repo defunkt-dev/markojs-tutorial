@@ -45,10 +45,12 @@ everyone's gone. No library — just web-standard streaming.
 ```marko
 <script>
   if (live) {
+    const recent = [];
     const source = new EventSource("/api/events");
     source.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      messages = [...messages.slice(-5), data];
+      recent.push(JSON.parse(event.data));
+      if (recent.length > 6) recent.shift();
+      messages = [...recent];
     };
     $signal.onabort = () => source.close();
   }
@@ -60,6 +62,11 @@ Three things are doing real work here:
 - A `<script>` is an **effect** — the same one you met with the stopwatch.
   It runs when the component mounts and **re-runs whenever a tag variable
   it reads changes**. It reads `live`, which matters in a moment.
+- Notice what the callback *doesn't* do: it never reads `messages`. The
+  running list lives in a plain local array, `recent`, and we only
+  **assign** the result. That's deliberate — read `messages` here and the
+  effect would depend on it, so every arriving event would re-run the
+  effect and reopen the connection. That's a loop, not a clock.
 - Assigning to `messages` is an ordinary reactive update, so every arriving
   event re-renders the list — the clock ticks on its own.
 - `$signal.onabort` is the cleanup: when the effect re-runs or the

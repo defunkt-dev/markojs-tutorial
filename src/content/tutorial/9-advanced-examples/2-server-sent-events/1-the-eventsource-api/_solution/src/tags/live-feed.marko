@@ -3,10 +3,12 @@
 
 <script>
   if (live) {
+    const recent = [];
     const source = new EventSource("/api/events");
     source.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      messages = [...messages.slice(-5), data];
+      recent.push(JSON.parse(event.data));
+      if (recent.length > 6) recent.shift();
+      messages = [...recent];
     };
     $signal.onabort = () => source.close();
   }
